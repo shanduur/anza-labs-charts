@@ -1,0 +1,13 @@
+apiVersion: v1
+entries:
+  bitwarden-webhook:
+  - apiVersion: v2
+    created: "2024-06-04T15:21:21.088373873Z"
+    description: A BitWarden Webhook provider for External Secrets Operator
+    digest: b8cbb2a478f427daf923ba3eec5cf460c195ebdff99bc683ab6833ee6c52a48a
+    name: bitwarden-webhook
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/bitwarden-webhook-1.0.0/bitwarden-webhook-1.0.0.tgz
+    version: 1.0.0
+generated: "2024-06-04T15:21:21.088380866Z"
