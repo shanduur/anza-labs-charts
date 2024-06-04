@@ -1,6 +1,6 @@
 # bitwarden-webhook
 
-![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat)
+![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat)
 
 A BitWarden Webhook provider for External Secrets Operator
 
@@ -12,7 +12,7 @@ A BitWarden Webhook provider for External Secrets Operator
 | fullnameOverride | string | `""` | Override for the full name. |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy. |
 | image.repository | string | `"ghcr.io/charlesthomas/bitwarden-cli"` | Registry and repository for the image. |
-| image.tag | string | `"2023.12.1"` | Tag for the image. |
+| image.tag | string | `"2024.4.1"` | Tag for the image. |
 | imagePullSecrets | list | `[]` | Secrets for pulling images. |
 | nameOverride | string | `""` | Override for the name. |
 | networkPolicy.create | bool | `true` | Specifies whether a network policy should be created. |
