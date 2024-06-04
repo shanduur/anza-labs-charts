@@ -1,0 +1,5 @@
+apiVersion: v2
+name: bitwarden-webhook
+description: A BitWarden Webhook provider for External Secrets Operator
+type: application
+version: 0.1.0
