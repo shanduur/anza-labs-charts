@@ -43,7 +43,7 @@ secret:
   # -- Name of the existing secret.
   existingSecretName: ""
   # -- Host for Bitwarden.
-  bitwardenHost: ""
+  bitwardenHost: "https://vault.bitwarden.com"
   # -- Username for Bitwarden.
   bitwardenUsername: ""
   # -- Password for Bitwarden.

@@ -1,8 +1,8 @@
 # bitwarden-webhook
 
-![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat)
+![Version: 1.0.2](https://img.shields.io/badge/Version-1.0.2-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat)
 
-A BitWarden Webhook provider for External Secrets Operator
+A BitWarden Webhook provider for External Secrets Operator.
 
 ## Values
 
@@ -23,7 +23,7 @@ A BitWarden Webhook provider for External Secrets Operator
 | podSecurityContext | object | `{}` |  |
 | replicaCount | int | `1` | Number of replicas for the deployment. |
 | resources | object | `{}` |  |
-| secret.bitwardenHost | string | `""` | Host for Bitwarden. |
+| secret.bitwardenHost | string | `"https://vault.bitwarden.com"` | Host for Bitwarden. |
 | secret.bitwardenPassword | string | `""` | Password for Bitwarden. |
 | secret.bitwardenUsername | string | `""` | Username for Bitwarden. |
 | secret.create | bool | `true` | Specifies whether a secret should be created. |
