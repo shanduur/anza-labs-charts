@@ -1,0 +1,102 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "lubelog.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "lubelog.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "lubelog.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "lubelog.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "lubelog.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      volumes: []
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default "latest" }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts: []
+          env:
+            - name: "LC_ALL"
+              value: {{ .Values.config.LC_ALL | default "en_US.UTF-8" | quote }}
+            - name: "LANG"
+              value: {{ .Values.config.LANG | default "en_US.UTF-8" | quote }}
+            - name: "LOGGING__LOGLEVEL__DEFAULT"
+              value: {{ .Values.config.LOGLEVEL | default "Information" | quote }}
+            - name: MailConfig__EmailServer
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "lubelog.fullname" . }}
+                  key: MailConfig__EmailServer
+            - name: MailConfig__EmailFrom
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "lubelog.fullname" . }}
+                  key: MailConfig__EmailFrom
+            - name: MailConfig__Port
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "lubelog.fullname" . }}
+                  key: MailConfig__Port
+            - name: MailConfig__Username
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "lubelog.fullname" . }}
+                  key: MailConfig__Username
+            - name: MailConfig__Username
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "lubelog.fullname" . }}
+                  key: MailConfig__Password
+            {{- if .Values.postgres.connect }}
+            - name: POSTGRES_CONNECTION
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "lubelog.fullname" . }}-postgres-connection
+                  key: POSTGRES_CONNECTION
+            {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

@@ -1,0 +1,20 @@
+{{- if .Values.postgres.connect -}}
+  {{- $pgHost := .Values.postgres.host | required ".Values.postgres.host is required." -}}
+  {{- $pgPort := .Values.postgres.port | required ".Values.postgres.port is required." -}}
+  {{- $pgUser := .Values.postgres.user | required ".Values.postgres.user is required." -}}
+  {{- $pgPass := .Values.postgres.password | required ".Values.postgres.password is required." -}}
+  {{- $pgDatabase := .Values.postgres.database | required ".Values.postgres.database is required." -}}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "lubelog.fullname" . }}-postgres-connection
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "lubelog.labels" . | nindent 4 }}
+    {{- with .Values.podLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+type: Opaque
+stringData:
+  POSTGRES_CONNECTION: "Host={{ $pgHost }}:{{ $pgPort }};Username={{ $pgUser }};Password={{ $pgPass }};Database={{ $pgDatabase }};"
+{{- end }}

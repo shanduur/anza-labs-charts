@@ -1,0 +1,152 @@
+# Default values for lubelog.
+
+# -- Number of replicas for the deployment.
+replicaCount: 1
+
+image:
+  # -- Registry and repository for the image.
+  repository: ghcr.io/hargata/lubelogger
+  # -- Tag for the image.
+  tag: "v1.3.4"
+  # -- Image pull policy.
+  pullPolicy: IfNotPresent
+
+config:
+  # -- Same as above. Note that some languages don't have UTF-8 encodings.
+  LANG: en_US.UTF-8
+  # -- Locale and Language Settings, this will affect how numbers, currencies, and dates are 
+  # formatted.
+  LC_ALL: en_US.UTF-8
+  # -- Specifies the level of logs. Valid levels are `Trace`, `Debug`, `Information`, 
+  # `Warning`, `Error`, `Critical` and `None`. Learn more at:
+  # https://learn.microsoft.com/en-us/aspnet/core/fundamentals/logging/
+  LOGLEVEL: Information
+
+# -- Secrets for pulling images.
+imagePullSecrets: []
+# -- Override for the name.
+nameOverride: ""
+# -- Override for the full name.
+fullnameOverride: ""
+
+serviceAccount:
+  # -- Specifies whether a service account should be created.
+  create: true
+  # -- Automatically mount a ServiceAccount's API credentials.
+  automount: true
+  # -- Annotations to add to the service account.
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template.
+  name: ""
+
+secret:
+  # -- Specifies whether a secret should be created.
+  create: true
+  # -- Email server for the secret.
+  emailServer: ""
+  # -- Email from address for the secret.
+  emailFrom: ""
+  # -- Port for the email server.
+  port: 587
+  # -- Username for the email server.
+  username: ""
+  # -- Password for the email server.
+  password: ""
+
+# -- PostgreSQL connection details.
+postgres:
+  connect: false
+  host: "postgres"
+  port: 5432
+  user: "postgres"
+  password: "postgres"
+  database: "postgres"
+
+# -- Annotations to be added to the pods.
+podAnnotations: {}
+# -- Labels to be added to the pods.
+podLabels: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  # -- Service type.
+  type: ClusterIP
+  # -- Service port.
+  port: 80
+
+ingress:
+  # -- Specifies whether ingress should be enabled.
+  enabled: false
+  # -- Ingress class name.
+  className: ""
+  # -- Annotations to add to the ingress.
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  # -- List of ingress hosts.
+  hosts:
+    - host: lubelog.example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  # -- List of TLS configurations for the ingress.
+  tls: []
+  #  - secretName: lubelog-tls
+  #    hosts:
+  #      - lubelog.example.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+livenessProbe:
+  # -- Liveness probe configuration.
+  httpGet:
+    path: /
+    port: http
+
+readinessProbe:
+  # -- Readiness probe configuration.
+  httpGet:
+    path: /
+    port: http
+
+autoscaling:
+  # -- Specifies whether autoscaling is enabled.
+  enabled: false
+  # -- Minimum number of replicas for autoscaling.
+  minReplicas: 1
+  # -- Maximum number of replicas for autoscaling.
+  maxReplicas: 3
+  # -- Target CPU utilization percentage for autoscaling.
+  targetCPUUtilizationPercentage: 80
+  # -- Target memory utilization percentage for autoscaling.
+  # targetMemoryUtilizationPercentage: 80
+
+# -- Node selector for the pods.
+nodeSelector: {}
+
+# -- Tolerations for the pods.
+tolerations: []
+
+# -- Affinity settings for the pods.
+affinity: {}
