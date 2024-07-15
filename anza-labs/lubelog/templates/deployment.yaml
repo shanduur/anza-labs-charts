@@ -76,7 +76,7 @@ spec:
                 secretKeyRef:
                   name: {{ include "lubelog.fullname" . }}
                   key: MailConfig__Username
-            - name: MailConfig__Username
+            - name: MailConfig__Password
               valueFrom:
                 secretKeyRef:
                   name: {{ include "lubelog.fullname" . }}
