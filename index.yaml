@@ -2,6 +2,15 @@ apiVersion: v1
 entries:
   bitwarden-webhook:
   - apiVersion: v2
+    created: "2024-07-17T06:50:11.028806817Z"
+    description: A BitWarden Webhook provider for External Secrets Operator.
+    digest: 8fa216831747e0412467515ee4680eb7c04fab5d58cc3df631e252c3e77c5b31
+    name: bitwarden-webhook
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/bitwarden-webhook-1.0.3/bitwarden-webhook-1.0.3.tgz
+    version: 1.0.3
+  - apiVersion: v2
     created: "2024-06-05T05:34:36.848430948Z"
     description: A BitWarden Webhook provider for External Secrets Operator.
     digest: 012a8886c7fd57ee6f7528cfa42ff03df689073efc96226da0ce2bc83646b4ac
@@ -28,4 +37,14 @@ entries:
     urls:
     - https://github.com/anza-labs/charts/releases/download/bitwarden-webhook-1.0.0/bitwarden-webhook-1.0.0.tgz
     version: 1.0.0
-generated: "2024-06-05T05:34:36.848446297Z"
+  lubelog:
+  - apiVersion: v2
+    created: "2024-07-17T06:50:11.183439049Z"
+    description: LubeLogger is a web-based vehicle maintenance and fuel mileage tracker
+    digest: 75f31dcf363345c5f4047e3f6bab1afc2bc52b71bccf1e2b8543bf6a2ca83ba3
+    name: lubelog
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/lubelog-0.1.0/lubelog-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-07-17T06:50:11.183454758Z"
