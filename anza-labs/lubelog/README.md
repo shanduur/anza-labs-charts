@@ -1,6 +1,6 @@
 # lubelog
 
-![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat)
+![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat)
 
 LubeLogger is a web-based vehicle maintenance and fuel mileage tracker
 
@@ -32,7 +32,6 @@ LubeLogger is a web-based vehicle maintenance and fuel mileage tracker
 | podAnnotations | object | `{}` | Annotations to be added to the pods. |
 | podLabels | object | `{}` | Labels to be added to the pods. |
 | podSecurityContext | object | `{}` |  |
-| postgres | object | `{"connect":false,"create":false,"database":"postgres","host":"postgres","keyRef":"POSTGRES_CONNECTION","name":"","password":"postgres","port":5432,"user":"postgres"}` | PostgreSQL connection details. |
 | postgres.connect | bool | `false` | Defines if the LubeLogger should connect to the Postgres backend. It has no effect when `postgres.create=true`. |
 | postgres.create | bool | `false` | Defines if the secret with Postgres connection details should be created. |
 | postgres.database | string | `"postgres"` | Database name. |
