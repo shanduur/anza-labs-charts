@@ -1,4 +1,4 @@
-{{- if .Values.postgres.connect -}}
+{{- if .Values.postgres.create -}}
   {{- $pgHost := .Values.postgres.host | required ".Values.postgres.host is required." -}}
   {{- $pgPort := .Values.postgres.port | required ".Values.postgres.port is required." -}}
   {{- $pgUser := .Values.postgres.user | required ".Values.postgres.user is required." -}}
