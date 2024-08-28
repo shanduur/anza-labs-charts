@@ -2,6 +2,15 @@ apiVersion: v1
 entries:
   lubelogger:
   - apiVersion: v2
+    created: "2024-08-28T17:38:56.228593913Z"
+    description: LubeLogger is a web-based vehicle maintenance and fuel mileage tracker
+    digest: 4000c161b78d03e24636c59186f61ab2c8f1524ab73bb47cc7ec693836a78688
+    name: lubelogger
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/lubelogger-0.2.2/lubelogger-0.2.2.tgz
+    version: 0.2.2
+  - apiVersion: v2
     created: "2024-08-28T13:46:57.243285121Z"
     description: LubeLogger is a web-based vehicle maintenance and fuel mileage tracker
     digest: 373d0d028135c364c32d2c7c75d822a32a3f9384eef354ef063a94f20b91c121
@@ -19,4 +28,4 @@ entries:
     urls:
     - https://github.com/anza-labs/charts/releases/download/lubelogger-0.2.0/lubelogger-0.2.0.tgz
     version: 0.2.0
-generated: "2024-08-28T13:46:57.243298045Z"
+generated: "2024-08-28T17:38:56.228611506Z"
