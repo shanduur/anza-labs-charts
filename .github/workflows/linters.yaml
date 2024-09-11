@@ -43,5 +43,7 @@ jobs:
       - run: |
           make lint-manifests
       - run: |
-          make generate-docs generate-schemas
-          git diff-index HEAD --exit-code --
+          make \
+            generate-docs \
+            generate-schemas \
+            diff

@@ -12,6 +12,9 @@ CHART ?=
 SHELL = /usr/bin/env bash -o pipefail
 .SHELLFLAGS = -ec
 
+.PHONY: all
+all: backfill-app-version generate-schemas generate-docs
+
 ##@ General
 
 # The help target prints out all targets with their descriptions organized
@@ -58,6 +61,10 @@ _generate-schema:
 .PHONY: lint-manifests
 lint-manifests: kube-linter ## Run kube-linter on Kubernetes manifests.
 	$(KUBE_LINTER) lint --config=.kube-linter.yaml ./anza-labs/**
+
+.PHONY: diff
+diff:
+	git --no-pager diff --exit-code HEAD --
 
 ##@ Dependencies
 
