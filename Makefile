@@ -57,7 +57,7 @@ _generate-schema:
 
 .PHONY: lint-manifests
 lint-manifests: kube-linter ## Run kube-linter on Kubernetes manifests.
-	$(KUBE_LINTER) lint --config=.kube-linter.yaml ./config/**
+	$(KUBE_LINTER) lint --config=.kube-linter.yaml ./anza-labs/**
 
 ##@ Dependencies
 
