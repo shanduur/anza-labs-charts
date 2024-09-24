@@ -60,8 +60,8 @@ spec:
       {{- if .Values.config.translations }}
       initContainers:
         - name: init-translations
-          image: "{{ .Values.curl.repository }}:{{ .Values.curl.tag | default "latest" }}"
-          imagePullPolicy: {{ .Values.curl.pullPolicy }}
+          image: "{{ .Values.curl.image.repository }}:{{ .Values.curl.image.tag | default "latest" }}"
+          imagePullPolicy: {{ .Values.curl.image.pullPolicy }}
           command: ["/bin/sh", "-c"]
           args:
             - |
@@ -84,8 +84,8 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.lubelogger.repository }}:{{ .Values.lubelogger.tag | default "latest" }}"
-          imagePullPolicy: {{ .Values.lubelogger.pullPolicy }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default "latest" }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
               containerPort: 8080
