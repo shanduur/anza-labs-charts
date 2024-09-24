@@ -3,19 +3,11 @@
 # -- Number of replicas for the deployment.
 replicaCount: 1
 
-lubelogger:
+image:
   # -- Registry and repository for the lubelogger image.
   repository: ghcr.io/hargata/lubelogger
   # -- Tag for the image.
-  tag: "v1.3.6"
-  # -- Image pull policy.
-  pullPolicy: IfNotPresent
-
-curl:
-  # -- Registry and repository for the image.
-  repository: docker.io/curlimages/curl
-  # -- Tag for the image.
-  tag: "8.10.0"
+  tag: "v1.3.7"
   # -- Image pull policy.
   pullPolicy: IfNotPresent
 
@@ -190,6 +182,15 @@ postgres:
   password: "postgres"
   # -- Database name.
   database: "postgres"
+
+curl:
+  image:
+    # -- Registry and repository for the image.
+    repository: docker.io/curlimages/curl
+    # -- Tag for the image.
+    tag: "8.10.0"
+    # -- Image pull policy.
+    pullPolicy: IfNotPresent
 
 # -- Annotations to be added to the pods.
 podAnnotations: {}

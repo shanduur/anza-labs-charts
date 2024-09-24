@@ -1,6 +1,6 @@
 # lubelogger
 
-![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v1.3.6](https://img.shields.io/badge/AppVersion-v1.3.6-informational?style=flat)
+![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v1.3.7](https://img.shields.io/badge/AppVersion-v1.3.7-informational?style=flat)
 
 LubeLogger is a web-based vehicle maintenance and fuel mileage tracker
 
@@ -49,10 +49,13 @@ LubeLogger is a web-based vehicle maintenance and fuel mileage tracker
 | config.userConfig.UserNameHash | string | `"8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"` | Stores a hashed version of the user's username. It is sha256, and can be created using one the following commands: `python3 -c 'import hashlib; print(hashlib.sha256("admin".encode("utf-8")).hexdigest())'` |
 | config.userConfig.UserPasswordHash | string | `"5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"` | Stores a hashed version of the user's password. It is sha256, and can be created using one the following commands: `python3 -c 'import hashlib; print(hashlib.sha256("password".encode("utf-8")).hexdigest())'` |
 | config.userConfig.VisibleTabs | list | `[0,1,4,2,3,6,5,8]` | Specifies which tabs are visible in the user interface. |
-| curl.pullPolicy | string | `"IfNotPresent"` | Image pull policy. |
-| curl.repository | string | `"docker.io/curlimages/curl"` | Registry and repository for the image. |
-| curl.tag | string | `"8.10.0"` | Tag for the image. |
+| curl.image.pullPolicy | string | `"IfNotPresent"` | Image pull policy. |
+| curl.image.repository | string | `"docker.io/curlimages/curl"` | Registry and repository for the image. |
+| curl.image.tag | string | `"8.10.0"` | Tag for the image. |
 | fullnameOverride | string | `""` | Override for the full name. |
+| image.pullPolicy | string | `"IfNotPresent"` | Image pull policy. |
+| image.repository | string | `"ghcr.io/hargata/lubelogger"` | Registry and repository for the lubelogger image. |
+| image.tag | string | `"v1.3.7"` | Tag for the image. |
 | imagePullSecrets | list | `[]` | Secrets for pulling images. |
 | ingress.annotations | object | `{}` | Annotations to add to the ingress. |
 | ingress.className | string | `""` | Ingress class name. |
@@ -60,9 +63,6 @@ LubeLogger is a web-based vehicle maintenance and fuel mileage tracker
 | ingress.hosts | list | `[{"host":"lubelog.example.local","paths":[{"path":"/","pathType":"ImplementationSpecific"}]}]` | List of ingress hosts. |
 | ingress.tls | list | `[]` | List of TLS configurations for the ingress. |
 | livenessProbe.httpGet | object | `{"path":"/","port":"http"}` | Liveness probe configuration. |
-| lubelogger.pullPolicy | string | `"IfNotPresent"` | Image pull policy. |
-| lubelogger.repository | string | `"ghcr.io/hargata/lubelogger"` | Registry and repository for the lubelogger image. |
-| lubelogger.tag | string | `"v1.3.6"` | Tag for the image. |
 | nameOverride | string | `""` | Override for the name. |
 | nodeSelector | object | `{}` | Node selector for the pods. |
 | persistence.data.accessMode | string | `"ReadWriteOnce"` | Access mode for the PVC. |

@@ -140,6 +140,28 @@
     },
     "curl": {
       "properties": {
+        "image": {
+          "properties": {
+            "pullPolicy": {
+              "type": "string"
+            },
+            "repository": {
+              "type": "string"
+            },
+            "tag": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "fullnameOverride": {
+      "type": "string"
+    },
+    "image": {
+      "properties": {
         "pullPolicy": {
           "type": "string"
         },
@@ -151,9 +173,6 @@
         }
       },
       "type": "object"
-    },
-    "fullnameOverride": {
-      "type": "string"
     },
     "imagePullSecrets": {
       "type": "array"
@@ -213,20 +232,6 @@
             }
           },
           "type": "object"
-        }
-      },
-      "type": "object"
-    },
-    "lubelogger": {
-      "properties": {
-        "pullPolicy": {
-          "type": "string"
-        },
-        "repository": {
-          "type": "string"
-        },
-        "tag": {
-          "type": "string"
         }
       },
       "type": "object"
