@@ -3,6 +3,20 @@ entries:
   lubelogger:
   - apiVersion: v2
     appVersion: v1.3.8
+    created: "2024-09-29T10:24:25.780025315Z"
+    description: LubeLogger is a web-based vehicle maintenance and fuel mileage tracker
+    digest: 6257c49040751f44d572eea2e1e1e7ed55c6fa6ba73c4156bef65975ef77c5f2
+    maintainers:
+    - email: matueusz.urbanek.98@gmail.com
+      name: Mateusz Urbanek
+      url: http://linkedin.com/in/urbanekmateusz
+    name: lubelogger
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/lubelogger-0.4.4/lubelogger-0.4.4.tgz
+    version: 0.4.4
+  - apiVersion: v2
+    appVersion: v1.3.8
     created: "2024-09-28T13:56:29.795791517Z"
     description: LubeLogger is a web-based vehicle maintenance and fuel mileage tracker
     digest: eb98b830654d21422b77a05e44d993b9c20967d378444ac80c85a7a31f1b7f94
@@ -111,4 +125,20 @@ entries:
     urls:
     - https://github.com/anza-labs/charts/releases/download/lubelogger-0.2.0/lubelogger-0.2.0.tgz
     version: 0.2.0
-generated: "2024-09-28T13:56:29.795832955Z"
+  scribe:
+  - apiVersion: v2
+    appVersion: v0.1.0
+    created: "2024-09-29T10:24:25.965729257Z"
+    description: 'Scribe is a tool that automates the propagation of annotations across
+      Kubernetes resources based on the annotations in a Namespace. '
+    digest: 1d870048827c898a1837d42e7ce21d43c9e17a87f9d514743ae24d9292fd279f
+    maintainers:
+    - email: matueusz.urbanek.98@gmail.com
+      name: Mateusz Urbanek
+      url: http://linkedin.com/in/urbanekmateusz
+    name: scribe
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/scribe-0.1.0/scribe-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-09-29T10:24:25.96576835Z"
