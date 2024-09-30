@@ -128,6 +128,21 @@ entries:
   scribe:
   - apiVersion: v2
     appVersion: v0.1.0
+    created: "2024-09-30T06:43:41.269447858Z"
+    description: 'Scribe is a tool that automates the propagation of annotations across
+      Kubernetes resources based on the annotations in a Namespace. '
+    digest: 2e38b90612cd16fd7f9a2458530c6d7b7018dacbe2190ab0da4b57b6a6a3cb52
+    maintainers:
+    - email: matueusz.urbanek.98@gmail.com
+      name: Mateusz Urbanek
+      url: http://linkedin.com/in/urbanekmateusz
+    name: scribe
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/scribe-0.1.2/scribe-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: v0.1.0
     created: "2024-09-29T17:20:02.215676244Z"
     description: 'Scribe is a tool that automates the propagation of annotations across
       Kubernetes resources based on the annotations in a Namespace. '
@@ -156,4 +171,4 @@ entries:
     urls:
     - https://github.com/anza-labs/charts/releases/download/scribe-0.1.0/scribe-0.1.0.tgz
     version: 0.1.0
-generated: "2024-09-29T17:20:02.215701401Z"
+generated: "2024-09-30T06:43:41.269487051Z"
