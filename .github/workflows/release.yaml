@@ -14,10 +14,14 @@ jobs:
         with:
           fetch-depth: 0
       - uses: fregante/setup-git-user@v2
+      - uses: bitwarden/sm-action@v2
+        with:
+          access_token: ${{ secrets.BW_ACCESS_TOKEN }}
+          base_url: https://vault.bitwarden.com
+          secrets: |
+            568fd648-901a-4161-85e4-b1c500b3cb94 > GPG_KEYRING_BASE64
+            ffb60bb8-8422-4d3b-95a1-b20700fb5232 > GPG_PASSPHRASE
       - name: Prepare GPG key
-        env:
-          GPG_KEYRING_BASE64: "${{ secrets.GPG_KEYRING_BASE64 }}"
-          GPG_PASSPHRASE: "${{ secrets.GPG_PASSPHRASE }}"
         run: |
           gpg_dir=.cr-gpg
           mkdir "$gpg_dir"
