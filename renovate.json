@@ -2,5 +2,30 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "automerge": true,
   "extends": ["config:recommended"],
-  "labels": ["area/dependency"]
+  "labels": [
+    "area/dependency"
+  ],
+  "packageRules": [
+    {
+      "automerge": false,
+      "matchManagers": [
+        "helm-values"
+      ],
+      "labels": [
+        "area/dependency",
+        "do-not-merge"
+      ]
+    }
+  ],
+  "osvVulnerabilityAlerts": true,
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": [
+      "kind/security"
+    ]
+  },
+  "postUpdateOptions": [
+    "gomodTidy",
+    "gomodUpdateImportPaths"
+  ]
 }
