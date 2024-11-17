@@ -13,7 +13,7 @@ SHELL = /usr/bin/env bash -o pipefail
 .SHELLFLAGS = -ec
 
 .PHONY: all
-all: backfill-all-app-version generate-schemas generate-docs
+all: backfill-all-app-versions generate-schemas generate-docs
 
 ##@ General
 
@@ -56,7 +56,7 @@ _set-chart-version: yq
 
 .PHONY: generate-docs
 generate-docs: helm-docs ## Run kube-linter on Kubernetes manifests.
-	for dir in anza-labs/*; do $(MAKE) _ggenerate-docs CHART="$$dir"; done
+	for dir in anza-labs/*; do $(MAKE) _generate-docs CHART="$$dir"; done
 
 _generate-docs: helm-docs
 	cd ${CHART}; $(HELM_DOCS) --badge-style=flat
