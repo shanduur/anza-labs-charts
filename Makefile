@@ -13,7 +13,7 @@ SHELL = /usr/bin/env bash -o pipefail
 .SHELLFLAGS = -ec
 
 .PHONY: all
-all: backfill-all-app-versions generate-schemas generate-docs
+all: backfill-all-app-versions generate-schemas generate-docs readme
 
 ##@ General
 
@@ -35,12 +35,16 @@ help: ## Display this help.
 ##@ Development
 
 .PHONY: ci
-ci: _ci _generate-schema _generate-docs
+ci: _ci _generate-schema _generate-docs readme
 
 .PHONY: _ci
 _ci:
 	$(MAKE) _backfill-app-version CHART=${CHART}
 	$(MAKE) _set-chart-version VERSION=${VERSION}
+
+.PHONY: readme
+readme:
+	go run ./hack/readme
 
 .PHONY: backfill-all-app-versions
 backfill-all-app-versions: yq
