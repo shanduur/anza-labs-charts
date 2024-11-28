@@ -18,11 +18,14 @@ jobs:
     steps:
       - uses: dkershner6/reaction-action@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT }}
+          reaction: 'eyes'
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: fregante/setup-git-user@v2
+      - run: |
+          git config user.name shanduur-auto
+          git config user.email 75127809+shanduur-auto@users.noreply.github.com
       - id: extract_info
         run: |
           ./hack/comment.sh "${{ github.event.comment.body }}" "${GITHUB_ENV}"
@@ -33,6 +36,9 @@ jobs:
           BRANCH_NAME=$(gh pr view $PR_NUMBER --json headRefName --jq '.headRefName')
           git fetch origin $BRANCH_NAME
           git checkout $BRANCH_NAME
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: ./go.mod
       - run: |
           make ci CHART=anza-labs/${{ env.chart_name }} VERSION=${{ env.chart_version }}
       - run: |
