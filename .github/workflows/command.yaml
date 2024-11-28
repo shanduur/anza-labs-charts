@@ -1,4 +1,4 @@
-name: Trigger CI on Comment
+name: command
 
 on:
   issue_comment:
@@ -16,16 +16,19 @@ jobs:
       pull-requests: write
 
     steps:
+      - uses: dkershner6/reaction-action@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - uses: fregante/setup-git-user@v2
       - id: extract_info
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
           ./hack/comment.sh "${{ github.event.comment.body }}" "${GITHUB_ENV}"
-      - run: |
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
           PR_NUMBER=${{ github.event.issue.number }}
           BRANCH_NAME=$(gh pr view $PR_NUMBER --json headRefName --jq '.headRefName')
           git fetch origin $BRANCH_NAME
