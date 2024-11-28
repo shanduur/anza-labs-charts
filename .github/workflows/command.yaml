@@ -43,5 +43,5 @@ jobs:
           make ci CHART=anza-labs/${{ env.chart_name }} VERSION=${{ env.chart_version }}
       - run: |
           git add .
-          git commit -m "fix: generated chart ${{ env.chart_name }} version ${{ env.chart_version }}" || echo "No changes to commit"
+          git commit -sm "fix: generated chart ${{ env.chart_name }} version ${{ env.chart_version }}" || echo "No changes to commit"
           git push origin HEAD
