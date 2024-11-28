@@ -22,16 +22,16 @@ jobs:
           reaction: 'eyes'
       - uses: actions/checkout@v4
         with:
+          persist-credentials: false
           fetch-depth: 0
-      - env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
+      - run: |
           git config user.name shanduur-auto
           git config user.email 75127809+shanduur-auto@users.noreply.github.com
-          gh auth setup-git
       - id: extract_info
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          ./hack/comment.sh "${{ github.event.comment.body }}" "${GITHUB_ENV}"
+          ./hack/comment.sh "${{ github.event.comment.body }}" "${{ github.event.issue.number }}" "${GITHUB_ENV}"
       - env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -44,9 +44,10 @@ jobs:
           go-version-file: ./go.mod
       - run: |
           make ci CHART=anza-labs/${{ env.chart_name }} VERSION=${{ env.chart_version }}
-      - env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
+      - run: |
           git add .
           git commit -sm "fix: generated chart ${{ env.chart_name }} version ${{ env.chart_version }}" || echo "No changes to commit"
-          git push origin HEAD
+      - uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.PAT }}
+          branch: ${{ env.branch }}
