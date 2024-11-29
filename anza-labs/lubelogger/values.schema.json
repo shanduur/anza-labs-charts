@@ -436,6 +436,25 @@
     },
     "tolerations": {
       "type": "array"
+    },
+    "upgradeStrategy": {
+      "properties": {
+        "rollingUpdate": {
+          "properties": {
+            "maxSurge": {
+              "type": "integer"
+            },
+            "maxUnavailable": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"
