@@ -6,11 +6,9 @@ replicaCount: 1
 upgradeStrategy:
   # -- The update strategy type for the deployment. Options: "Recreate" or "RollingUpdate".
   type: Recreate
-  rollingUpdate:
-    # -- Maximum number of Pods that can be unavailable during the update process.
-    maxUnavailable: 100%
-    # -- Maximum number of Pods that can be created beyond the desired replicas during the update process.
-    maxSurge: 0
+  # rollingUpdate:
+    # maxUnavailable: 100%
+    # maxSurge: 0
 
 image:
   # -- Registry and repository for the lubelogger image.

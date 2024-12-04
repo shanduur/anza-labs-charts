@@ -1,6 +1,6 @@
 # lubelogger
 
-![Version: 0.5.1](https://img.shields.io/badge/Version-0.5.1-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v1.4.1](https://img.shields.io/badge/AppVersion-v1.4.1-informational?style=flat)
+![Version: 0.5.2](https://img.shields.io/badge/Version-0.5.2-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v1.4.1](https://img.shields.io/badge/AppVersion-v1.4.1-informational?style=flat)
 
 LubeLogger is a web-based vehicle maintenance and fuel mileage tracker
 
@@ -110,7 +110,5 @@ LubeLogger is a web-based vehicle maintenance and fuel mileage tracker
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created. |
 | serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template. |
 | tolerations | list | `[]` | Tolerations for the pods. |
-| upgradeStrategy.rollingUpdate.maxSurge | int | `0` | Maximum number of Pods that can be created beyond the desired replicas during the update process. |
-| upgradeStrategy.rollingUpdate.maxUnavailable | string | `"100%"` | Maximum number of Pods that can be unavailable during the update process. |
 | upgradeStrategy.type | string | `"Recreate"` | The update strategy type for the deployment. Options: "Recreate" or "RollingUpdate". |
 
