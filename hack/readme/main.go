@@ -6,8 +6,9 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"strings"
 	"text/template"
+
+	"github.com/Masterminds/sprig/v3"
 
 	"gopkg.in/yaml.v3"
 )
@@ -19,10 +20,10 @@ const (
 
 // Chart represents the structure of a Chart.yaml file.
 type Chart struct {
-	Name        string `yaml:"name"`
-	Version     string `yaml:"version"`
-	AppVersion  string `yaml:"appVersion"`
-	Description string `yaml:"description"`
+	Name       string `yaml:"name"`
+	Version    string `yaml:"version"`
+	AppVersion string `yaml:"appVersion"`
+	Deprecated bool   `yaml:"deprecated"`
 }
 
 func main() {
@@ -82,8 +83,8 @@ func loadChart(path string) (Chart, error) {
 		return Chart{}, err
 	}
 
-	chart.Description = strings.ReplaceAll(chart.Description, "\n", " ")
-	chart.Description = strings.ReplaceAll(chart.Description, "\r", " ")
+	// chart.Description = strings.ReplaceAll(chart.Description, "\n", " ")
+	// chart.Description = strings.ReplaceAll(chart.Description, "\r", " ")
 
 	return chart, nil
 }
@@ -95,7 +96,9 @@ func renderReadme(charts []Chart) (string, error) {
 		return "", err
 	}
 
-	tmpl, err := template.New("readme").Parse(string(readmeTemplate))
+	tmpl, err := template.New("readme").
+		Funcs(sprig.FuncMap()).
+		Parse(string(readmeTemplate))
 	if err != nil {
 		return "", err
 	}

@@ -1,9 +1,17 @@
 apiVersion: v2
+deprecated: true # Mark as deprecated, as it's being migrated to In-Tree feature.
+type: application
 name: kube-storage-version-migrator
 description: |
-  This tool migrates stored data in etcd to the latest storage version.
-type: application
-version: 0.0.4
+  _kube-storage-version-migrator_ migrates stored data in etcd to the latest storage version.
+
+  This is useful for clusters with K8s < 1.30.
+  In clusters version 1.30, admins should enable the following Feature Gate:
+  - _StorageVersionMigrator_[^1]
+
+  [^1]: https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/
+home: https://github.com/kubernetes-sigs/kube-storage-version-migrator
+version: 0.0.5
 appVersion: "v0.0.5"
 maintainers:
   - name: Mateusz Urbanek

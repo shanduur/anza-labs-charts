@@ -5,6 +5,7 @@ go 1.22.5
 toolchain go1.23.4
 
 require (
+	github.com/Masterminds/sprig/v3 v3.3.0
 	github.com/losisin/helm-values-schema-json v1.6.4
 	github.com/mikefarah/yq/v4 v4.45.1
 	github.com/norwoodj/helm-docs v1.14.2
@@ -19,7 +20,6 @@ require (
 	github.com/BurntSushi/toml v1.4.0 // indirect
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/Masterminds/semver/v3 v3.3.0 // indirect
-	github.com/Masterminds/sprig/v3 v3.3.0 // indirect
 	github.com/Microsoft/hcsshim v0.11.4 // indirect
 	github.com/a8m/envsubst v1.4.2 // indirect
 	github.com/alecthomas/participle/v2 v2.1.1 // indirect

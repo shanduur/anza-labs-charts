@@ -63,7 +63,7 @@ generate-docs: helm-docs ## Run kube-linter on Kubernetes manifests.
 	for dir in anza-labs/*; do $(MAKE) _generate-docs CHART="$$dir"; done
 
 _generate-docs: helm-docs
-	cd ${CHART}; $(HELM_DOCS) --badge-style=flat
+	cd ${CHART}; $(HELM_DOCS) --badge-style=flat --template-files=README.md.gotpl
 
 .PHONY: generate-schemas
 generate-schemas: helm-values-schema-json ## Run kube-linter on Kubernetes manifests.

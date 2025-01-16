@@ -1,8 +1,18 @@
 # kube-storage-version-migrator
 
-![Version: 0.0.4](https://img.shields.io/badge/Version-0.0.4-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v0.0.5](https://img.shields.io/badge/AppVersion-v0.0.5-informational?style=flat)
+> **:exclamation: This Helm Chart is deprecated!**
 
-This tool migrates stored data in etcd to the latest storage version.
+![Version: 0.0.5](https://img.shields.io/badge/Version-0.0.5-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v0.0.5](https://img.shields.io/badge/AppVersion-v0.0.5-informational?style=flat)
+
+_kube-storage-version-migrator_ migrates stored data in etcd to the latest storage version.
+
+This is useful for clusters with K8s < 1.30.
+In clusters version 1.30, admins should enable the following Feature Gate:
+- _StorageVersionMigrator_[^1]
+
+[^1]: https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/
+
+**Homepage:** <https://github.com/kubernetes-sigs/kube-storage-version-migrator>
 
 ## Maintainers
 

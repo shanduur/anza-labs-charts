@@ -1,9 +1,13 @@
 apiVersion: v2
-name: lubelogger
-description: LubeLogger is a web-based vehicle maintenance and fuel mileage tracker
 type: application
-version: 0.5.6
+name: lubelogger
+description: |
+  _LubeLogger_ is a web-based vehicle maintenance and fuel mileage tracker
+home: https://lubelogger.com
+version: 0.5.7
 appVersion: "v1.4.3"
+keywords: []
+annotations: {}
 maintainers:
   - name: Mateusz Urbanek
     email: matueusz.urbanek.98@gmail.com

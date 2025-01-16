@@ -6,8 +6,8 @@
 
 This repository contains the following Helm charts:
 
-| Name | Version | App Version | About | Artifact Hub |
-|------|---------|-------------|-------|--------------|
+| Name | Version | App Version | Artifact Hub | Deprecated |
+|------|---------|-------------|--------------|------------|
 {{- range . }}
-| [{{ .Name }}](anza-labs/{{ .Name }}) | `{{ .Version }}` | `{{ .AppVersion }}` | {{ .Description }} | [![Artifact Hub](https://img.shields.io/static/v1?label=ArtifactHub&message=View&color=informational)](https://artifacthub.io/packages/helm/anza-labs/{{ .Name }}) |
+| [{{ .Name }}](anza-labs/{{ .Name }}) | `{{ .Version }}` | `{{ .AppVersion }}` | [![Artifact Hub](https://img.shields.io/static/v1?label=ArtifactHub&message=View&color=informational)](https://artifacthub.io/packages/helm/anza-labs/{{ .Name }}) | {{ if .Deprecated }}:warning: Deprecated {{- end }} |
 {{- end }}
