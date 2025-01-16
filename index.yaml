@@ -3,6 +3,20 @@ entries:
   kube-storage-version-migrator:
   - apiVersion: v2
     appVersion: v0.0.5
+    created: "2025-01-16T07:17:46.453705607Z"
+    description: 'This tool migrates stored data in etcd to the latest storage version. '
+    digest: 8110d8b11cdd2232b246cde431064fea708147cce2fc7d4c64eca258fe86f317
+    maintainers:
+    - email: matueusz.urbanek.98@gmail.com
+      name: Mateusz Urbanek
+      url: http://linkedin.com/in/urbanekmateusz
+    name: kube-storage-version-migrator
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/kube-storage-version-migrator-0.0.4/kube-storage-version-migrator-0.0.4.tgz
+    version: 0.0.4
+  - apiVersion: v2
+    appVersion: v0.0.5
     created: "2025-01-16T07:06:45.154748254Z"
     description: 'This tool migrates stored data in etcd to the latest storage version. '
     digest: 1c616c7ce070ef91c17a23fca247a182d70aba012d6d94dca7b8c9283a2ee069
@@ -339,6 +353,21 @@ entries:
   scribe:
   - apiVersion: v2
     appVersion: v0.3.0
+    created: "2025-01-16T07:17:46.577519167Z"
+    description: 'Scribe is a tool that automates the propagation of annotations across
+      Kubernetes resources based on the annotations in a Namespace. '
+    digest: 5c54a95718b58cd52960eeb08a1a3b92c89fe19266f7d80a38179dfa521b7580
+    maintainers:
+    - email: matueusz.urbanek.98@gmail.com
+      name: Mateusz Urbanek
+      url: http://linkedin.com/in/urbanekmateusz
+    name: scribe
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/scribe-0.3.2/scribe-0.3.2.tgz
+    version: 0.3.2
+  - apiVersion: v2
+    appVersion: v0.3.0
     created: "2025-01-16T06:49:22.328251447Z"
     description: 'Scribe is a tool that automates the propagation of annotations across
       Kubernetes resources based on the annotations in a Namespace. '
@@ -472,4 +501,4 @@ entries:
     urls:
     - https://github.com/anza-labs/charts/releases/download/scribe-0.1.0/scribe-0.1.0.tgz
     version: 0.1.0
-generated: "2025-01-16T07:06:45.154841468Z"
+generated: "2025-01-16T07:17:46.577634272Z"
