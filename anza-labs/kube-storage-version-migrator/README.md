@@ -1,6 +1,6 @@
 # kube-storage-version-migrator
 
-![Version: 0.0.3](https://img.shields.io/badge/Version-0.0.3-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v0.0.5](https://img.shields.io/badge/AppVersion-v0.0.5-informational?style=flat)
+![Version: 0.0.4](https://img.shields.io/badge/Version-0.0.4-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v0.0.5](https://img.shields.io/badge/AppVersion-v0.0.5-informational?style=flat)
 
 This tool migrates stored data in etcd to the latest storage version.
 
