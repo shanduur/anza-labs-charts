@@ -5,7 +5,7 @@ trigger:
   replicaCount: 1
 
   image:
-    # -- Registry and repository for the scribe image.
+    # -- Registry and repository for the kube-storage-version-migrator trigger image.
     repository: registry.k8s.io/storage-migrator/storage-version-migration-trigger
     # -- Tag for the image.
     tag: "v0.0.5"
@@ -17,7 +17,7 @@ migrator:
   replicaCount: 1
 
   image:
-    # -- Registry and repository for the scribe image.
+    # -- Registry and repository for the kube-storage-version-migrator migrator image.
     repository: registry.k8s.io/storage-migrator/storage-version-migration-migrator
     # -- Tag for the image.
     tag: "v0.0.5"
@@ -35,6 +35,11 @@ fullnameOverride: ""
 podAnnotations: {}
 # -- Labels to be added to the pods.
 podLabels: {}
+# -- Annotations to be added to the services.
+serviceAnnotations: {}
+  # prometheus.io/scrape: 'true'
+  # prometheus.io/path: '/metrics'
+  # prometheus.io/port: '8080'
 
 podSecurityContext: {}
   # fsGroup: 2000

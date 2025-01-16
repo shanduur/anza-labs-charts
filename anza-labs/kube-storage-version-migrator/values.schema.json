@@ -60,6 +60,10 @@
       "properties": {},
       "type": "object"
     },
+    "serviceAnnotations": {
+      "properties": {},
+      "type": "object"
+    },
     "tolerations": {
       "type": "array"
     },

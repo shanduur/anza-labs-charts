@@ -38,6 +38,9 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.trigger.image.repository }}:{{ .Values.trigger.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.trigger.image.pullPolicy }}
+          ports:
+            - name: probes
+              containerPort: 2113
           livenessProbe:
             httpGet:
               scheme: HTTP

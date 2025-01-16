@@ -40,6 +40,9 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.migrator.image.repository }}:{{ .Values.migrator.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.migrator.image.pullPolicy }}
+          ports:
+            - name: probes
+              containerPort: 2112
           livenessProbe:
             httpGet:
               scheme: HTTP
