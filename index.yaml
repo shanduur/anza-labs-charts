@@ -1,6 +1,35 @@
 apiVersion: v1
 entries:
+  kube-storage-version-migrator:
+  - apiVersion: v2
+    appVersion: v0.0.5
+    created: "2025-01-16T06:49:22.136485031Z"
+    description: 'This tool migrates stored data in etcd to the latest storage version. '
+    digest: 7ba5897177e71bf72481fca47585bf819a39380136097ed4f1ab48ad13d592d5
+    maintainers:
+    - email: matueusz.urbanek.98@gmail.com
+      name: Mateusz Urbanek
+      url: http://linkedin.com/in/urbanekmateusz
+    name: kube-storage-version-migrator
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/kube-storage-version-migrator-0.0.1/kube-storage-version-migrator-0.0.1.tgz
+    version: 0.0.1
   lubelogger:
+  - apiVersion: v2
+    appVersion: v1.4.3
+    created: "2025-01-16T06:49:22.237763803Z"
+    description: LubeLogger is a web-based vehicle maintenance and fuel mileage tracker
+    digest: 1b69b587fd8853896078333abf8f4c8c592d18cb652d821a5087a4c6ec2b43da
+    maintainers:
+    - email: matueusz.urbanek.98@gmail.com
+      name: Mateusz Urbanek
+      url: http://linkedin.com/in/urbanekmateusz
+    name: lubelogger
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/lubelogger-0.5.6/lubelogger-0.5.6.tgz
+    version: 0.5.6
   - apiVersion: v2
     appVersion: v1.4.3
     created: "2025-01-11T12:16:06.917348703Z"
@@ -282,6 +311,21 @@ entries:
   scribe:
   - apiVersion: v2
     appVersion: v0.3.0
+    created: "2025-01-16T06:49:22.328251447Z"
+    description: 'Scribe is a tool that automates the propagation of annotations across
+      Kubernetes resources based on the annotations in a Namespace. '
+    digest: 2359724483901437572181abcb0f385dc68c0936a112d0635765cd3d09eba4ca
+    maintainers:
+    - email: matueusz.urbanek.98@gmail.com
+      name: Mateusz Urbanek
+      url: http://linkedin.com/in/urbanekmateusz
+    name: scribe
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/scribe-0.3.1/scribe-0.3.1.tgz
+    version: 0.3.1
+  - apiVersion: v2
+    appVersion: v0.3.0
     created: "2025-01-04T13:37:35.776977879Z"
     description: 'Scribe is a tool that automates the propagation of annotations across
       Kubernetes resources based on the annotations in a Namespace. '
@@ -400,4 +444,4 @@ entries:
     urls:
     - https://github.com/anza-labs/charts/releases/download/scribe-0.1.0/scribe-0.1.0.tgz
     version: 0.1.0
-generated: "2025-01-11T12:16:06.917518098Z"
+generated: "2025-01-16T06:49:22.328456268Z"
