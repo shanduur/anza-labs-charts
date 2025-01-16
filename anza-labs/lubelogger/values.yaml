@@ -1,4 +1,4 @@
-# Default values for lubelog.
+# Default values for lubelogger.
 
 # -- Number of replicas for the deployment.
 replicaCount: 1

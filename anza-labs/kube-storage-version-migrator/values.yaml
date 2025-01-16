@@ -1,23 +1,28 @@
-# Default values for scribe.
+# Default values for kube-storage-version-migrator.
 
-# -- Number of replicas for the deployment.
-replicaCount: 1
+trigger:
+  # -- Number of replicas for the deployment.
+  replicaCount: 1
 
-image:
-  # -- Registry and repository for the scribe image.
-  repository: ghcr.io/anza-labs/scribe
-  # -- Tag for the image.
-  tag: "v0.3.0"
-  # -- Image pull policy.
-  pullPolicy: IfNotPresent
+  image:
+    # -- Registry and repository for the scribe image.
+    repository: registry.k8s.io/storage-migrator/storage-version-migration-trigger
+    # -- Tag for the image.
+    tag: "v0.0.5"
+    # -- Image pull policy.
+    pullPolicy: IfNotPresent
 
-config:
-  - apiVersion: apps/v1
-    resources:
-      - kind: DaemonSet
-      - kind: Deployment
-      - kind: StatefulSet
-        plural: statefulsets
+migrator:
+  # -- Number of replicas for the deployment.
+  replicaCount: 1
+
+  image:
+    # -- Registry and repository for the scribe image.
+    repository: registry.k8s.io/storage-migrator/storage-version-migration-migrator
+    # -- Tag for the image.
+    tag: "v0.0.5"
+    # -- Image pull policy.
+    pullPolicy: IfNotPresent
 
 # -- Secrets for pulling images.
 imagePullSecrets: []

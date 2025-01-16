@@ -1,0 +1,64 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ksvm.fullname" . }}-migrator
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "ksvm.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.migrator.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "ksvm.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "ksvm.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "ksvm.fullname" . }}-migrator
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: migrator
+          args:
+            - --v=2
+            - --kube-api-qps=40
+            - --kube-api-burst=1000
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.migrator.image.repository }}:{{ .Values.migrator.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.migrator.image.pullPolicy }}
+          livenessProbe:
+            httpGet:
+              scheme: HTTP
+              port: 2112
+              path: /healthz
+            initialDelaySeconds: 10
+            timeoutSeconds: 60
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+

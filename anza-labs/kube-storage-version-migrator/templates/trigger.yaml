@@ -1,0 +1,61 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ksvm.fullname" . }}-trigger
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "ksvm.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.trigger.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "ksvm.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "ksvm.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "ksvm.fullname" . }}-trigger
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: trigger
+          args:
+            - --v=2
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.trigger.image.repository }}:{{ .Values.trigger.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.trigger.image.pullPolicy }}
+          livenessProbe:
+            httpGet:
+              scheme: HTTP
+              port: 2113
+              path: /healthz
+            initialDelaySeconds: 10
+            timeoutSeconds: 60
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
