@@ -1,8 +1,8 @@
 # scribe
 
-![Version: 0.3.3](https://img.shields.io/badge/Version-0.3.3-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v0.3.0](https://img.shields.io/badge/AppVersion-v0.3.0-informational?style=flat)
+![Version: 0.3.5](https://img.shields.io/badge/Version-0.3.5-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v0.3.0](https://img.shields.io/badge/AppVersion-v0.3.0-informational?style=flat)
 
-Scribe is a tool that automates the propagation of annotations across Kubernetes resources based
+_Scribe_ is a tool that automates the propagation of annotations across Kubernetes resources based
 on the annotations in a Namespace.
 
 **Homepage:** <https://github.com/anza-labs/scribe>
