@@ -26,6 +26,8 @@ jobs:
       - uses: azure/setup-helm@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+      - run: |
+          ./hack/repos.sh ./anza-labs
       - id: releaser
         uses: helm/chart-releaser-action@v1
         env:

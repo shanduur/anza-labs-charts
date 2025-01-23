@@ -11,17 +11,17 @@ image:
   # -- Image pull policy.
   pullPolicy: IfNotPresent
 
-# -- A list of extra arguments to add to the kamaji controller default ones
+# -- A list of extra arguments to add to the kamaji controller default ones.
 extraArgs: []
 
 serviceMonitor:
-  # -- Toggle the ServiceMonitor true if you have Prometheus Operator installed and configured
+  # -- Toggle the ServiceMonitor true if you have Prometheus Operator installed and configured.
   enabled: false
 
 # -- The address the probe endpoint binds to. (default ":8081")
 healthProbeBindAddress: ":8081"
 
-# -- The livenessProbe for the controller container
+# -- The livenessProbe for the controller container.
 livenessProbe:
   httpGet:
     path: /healthz
@@ -29,7 +29,7 @@ livenessProbe:
   initialDelaySeconds: 15
   periodSeconds: 20
 
-# -- The readinessProbe for the controller container
+# -- The readinessProbe for the controller container.
 readinessProbe:
   httpGet:
     path: /readyz
@@ -45,12 +45,12 @@ nameOverride: ""
 fullnameOverride: ""
 
 serviceAccount:
-  # Specifies whether a service account should be created
+  # Specifies whether a service account should be created.
   create: true
-  # Annotations to add to the service account
+  # Annotations to add to the service account.
   annotations: {}
   # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
+  # If not set and create is true, a name is generated using the fullname template.
   name: kamaji-controller-manager
 
 # -- The annotations to apply to the Kamaji controller pods.
@@ -78,13 +78,13 @@ resources:
     cpu: 100m
     memory: 20Mi
 
-# -- Kubernetes node selector rules to schedule Kamaji controller
+# -- Kubernetes node selector rules to schedule Kamaji controller.
 nodeSelector: {}
 
-# -- Kubernetes node taints that the Kamaji controller pods would tolerate
+# -- Kubernetes node taints that the Kamaji controller pods would tolerate.
 tolerations: []
 
-# -- Kubernetes affinity rules to apply to Kamaji controller pods
+# -- Kubernetes affinity rules to apply to Kamaji controller pods.
 affinity: {}
 
 # -- Directory which will be used to work with temporary files. (default "/tmp/kamaji")
@@ -104,7 +104,6 @@ kamaji-etcd:
     enabled: true
     name: default
 
-# -- Disable the analytics traces collection
+# -- Disable the analytics traces collection.
 telemetry:
   disabled: false
-  
