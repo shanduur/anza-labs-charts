@@ -15,6 +15,15 @@
         "area/dependency",
         "do-not-merge"
       ]
+    },
+    {
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "docker.io/clastix/kamaji"
+      ],
+      "versioning": "loose"
     }
   ],
   "osvVulnerabilityAlerts": true,
