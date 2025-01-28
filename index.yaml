@@ -26,6 +26,25 @@ entries:
   kube-storage-version-migrator:
   - apiVersion: v2
     appVersion: v0.0.5
+    created: "2025-01-28T08:57:48.165265382Z"
+    deprecated: true
+    description: '_kube-storage-version-migrator_ migrates stored data in etcd to
+      the latest storage version.  This is useful for clusters with K8s < 1.30. In
+      clusters version 1.30, admins should enable the following Feature Gate: - _StorageVersionMigrator_[^1]  [^1]:
+      https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/ '
+    digest: 452766a1ad85d106b348e026ec60fc699ac3421748ed6f27fc272db985ce62d7
+    home: https://github.com/kubernetes-sigs/kube-storage-version-migrator
+    maintainers:
+    - email: matueusz.urbanek.98@gmail.com
+      name: Mateusz Urbanek
+      url: http://linkedin.com/in/urbanekmateusz
+    name: kube-storage-version-migrator
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/kube-storage-version-migrator-0.1.0/kube-storage-version-migrator-0.1.0.tgz
+    version: 0.1.0
+  - apiVersion: v2
+    appVersion: v0.0.5
     created: "2025-01-16T12:34:22.204378738Z"
     deprecated: true
     description: '_kube-storage-version-migrator_ migrates stored data in etcd to
@@ -607,4 +626,4 @@ entries:
     urls:
     - https://github.com/anza-labs/charts/releases/download/scribe-0.1.0/scribe-0.1.0.tgz
     version: 0.1.0
-generated: "2025-01-23T08:01:15.969944145Z"
+generated: "2025-01-28T08:57:48.165377652Z"
