@@ -13,6 +13,9 @@
     },
     "migrator": {
       "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
         "image": {
           "properties": {
             "pullPolicy": {
@@ -69,6 +72,9 @@
     },
     "trigger": {
       "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
         "image": {
           "properties": {
             "pullPolicy": {

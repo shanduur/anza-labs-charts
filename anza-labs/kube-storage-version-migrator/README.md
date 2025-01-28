@@ -2,7 +2,7 @@
 
 > **:exclamation: This Helm Chart is deprecated!**
 
-![Version: 0.0.5](https://img.shields.io/badge/Version-0.0.5-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v0.0.5](https://img.shields.io/badge/AppVersion-v0.0.5-informational?style=flat)
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v0.0.5](https://img.shields.io/badge/AppVersion-v0.0.5-informational?style=flat)
 
 _kube-storage-version-migrator_ migrates stored data in etcd to the latest storage version.
 
@@ -27,6 +27,7 @@ In clusters version 1.30, admins should enable the following Feature Gate:
 | affinity | object | `{}` | Affinity settings for the pods. |
 | fullnameOverride | string | `""` | Override for the full name. |
 | imagePullSecrets | list | `[]` | Secrets for pulling images. |
+| migrator.enabled | bool | `true` | Enable or disable trigger. |
 | migrator.image.pullPolicy | string | `"IfNotPresent"` | Image pull policy. |
 | migrator.image.repository | string | `"registry.k8s.io/storage-migrator/storage-version-migration-migrator"` | Registry and repository for the kube-storage-version-migrator migrator image. |
 | migrator.image.tag | string | `"v0.0.5"` | Tag for the image. |
@@ -40,6 +41,7 @@ In clusters version 1.30, admins should enable the following Feature Gate:
 | securityContext | object | `{}` |  |
 | serviceAnnotations | object | `{}` | Annotations to be added to the services. |
 | tolerations | list | `[]` | Tolerations for the pods. |
+| trigger.enabled | bool | `true` | Enable or disable trigger. |
 | trigger.image.pullPolicy | string | `"IfNotPresent"` | Image pull policy. |
 | trigger.image.repository | string | `"registry.k8s.io/storage-migrator/storage-version-migration-trigger"` | Registry and repository for the kube-storage-version-migrator trigger image. |
 | trigger.image.tag | string | `"v0.0.5"` | Tag for the image. |

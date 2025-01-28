@@ -23,13 +23,14 @@
       "matchPackageNames": [
         "docker.io/clastix/kamaji"
       ],
-      "versioning": "loose"
+      "versioning": "regex:^edge-(?<major>\\d{2})\\.(?<minor>\\d{1,2})\\.(?<patch>\\d{1,2})$"
     }
   ],
   "osvVulnerabilityAlerts": true,
   "vulnerabilityAlerts": {
     "enabled": true,
     "labels": [
+      "area/dependency",
       "kind/security"
     ]
   },

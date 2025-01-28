@@ -4,6 +4,9 @@ trigger:
   # -- Number of replicas for the deployment.
   replicaCount: 1
 
+  # -- Enable or disable trigger.
+  enabled: true
+
   image:
     # -- Registry and repository for the kube-storage-version-migrator trigger image.
     repository: registry.k8s.io/storage-migrator/storage-version-migration-trigger
@@ -15,6 +18,9 @@ trigger:
 migrator:
   # -- Number of replicas for the deployment.
   replicaCount: 1
+
+  # -- Enable or disable trigger.
+  enabled: true
 
   image:
     # -- Registry and repository for the kube-storage-version-migrator migrator image.
