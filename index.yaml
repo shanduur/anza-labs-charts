@@ -1,6 +1,55 @@
 apiVersion: v1
 entries:
   kamaji:
+  - annotations:
+      artifacthub.io/images: |
+        - name: proxy-server
+          image: registry.k8s.io/kas-network-proxy/proxy-server:v0.28.6
+          platforms:
+            - linux/amd64
+            - linux/arm64
+        - name: kamaji
+          image: docker.io/clastix/kamaji:edge-24.12.1
+          platforms:
+            - linux/amd64
+            - linux/arm64
+        - name: kube-apiserver
+          image: registry.k8s.io/kube-apiserver:v1.28.6
+          platforms:
+            - linux/amd64
+            - linux/arm64
+        - name: kube-controller-manager
+          image: registry.k8s.io/kube-controller-manager:v1.28.6
+          platforms:
+            - linux/amd64
+            - linux/arm64
+        - name: kube-scheduler
+          image: registry.k8s.io/kube-scheduler:v1.28.6
+          platforms:
+            - linux/amd64
+            - linux/arm64
+    apiVersion: v2
+    appVersion: edge-24.12.1
+    created: "2025-02-03T20:06:54.088765Z"
+    dependencies:
+    - condition: kamaji-etcd.deploy
+      name: kamaji-etcd
+      repository: https://clastix.github.io/charts
+      version: '>=0.8.1'
+    description: '_Kamaji_ is the Kubernetes Control Plane Manager. '
+    digest: 9f89e82a32246f24703816695fc1148319d6656f8358f20dc88eb29247acfcbd
+    home: https://kamaji.clastix.io
+    maintainers:
+    - email: matueusz.urbanek.98@gmail.com
+      name: Mateusz Urbanek
+      url: http://linkedin.com/in/urbanekmateusz
+    name: kamaji
+    sources:
+    - https://github.com/clastix/kamaji
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/kamaji-0.1.1/kamaji-0.1.1.tgz
+    version: 0.1.1
   - apiVersion: v2
     appVersion: edge-24.12.1
     created: "2025-01-23T07:59:09.581873817Z"
@@ -119,6 +168,22 @@ entries:
     - https://github.com/anza-labs/charts/releases/download/kube-storage-version-migrator-0.0.1/kube-storage-version-migrator-0.0.1.tgz
     version: 0.0.1
   lubelogger:
+  - apiVersion: v2
+    appVersion: v1.4.4
+    created: "2025-02-03T20:06:54.181101192Z"
+    description: '_LubeLogger_ is a web-based vehicle maintenance and fuel mileage
+      tracker '
+    digest: 2e59a6b69c2efeacb3de1095f71f9c1a1a771870f15049deaf2fad371eb34f46
+    home: https://lubelogger.com
+    maintainers:
+    - email: matueusz.urbanek.98@gmail.com
+      name: Mateusz Urbanek
+      url: http://linkedin.com/in/urbanekmateusz
+    name: lubelogger
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/lubelogger-0.5.9/lubelogger-0.5.9.tgz
+    version: 0.5.9
   - apiVersion: v2
     appVersion: v1.4.4
     created: "2025-02-03T19:46:22.06722792Z"
@@ -446,6 +511,23 @@ entries:
   scribe:
   - apiVersion: v2
     appVersion: v0.3.0
+    created: "2025-02-03T20:06:54.283675813Z"
+    deprecated: true
+    description: '_Scribe_ is a tool that automates the propagation of annotations
+      across Kubernetes resources based on the annotations in a Namespace. '
+    digest: ed744e366644c1d9ab4d3fd92827a909ec34e48ad6b6474371e5f738ca810c9e
+    home: https://github.com/anza-labs/scribe
+    maintainers:
+    - email: matueusz.urbanek.98@gmail.com
+      name: Mateusz Urbanek
+      url: http://linkedin.com/in/urbanekmateusz
+    name: scribe
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/scribe-0.3.6/scribe-0.3.6.tgz
+    version: 0.3.6
+  - apiVersion: v2
+    appVersion: v0.3.0
     created: "2025-01-23T08:01:15.969791681Z"
     description: '_Scribe_ is a tool that automates the propagation of annotations
       across Kubernetes resources based on the annotations in a Namespace. '
@@ -642,4 +724,4 @@ entries:
     urls:
     - https://github.com/anza-labs/charts/releases/download/scribe-0.1.0/scribe-0.1.0.tgz
     version: 0.1.0
-generated: "2025-02-03T19:46:22.067491372Z"
+generated: "2025-02-03T20:06:54.28399565Z"
