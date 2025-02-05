@@ -6,8 +6,24 @@
 
 This repository contains the following Helm charts:
 
-| Name | Version | App Version | Artifact Hub | Caveats |
-|------|---------|-------------|--------------|---------|
+### Active Charts
+
+| Name | Version | App Version | Artifact Hub |
+|------|---------|-------------|--------------|
 {{- range . }}
-| [{{ .Name }}](anza-labs/{{ .Name }}) | `{{ .Version }}` | `{{ .AppVersion }}` | [![Artifact Hub](https://img.shields.io/static/v1?label=ArtifactHub&message=View&color=informational)](https://artifacthub.io/packages/helm/anza-labs/{{ .Name }}) | {{ if .Deprecated }}:warning: Deprecated {{- end }} |
+{{- if not .Deprecated }}
+| [{{ .Name }}](anza-labs/{{ .Name }}) | `{{ .Version }}` | `{{ .AppVersion }}` | [![Artifact Hub](https://img.shields.io/static/v1?label=ArtifactHub&message=View&color=informational)](https://artifacthub.io/packages/helm/anza-labs/{{ .Name }}) |
+{{- end }}
+{{- end }}
+
+### Deprecated Charts
+
+The following charts are deprecated and should not be used for new deployments:
+
+| Name | Version | App Version | Artifact Hub |
+|------|---------|-------------|--------------|
+{{- range . }}
+{{- if .Deprecated }}
+| [{{ .Name }}](anza-labs/{{ .Name }}) | `{{ .Version }}` | `{{ .AppVersion }}` | [![Artifact Hub](https://img.shields.io/static/v1?label=ArtifactHub&message=View&color=critical)](https://artifacthub.io/packages/helm/anza-labs/{{ .Name }}) |
+{{- end }}
 {{- end }}
