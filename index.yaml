@@ -170,6 +170,22 @@ entries:
   lubelogger:
   - apiVersion: v2
     appVersion: v1.4.4
+    created: "2025-02-07T21:04:46.661954007Z"
+    description: '_LubeLogger_ is a web-based vehicle maintenance and fuel mileage
+      tracker '
+    digest: c7fe1085ad94b542caafbdd76fd5d1ae063bc9b1fa6581ae78214ac474b1e894
+    home: https://lubelogger.com
+    maintainers:
+    - email: matueusz.urbanek.98@gmail.com
+      name: Mateusz Urbanek
+      url: http://linkedin.com/in/urbanekmateusz
+    name: lubelogger
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/lubelogger-0.5.10/lubelogger-0.5.10.tgz
+    version: 0.5.10
+  - apiVersion: v2
+    appVersion: v1.4.4
     created: "2025-02-03T20:06:54.181101192Z"
     description: '_LubeLogger_ is a web-based vehicle maintenance and fuel mileage
       tracker '
@@ -724,4 +740,4 @@ entries:
     urls:
     - https://github.com/anza-labs/charts/releases/download/scribe-0.1.0/scribe-0.1.0.tgz
     version: 0.1.0
-generated: "2025-02-03T20:06:54.28399565Z"
+generated: "2025-02-07T21:04:46.662204364Z"
