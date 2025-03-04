@@ -1,0 +1,74 @@
+# Default values for podvm.
+
+# -- Number of replicas for the deployment.
+replicaCount: 1
+
+image:
+  # -- Registry and repository for the podvm image.
+  repository: ghcr.io/anza-labs/library/firecracker
+  # -- Tag for the image.
+  tag: "1.10.1"
+  # -- Image pull policy.
+  pullPolicy: IfNotPresent
+
+kvm:
+  # -- Name of the KVM device requested. Should be one of:
+  # `"devices.kubevirt.io/kvm"` when using https://github.com/kubevirt/kubernetes-device-plugins,
+  # `"linux.anza-labs.com/kvm"` when using https://github.com/anza-labs/kvm-device-plugin.
+  name: "linux.anza-labs.com/kvm"
+
+tap:
+  # -- Name of the TAP device requested.
+  name: "linux.anza-labs.com/tap"
+
+config:
+  machine:
+    # -- Number of VCPUs. Must be integer.
+    cpu: 2
+    # -- Memory size in mebibytes. Must be integer.
+    memory: 1024
+
+# -- Secrets for pulling images.
+imagePullSecrets: []
+# -- Override for the name.
+nameOverride: ""
+# -- Override for the full name.
+fullnameOverride: ""
+
+# -- Annotations to be added to the pods.
+podAnnotations: {}
+# -- Labels to be added to the pods.
+podLabels: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+# -- Node selector for the pods.
+nodeSelector: {}
+
+# -- Tolerations for the pods.
+tolerations: []
+
+# -- Affinity settings for the pods.
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/arch
+            operator: In
+            values:
+              - amd64
+              - arm64
+          - key: kubernetes.io/os
+            operator: In
+            values:
+              - linux

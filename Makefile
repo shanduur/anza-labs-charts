@@ -35,7 +35,7 @@ help: ## Display this help.
 ##@ Development
 
 .PHONY: cluster
-cluster: kind ctlptl clusterctl kustomize
+cluster: kind ctlptl
 	@PATH=${LOCALBIN}:$(PATH) $(CTLPTL) apply -f hack/kind.yaml
 
 .PHONY: cluster-reset

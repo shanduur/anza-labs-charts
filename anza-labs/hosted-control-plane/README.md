@@ -1,11 +1,11 @@
 # hosted-control-plane
 
-![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v1.32.2](https://img.shields.io/badge/AppVersion-v1.32.2-informational?style=flat)
+![Version: 0.1.4](https://img.shields.io/badge/Version-0.1.4-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v1.32.2](https://img.shields.io/badge/AppVersion-v1.32.2-informational?style=flat)
 
 _hosted-control-plane_ is a PoC/testing ground for any improvements that might
-reach KinK Control-Plane provider manifests.
+reach Cluster API Control Plane Provider KinK manifests.
 
-**Homepage:** <https://github.com/anza-labs/kink>
+**Homepage:** <https://anza-labs.github.io/kink>
 
 ## Maintainers
 

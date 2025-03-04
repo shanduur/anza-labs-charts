@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "affinity": {
+      "properties": {
+        "nodeAffinity": {
+          "properties": {
+            "requiredDuringSchedulingIgnoredDuringExecution": {
+              "properties": {
+                "nodeSelectorTerms": {
+                  "items": {
+                    "properties": {
+                      "matchExpressions": {
+                        "items": {
+                          "properties": {
+                            "key": {
+                              "type": "string"
+                            },
+                            "operator": {
+                              "type": "string"
+                            },
+                            "values": {
+                              "items": {
+                                "type": "string"
+                              },
+                              "type": "array"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "config": {
+      "properties": {
+        "machine": {
+          "properties": {
+            "cpu": {
+              "type": "integer"
+            },
+            "memory": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "fullnameOverride": {
+      "type": "string"
+    },
+    "image": {
+      "properties": {
+        "pullPolicy": {
+          "type": "string"
+        },
+        "repository": {
+          "type": "string"
+        },
+        "tag": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "imagePullSecrets": {
+      "type": "array"
+    },
+    "kvm": {
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "nameOverride": {
+      "type": "string"
+    },
+    "nodeSelector": {
+      "properties": {},
+      "type": "object"
+    },
+    "podAnnotations": {
+      "properties": {},
+      "type": "object"
+    },
+    "podLabels": {
+      "properties": {},
+      "type": "object"
+    },
+    "podSecurityContext": {
+      "properties": {},
+      "type": "object"
+    },
+    "replicaCount": {
+      "type": "integer"
+    },
+    "securityContext": {
+      "properties": {},
+      "type": "object"
+    },
+    "tap": {
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "tolerations": {
+      "type": "array"
+    }
+  },
+  "type": "object"
+}

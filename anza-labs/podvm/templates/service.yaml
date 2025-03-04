@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "podvm.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "podvm.labels" . | nindent 4 }}
+spec:
+  # TODO
+  ports: {}
+  selector:
+    {{- include "podvm.selectorLabels" . | nindent 4 }}

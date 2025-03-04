@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ include "podvm.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "podvm.labels" . | nindent 4 }}
+spec:
+  {{- with .Values.imagePullSecrets }}
+  imagePullSecrets:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  serviceAccountName: {{ include "podvm.fullname" . }}
+  securityContext:
+    {{- toYaml .Values.podSecurityContext | nindent 4 }}
+  containers:
+    - name: firecracker
+      command:
+        - firecracker
+      args:
+        - --no-api
+        - --config-file
+        - /etc/firecracker/vmconfig.json
+      securityContext:
+        {{- toYaml .Values.securityContext | nindent 8 }}
+      image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+      imagePullPolicy: {{ .Values.image.pullPolicy }}
+      volumeMounts:
+        - name: vmconfig
+          readOnly: true
+          mountPath: /etc/firecracker
+      resources:
+        requests:
+          memory: "{{ printf "%dMi" (int .Values.config.machine.memory) }}"
+          cpu: "{{ printf "%d" (int .Values.config.machine.cpu) }}"
+          {{- printf "%s: '1'" .Values.kvm.name | nindent 10 }}
+          {{- printf "%s: '1'" .Values.tap.name | nindent 10 }}
+        limits:
+          memory: "{{ printf "%dMi" (int .Values.config.machine.memory) }}"
+          {{- printf "%s: '1'" .Values.kvm.name | nindent 10 }}
+          {{- printf "%s: '1'" .Values.tap.name | nindent 10 }}
+  volumes:
+    - name: vmconfig
+      configMap:
+        name: {{ include "podvm.fullname" . }}
+  {{- with .Values.nodeSelector }}
+  nodeSelector:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.affinity }}
+  affinity:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.tolerations }}
+  tolerations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
