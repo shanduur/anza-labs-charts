@@ -9,7 +9,8 @@
     {
       "automerge": false,
       "matchManagers": [
-        "helm-values"
+        "helm-values",
+        "regex"
       ],
       "labels": [
         "area/dependency",
