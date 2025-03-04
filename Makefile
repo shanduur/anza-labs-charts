@@ -34,6 +34,14 @@ help: ## Display this help.
 
 ##@ Development
 
+.PHONY: cluster
+cluster: kind ctlptl clusterctl kustomize
+	@PATH=${LOCALBIN}:$(PATH) $(CTLPTL) apply -f hack/kind.yaml
+
+.PHONY: cluster-reset
+cluster-reset: kind ctlptl
+	@PATH=${LOCALBIN}:$(PATH) $(CTLPTL) delete -f hack/kind.yaml
+
 .PHONY: ci
 ci: _ci _generate-schema _generate-docs readme
 
@@ -93,35 +101,60 @@ $(LOCALBIN):
 	mkdir -p $(LOCALBIN)
 
 ## Tool Binaries
-HELM_DOCS ?= $(LOCALBIN)/helm-docs
+CTLPTL                  ?= $(LOCALBIN)/ctlptl
+HELM_DOCS               ?= $(LOCALBIN)/helm-docs
 HELM_VALUES_SCHEMA_JSON ?= $(LOCALBIN)/helm-values-schema-json
-KUBE_LINTER ?= $(LOCALBIN)/kube-linter
-YQ ?= $(LOCALBIN)/yq
+KIND                    ?= $(LOCALBIN)/kind
+KUBE_LINTER             ?= $(LOCALBIN)/kube-linter
+YQ                      ?= $(LOCALBIN)/yq
 
 ## Tool Versions
-HELM_DOCS_VERSION ?= $(shell grep 'github.com/norwoodj/helm-docs ' ./go.mod | cut -d ' ' -f 2)
-HELM_VALUES_SCHEMA_JSON_VERSION ?= $(shell grep 'github.com/losisin/helm-values-schema-json ' ./go.mod | cut -d ' ' -f 2)
-KUBE_LINTER_VERSION ?= $(shell grep 'golang.stackrox.io/kube-linter ' ./go.mod | cut -d ' ' -f 2)
-YQ_VERSION ?= $(shell grep 'github.com/mikefarah/yq/v4 ' ./go.mod | cut -d ' ' -f 2)
+# renovate: datasource=github-tags depName=tilt-dev/ctlptl
+CTLPTL_VERSION ?= v0.8.39
+
+# renovate: datasource=github-tags depName=norwoodj/helm-docs
+HELM_DOCS_VERSION ?= v1.14.2
+
+# renovate: datasource=github-tags depName=losisin/helm-values-schema-json
+HELM_VALUES_SCHEMA_JSON_VERSION ?= v1.6.4
+
+# renovate: datasource=github-tags depName=kubernetes-sigs/kind
+KIND_VERSION ?= v0.27.0
+
+# renovate: datasource=github-tags depName=stackrox/kube-linter
+KUBE_LINTER_VERSION ?= v0.7.1
+
+# renovate: datasource=github-tags depName=mikefarah/yq
+YQ_VERSION ?= v4.45.1
+
+.PHONY: ctlptl
+ctlptl: $(CTLPTL)-$(CTLPTL_VERSION) ## Download ctlptl locally if necessary.
+$(CTLPTL)-$(CTLPTL_VERSION): $(LOCALBIN)
+	$(call go-install-tool,$(CTLPTL),github.com/tilt-dev/ctlptl/cmd/ctlptl,$(CTLPTL_VERSION))
 
 .PHONY: helm-docs
-helm-docs: $(HELM_DOCS)$(HELM_DOCS_VERSION) ## Download helm-docs locally if necessary.
-$(HELM_DOCS)$(HELM_DOCS_VERSION): $(LOCALBIN)
+helm-docs: $(HELM_DOCS)-$(HELM_DOCS_VERSION) ## Download helm-docs locally if necessary.
+$(HELM_DOCS)-$(HELM_DOCS_VERSION): $(LOCALBIN)
 	$(call go-install-tool,$(HELM_DOCS),github.com/norwoodj/helm-docs/cmd/helm-docs,$(HELM_DOCS_VERSION))
 
 .PHONY: helm-values-schema-json
-helm-values-schema-json: $(HELM_VALUES_SCHEMA_JSON)$(HELM_VALUES_SCHEMA_JSON_VERSION) ## Download helm-values-schema-json locally if necessary.
-$(HELM_VALUES_SCHEMA_JSON)$(HELM_VALUES_SCHEMA_JSON_VERSION): $(LOCALBIN)
+helm-values-schema-json: $(HELM_VALUES_SCHEMA_JSON)-$(HELM_VALUES_SCHEMA_JSON_VERSION) ## Download helm-values-schema-json locally if necessary.
+$(HELM_VALUES_SCHEMA_JSON)-$(HELM_VALUES_SCHEMA_JSON_VERSION): $(LOCALBIN)
 	$(call go-install-tool,$(HELM_VALUES_SCHEMA_JSON),github.com/losisin/helm-values-schema-json,$(HELM_VALUES_SCHEMA_JSON_VERSION))
 
+.PHONY: kind
+kind: $(KIND)-$(KIND_VERSION) ## Download kind locally if necessary.
+$(KIND)-$(KIND_VERSION): $(LOCALBIN)
+	$(call go-install-tool,$(KIND),sigs.k8s.io/kind,$(KIND_VERSION))
+
 .PHONY: kube-linter
-kube-linter: $(KUBE_LINTER)$(KUBE_LINTER_VERSION) ## Download kube-linter locally if necessary.
-$(KUBE_LINTER)$(KUBE_LINTER_VERSION): $(LOCALBIN)
+kube-linter: $(KUBE_LINTER)-$(KUBE_LINTER_VERSION) ## Download kube-linter locally if necessary.
+$(KUBE_LINTER)-$(KUBE_LINTER_VERSION): $(LOCALBIN)
 	$(call go-install-tool,$(KUBE_LINTER),golang.stackrox.io/kube-linter/cmd/kube-linter,$(KUBE_LINTER_VERSION))
 
 .PHONY: yq
-yq: $(YQ)$(YQ_VERSION) ## Download yq locally if necessary.
-$(YQ)$(YQ_VERSION): $(LOCALBIN)
+yq: $(YQ)-$(YQ_VERSION) ## Download yq locally if necessary.
+$(YQ)-$(YQ_VERSION): $(LOCALBIN)
 	$(call go-install-tool,$(YQ),github.com/mikefarah/yq/v4,$(YQ_VERSION))
 
 # go-install-tool will 'go install' any package with custom target and name of binary, if it doesn't exist

@@ -1,0 +1,18 @@
+apiVersion: v2
+type: application
+name: hosted-control-plane
+description: |
+  _hosted-control-plane_ is a PoC/testing ground for any improvements that might
+  reach KinK Control-Plane provider manifests.
+home: https://github.com/anza-labs/kink
+version: 0.1.0
+appVersion: "v1.32.0"
+maintainers:
+  - name: Mateusz Urbanek
+    email: matueusz.urbanek.98@gmail.com
+    url: http://linkedin.com/in/urbanekmateusz
+dependencies:
+  - name: cert-manager
+    repository: https://charts.jetstack.io
+    version: ">=v1.16.0"
+    condition: cert-manager.deploy

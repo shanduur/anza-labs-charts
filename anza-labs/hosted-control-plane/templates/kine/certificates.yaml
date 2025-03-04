@@ -1,0 +1,35 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "hosted-control-plane.fullname" . }}-etcd-server
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "hosted-control-plane.labels" . | nindent 4 }}
+spec:
+  issuerRef:
+    kind: Issuer
+    name: {{ include "hosted-control-plane.fullname" . }}-etcd
+  commonName: ETCD Server
+  subject:
+    organizations:
+      - etcd
+  duration: 8760h
+  renewBefore: 720h
+  secretName: {{ include "hosted-control-plane.fullname" . }}-etcd-server
+  secretTemplate:
+    labels: 
+      {{- include "hosted-control-plane.selectorLabels" . | nindent 6 }}
+  usages:
+    - digital signature
+    - key encipherment
+    - server auth
+    - client auth
+  dnsNames:
+    - localhost
+    - {{ include "hosted-control-plane.fullname" . }}-kine
+    - {{ include "hosted-control-plane.fullname" . }}-kine.{{ .Release.Namespace }}
+    - {{ include "hosted-control-plane.fullname" . }}-kine.{{ .Release.Namespace }}.svc
+    - {{ include "hosted-control-plane.fullname" . }}-kine.{{ .Release.Namespace }}.svc.cluster.local
+  ipAddresses:
+    - 127.0.0.1

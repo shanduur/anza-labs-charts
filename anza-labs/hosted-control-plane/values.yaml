@@ -1,0 +1,388 @@
+kubernetes:
+  # -- Version of the Kubernetes Control Plane.
+  # renovate: datasource=github-tags depName=kubernetes/kubernetes
+  version: v1.32.0
+  # -- Set the cluster CIDR.
+  clusterCIDR: 10.200.0.0/16
+  # -- Set the Service IP range for cluster.
+  serviceIPRange: 10.32.0.0/24
+
+cert-manager:
+  # -- Enable deployment of cert-manager.
+  deploy: false
+
+certificates:
+  # -- Enable/disable self-signed certificate issuer.
+  selfSigned: true
+  # -- Set the kind of the issuer, as either 'Issuer' or 'ClusterIssuer'.
+  issuerKind: "Issuer"
+  # -- Override the name of the certifcate issuer.
+  issuerNameOverride: ""
+
+ingress:
+  # -- Specifies whether ingress should be enabled.
+  enabled: true
+  # -- Specifies the default host FQDN.
+  defualtHost: hosted-control-plane.example.local
+  # -- Ingress class name.
+  className: ""
+  # -- Annotations to add to the ingress.
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  # -- List of ingress hosts.
+  hosts:
+    - host: hosted-control-plane.example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  # -- List of TLS configurations for the ingress.
+  tls: []
+  #  - secretName: hosted-control-plane-tls
+  #    hosts:
+  #      - hosted-control-plane.example.local
+
+kubeApiserver:
+  # -- Number of replicas for the deployment.
+  replicaCount: 1
+  # -- Set log verbosity of the component.
+  verbosity: 4
+
+  image:
+    # -- Registry and repository for the controller-manager image.
+    repository: registry.k8s.io/kube-apiserver
+    # -- Tag for the image.
+    tag: ""
+    # -- Image pull policy.
+    pullPolicy: IfNotPresent
+
+  # -- Annotations to be added to the pods.
+  podAnnotations: {}
+  # -- Labels to be added to the pods.
+  podLabels: {}
+  # -- Annotations to be added to the services.
+  serviceAnnotations: {}
+    # prometheus.io/scrape: 'true'
+    # prometheus.io/path: '/metrics'
+    # prometheus.io/port: '8080'
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  # -- Node selector for the pods.
+  nodeSelector: {}
+
+  # -- Tolerations for the pods.
+  tolerations: []
+
+  # -- Affinity settings for the pods.
+  affinity: {}
+    # nodeAffinity:
+    #   requiredDuringSchedulingIgnoredDuringExecution:
+    #     nodeSelectorTerms:
+    #       - matchExpressions:
+    #         - key: kubernetes.io/arch
+    #           operator: In
+    #           values:
+    #             - amd64
+    #             - arm64
+    #         - key: kubernetes.io/os
+    #           operator: In
+    #           values:
+    #             - linux
+
+  serviceMonitor:
+    # -- Enable Prometheus ServiceMonitor.
+    enabled: false
+
+kubeControllerManager:
+  # -- Number of replicas for the deployment.
+  replicaCount: 1
+  # -- Set log verbosity of the component.
+  verbosity: 4
+
+  image:
+    # -- Registry and repository for the controller-manager image.
+    repository: registry.k8s.io/kube-controller-manager
+    # -- Tag for the image.
+    tag: ""
+    # -- Image pull policy.
+    pullPolicy: IfNotPresent
+
+  # -- Annotations to be added to the pods.
+  podAnnotations: {}
+  # -- Labels to be added to the pods.
+  podLabels: {}
+  # -- Annotations to be added to the services.
+  serviceAnnotations: {}
+    # prometheus.io/scrape: 'true'
+    # prometheus.io/path: '/metrics'
+    # prometheus.io/port: '8080'
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  # -- Node selector for the pods.
+  nodeSelector: {}
+
+  # -- Tolerations for the pods.
+  tolerations: []
+
+  # -- Affinity settings for the pods.
+  affinity: {}
+    # nodeAffinity:
+    #   requiredDuringSchedulingIgnoredDuringExecution:
+    #     nodeSelectorTerms:
+    #       - matchExpressions:
+    #         - key: kubernetes.io/arch
+    #           operator: In
+    #           values:
+    #             - amd64
+    #             - arm64
+    #         - key: kubernetes.io/os
+    #           operator: In
+    #           values:
+    #             - linux
+
+  serviceMonitor:
+    # -- Enable Prometheus ServiceMonitor.
+    enabled: false
+
+kubeScheduler:
+  # -- Number of replicas for the deployment.
+  replicaCount: 1
+  # -- Set log verbosity of the component.
+  verbosity: 4
+
+  image:
+    # -- Registry and repository for the controller-manager image.
+    repository: registry.k8s.io/kube-scheduler
+    # -- Tag for the image.
+    tag: ""
+    # -- Image pull policy.
+    pullPolicy: IfNotPresent
+
+  # -- Annotations to be added to the pods.
+  podAnnotations: {}
+  # -- Labels to be added to the pods.
+  podLabels: {}
+  # -- Annotations to be added to the services.
+  serviceAnnotations: {}
+    # prometheus.io/scrape: 'true'
+    # prometheus.io/path: '/metrics'
+    # prometheus.io/port: '8080'
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  # -- Node selector for the pods.
+  nodeSelector: {}
+
+  # -- Tolerations for the pods.
+  tolerations: []
+
+  # -- Affinity settings for the pods.
+  affinity: {}
+    # nodeAffinity:
+    #   requiredDuringSchedulingIgnoredDuringExecution:
+    #     nodeSelectorTerms:
+    #       - matchExpressions:
+    #         - key: kubernetes.io/arch
+    #           operator: In
+    #           values:
+    #             - amd64
+    #             - arm64
+    #         - key: kubernetes.io/os
+    #           operator: In
+    #           values:
+    #             - linux
+
+  serviceMonitor:
+    # -- Enable Prometheus ServiceMonitor.
+    enabled: false
+
+kine:
+  image:
+    # -- Registry and repository for the kine image.
+    repository: ghcr.io/anza-labs/library/kine
+    # -- Tag for the image.
+    tag: "0.13.10"
+    # -- Image pull policy.
+    pullPolicy: IfNotPresent
+
+  # -- Annotations to be added to the pods.
+  podAnnotations: {}
+  # -- Labels to be added to the pods.
+  podLabels: {}
+  # -- Annotations to be added to the services.
+  serviceAnnotations: {}
+    # prometheus.io/scrape: 'true'
+    # prometheus.io/path: '/metrics'
+    # prometheus.io/port: '8080'
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  # -- Node selector for the pods.
+  nodeSelector: {}
+
+  # -- Tolerations for the pods.
+  tolerations: []
+
+  # -- Affinity settings for the pods.
+  affinity: {}
+    # nodeAffinity:
+    #   requiredDuringSchedulingIgnoredDuringExecution:
+    #     nodeSelectorTerms:
+    #       - matchExpressions:
+    #         - key: kubernetes.io/arch
+    #           operator: In
+    #           values:
+    #             - amd64
+    #             - arm64
+    #         - key: kubernetes.io/os
+    #           operator: In
+    #           values:
+    #             - linux
+
+  serviceMonitor:
+    # -- Enable Prometheus ServiceMonitor.
+    enabled: false
+
+generator:
+  # -- Type of generated secret.
+  secretType: Opaque
+
+  image:
+    # -- Registry and repository for the kine image.
+    repository: docker.io/bitnami/kubectl
+    # -- Tag for the image.
+    tag: "1.32.2"
+    # -- Image pull policy.
+    pullPolicy: IfNotPresent
+
+  # -- Annotations to be added to the pods.
+  podAnnotations: {}
+  # -- Labels to be added to the pods.
+  podLabels: {}
+  # -- Annotations to be added to the services.
+  serviceAnnotations: {}
+    # prometheus.io/scrape: 'true'
+    # prometheus.io/path: '/metrics'
+    # prometheus.io/port: '8080'
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  # -- Node selector for the pods.
+  nodeSelector: {}
+
+  # -- Tolerations for the pods.
+  tolerations: []
+
+# -- Secrets for pulling images.
+imagePullSecrets: []
+# -- Override for the name.
+nameOverride: ""
+# -- Override for the full name.
+fullnameOverride: ""

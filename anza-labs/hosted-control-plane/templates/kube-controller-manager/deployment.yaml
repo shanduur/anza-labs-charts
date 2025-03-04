@@ -1,0 +1,109 @@
+{{- $tag := default .Chart.AppVersion (default .Values.kubernetes.version .Values.kubeScheduler.image.tag) -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "hosted-control-plane.fullname" . }}-controller-manager
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "hosted-control-plane.labels" . | nindent 4 }}
+    {{- include "hosted-control-plane.controller-manager.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.kubeControllerManager.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "hosted-control-plane.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.kubeControllerManager.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "hosted-control-plane.labels" . | nindent 8 }}
+        {{- include "hosted-control-plane.controller-manager.labels" . | nindent 8 }}
+        {{- with .Values.kubeControllerManager.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "hosted-control-plane.fullname" . }}
+      securityContext:
+        {{- toYaml .Values.kubeControllerManager.podSecurityContext | nindent 8 }}
+      containers:
+        - name: kube-controller-manager
+          command:
+            - kube-controller-manager
+          args:
+            - --v={{ .Values.kubeControllerManager.verbosity }}
+            - --leader-elect=true
+            - --kubeconfig=/etc/kubernetes/value
+            - --authorization-kubeconfig=/etc/kubernetes/value
+            - --authentication-kubeconfig=/etc/kubernetes/value
+            - --cluster-signing-cert-file=/etc/pki/kubernetes/tls.crt
+            - --cluster-signing-key-file=/etc/pki/kubernetes/tls.key
+            - --service-account-private-key-file=/etc/pki/service-accounts/tls.key
+            - --requestheader-client-ca-file=/etc/pki/front-proxy/ca.crt
+            - --controllers=*,bootstrapsigner,tokencleaner
+            - --use-service-account-credentials=true
+            - --cluster-cidr={{ .Values.kubernetes.clusterCIDR }}
+            - --service-cluster-ip-range={{ .Values.kubernetes.serviceIPRange }}
+          securityContext:
+            {{- toYaml .Values.kubeControllerManager.securityContext | nindent 12 }}
+          image: "{{ .Values.kubeControllerManager.image.repository }}:{{ $tag }}"
+          imagePullPolicy: {{ .Values.kubeControllerManager.image.pullPolicy }}
+          ports:
+            - name: self
+              containerPort: 10257
+              protocol: TCP
+          volumeMounts:
+            - name: kubeconfig
+              readOnly: true
+              mountPath: /etc/kubernetes
+            - name: front-proxy-ca
+              readOnly: true
+              mountPath: /etc/pki/front-proxy
+            - name: root-ca
+              readOnly: true
+              mountPath: /etc/pki/kubernetes
+            - name: service-accounts-cert
+              readOnly: true
+              mountPath: /etc/pki/service-accounts
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: self
+              scheme: HTTPS
+          resources:
+            {{- toYaml .Values.kubeControllerManager.resources | nindent 12 }}
+      volumes:
+        - name: kubeconfig
+          secret:
+            secretName: {{ include "hosted-control-plane.fullname" . }}-controller-manager-kubeconfig
+            defaultMode: 420
+        - name: front-proxy-ca
+          secret:
+            secretName: {{ include "hosted-control-plane.fullname" . }}-proxy
+            defaultMode: 420
+        - name: root-ca
+          secret:
+            secretName: {{ include "hosted-control-plane.fullname" . }}-ca
+            defaultMode: 420
+        - name: service-accounts-cert
+          secret:
+            secretName: {{ include "hosted-control-plane.fullname" . }}-sa
+            defaultMode: 420
+      {{- with .Values.kubeControllerManager.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.kubeControllerManager.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.kubeControllerManager.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

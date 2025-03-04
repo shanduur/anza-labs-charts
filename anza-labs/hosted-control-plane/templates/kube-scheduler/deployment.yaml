@@ -1,0 +1,80 @@
+{{- $tag := default .Chart.AppVersion (default .Values.kubernetes.version .Values.kubeScheduler.image.tag) -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "hosted-control-plane.fullname" . }}-scheduler
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "hosted-control-plane.labels" . | nindent 4 }}
+    {{- include "hosted-control-plane.scheduler.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.kubeScheduler.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "hosted-control-plane.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.kubeScheduler.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "hosted-control-plane.labels" . | nindent 8 }}
+        {{- include "hosted-control-plane.scheduler.labels" . | nindent 8 }}
+        {{- with .Values.kubeScheduler.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "hosted-control-plane.fullname" . }}
+      securityContext:
+        {{- toYaml .Values.kubeScheduler.podSecurityContext | nindent 8 }}
+      containers:
+        - name: kube-scheduler
+          command:
+            - kube-scheduler
+          args:
+            - --v={{ .Values.kubeScheduler.verbosity }}
+            - --leader-elect=true
+            - --kubeconfig=/etc/kubernetes/value
+            - --authorization-kubeconfig=/etc/kubernetes/value
+            - --authentication-kubeconfig=/etc/kubernetes/value
+          securityContext:
+            {{- toYaml .Values.kubeScheduler.securityContext | nindent 12 }}
+          image: "{{ .Values.kubeScheduler.image.repository }}:{{ $tag }}"
+          imagePullPolicy: {{ .Values.kubeScheduler.image.pullPolicy }}
+          ports:
+            - name: self
+              containerPort: 10259
+              protocol: TCP
+          volumeMounts:
+            - name: kubeconfig
+              readOnly: true
+              mountPath: /etc/kubernetes
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: self
+              scheme: HTTPS
+          resources:
+            {{- toYaml .Values.kubeScheduler.resources | nindent 12 }}
+      volumes:
+        - name: kubeconfig
+          secret:
+            secretName: {{ include "hosted-control-plane.fullname" . }}-scheduler-kubeconfig
+            defaultMode: 420
+      {{- with .Values.kubeScheduler.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.kubeScheduler.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.kubeScheduler.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

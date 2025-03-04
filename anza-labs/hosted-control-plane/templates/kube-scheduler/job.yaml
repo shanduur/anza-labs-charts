@@ -1,0 +1,75 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "hosted-control-plane.fullname" . }}-scheduler-kubeconfig-{{ .Release.Revision }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "hosted-control-plane.labels" . | nindent 4 }}
+spec:
+  template:
+    metadata:
+      {{- with .Values.kubeControllerManager.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "hosted-control-plane.labels" . | nindent 8 }}
+        {{- include "hosted-control-plane.controller-manager.labels" . | nindent 8 }}
+        {{- with .Values.kubeControllerManager.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      restartPolicy: Never
+      serviceAccountName: {{ include "hosted-control-plane.fullname" . }}-generator
+      automountServiceAccountToken: true
+      containers:
+        - name: generator
+          command:
+            - /usr/bin/bash
+          args:
+            - /etc/generator/generate.sh
+          securityContext:
+            {{- toYaml .Values.generator.securityContext | nindent 12 }}
+          image: "{{ .Values.generator.image.repository }}:{{ .Values.generator.image.tag }}"
+          imagePullPolicy: {{ .Values.generator.image.pullPolicy }}
+          env:
+            - name: NEW_KUBECONFIG
+              value: /tmp/kubeconfig
+            - name: CLUSTER_NAME
+              value: {{ include "hosted-control-plane.fullname" . }}
+            - name: COMPONENT
+              value: "-scheduler"
+            - name: KUBERNETES_ENDPOINT
+              value: "https://{{ include "hosted-control-plane.fullname" . }}-apiserver.{{ .Release.Namespace }}.svc.cluster.local:6443"
+            - name: NAMESPACE
+              value: {{ .Release.Namespace }}
+          volumeMounts:
+            - name: pki
+              readOnly: true
+              mountPath: /etc/pki/kubernetes
+            - name: generator
+              readOnly: true
+              mountPath: /etc/generator
+          resources:
+            {{- toYaml .Values.generator.resources | nindent 12 }}
+      volumes:
+        - name: pki
+          secret:
+            secretName: {{ include "hosted-control-plane.fullname" . }}-scheduler-cert
+            defaultMode: 420
+        - name: generator
+          configMap:
+            name: {{ include "hosted-control-plane.fullname" . }}
+      {{- with .Values.generator.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.generator.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.generator.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+  backoffLimit: 3

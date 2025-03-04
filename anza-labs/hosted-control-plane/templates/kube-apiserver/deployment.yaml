@@ -1,0 +1,122 @@
+{{- $tag := default .Chart.AppVersion (default .Values.kubernetes.version .Values.kubeApiserver.image.tag) -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "hosted-control-plane.fullname" . }}-apiserver
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "hosted-control-plane.labels" . | nindent 4 }}
+    {{- include "hosted-control-plane.apiserver.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.kubeApiserver.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "hosted-control-plane.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.kubeApiserver.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "hosted-control-plane.labels" . | nindent 8 }}
+        {{- include "hosted-control-plane.apiserver.labels" . | nindent 8 }}
+        {{- with .Values.kubeApiserver.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "hosted-control-plane.fullname" . }}
+      securityContext:
+        {{- toYaml .Values.kubeApiserver.podSecurityContext | nindent 8 }}
+      containers:
+        - name: kube-apiserver
+          command:
+            - kube-apiserver
+          args:
+            - --v={{ .Values.kubeApiserver.verbosity }}
+            - --client-ca-file=/etc/pki/kubernetes/ca.crt
+            - --tls-cert-file=/etc/pki/kube-apiserver/tls.crt
+            - --tls-private-key-file=/etc/pki/kube-apiserver/tls.key
+            - --service-account-key-file=/etc/pki/service-accounts/tls.crt
+            - --service-account-signing-key-file=/etc/pki/service-accounts/tls.key
+            - --service-account-issuer=https://kubernetes.default.svc.cluster.local
+            - --etcd-cafile=/etc/pki/etcd/ca.crt
+            - --etcd-certfile=/etc/pki/etcd/tls.crt
+            - --etcd-keyfile=/etc/pki/etcd/tls.key
+            - --etcd-servers=https://{{ include "hosted-control-plane.fullname" . }}-kine.{{ .Release.Namespace }}.svc.cluster.local:2379
+            - --authorization-mode=Node,RBAC
+            - --service-cluster-ip-range={{ .Values.kubernetes.serviceIPRange }}
+          securityContext:
+            {{- toYaml .Values.kubeApiserver.securityContext | nindent 12 }}
+          image: "{{ .Values.kubeApiserver.image.repository }}:{{ $tag }}"
+          imagePullPolicy: {{ .Values.kubeApiserver.image.pullPolicy }}
+          ports:
+            - name: server
+              containerPort: 6443
+              protocol: TCP
+          volumeMounts:
+            - name: etcd
+              readOnly: true
+              mountPath: /etc/pki/etcd
+            - name: apiserver-tls
+              readOnly: true
+              mountPath: /etc/pki/kube-apiserver
+            - name: root-ca
+              readOnly: true
+              mountPath: /etc/pki/kubernetes
+            - name: service-accounts-cert
+              readOnly: true
+              mountPath: /etc/pki/service-accounts
+          startupProbe:
+            httpGet:
+              path: /livez
+              port: server
+              scheme: HTTPS
+            initialDelaySeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /livez
+              port: server
+              scheme: HTTPS
+            initialDelaySeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: server
+              scheme: HTTPS
+            initialDelaySeconds: 10
+          resources:
+            {{- toYaml .Values.kubeApiserver.resources | nindent 12 }}
+      volumes:
+        - name: etcd
+          secret:
+            secretName: {{ include "hosted-control-plane.fullname" . }}-etcd-client
+            defaultMode: 420
+        - name: apiserver-tls
+          secret:
+            secretName: {{ include "hosted-control-plane.fullname" . }}-api-server
+            defaultMode: 420
+        - name: root-ca
+          secret:
+            secretName: {{ include "hosted-control-plane.fullname" . }}-ca
+            defaultMode: 420
+        - name: service-accounts-cert
+          secret:
+            secretName: {{ include "hosted-control-plane.fullname" . }}-sa
+            defaultMode: 420
+      {{- with .Values.kubeApiserver.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.kubeApiserver.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.kubeApiserver.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

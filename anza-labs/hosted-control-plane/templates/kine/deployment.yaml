@@ -1,0 +1,113 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "hosted-control-plane.fullname" . }}-kine
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "hosted-control-plane.labels" . | nindent 4 }}
+    {{- include "hosted-control-plane.kine.labels" . | nindent 4 }}
+spec:
+  replicas: 1 # hardcoded, sqlite does not allow multiple replicas
+  selector:
+    matchLabels:
+      {{- include "hosted-control-plane.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.kine.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "hosted-control-plane.labels" . | nindent 8 }}
+        {{- include "hosted-control-plane.kine.labels" . | nindent 8 }}
+        {{- with .Values.kine.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "hosted-control-plane.fullname" . }}
+      securityContext:
+        {{- toYaml .Values.kine.podSecurityContext | nindent 8 }}
+      containers:
+        - name: kine
+          command:
+            - kine
+          args:
+            - --listen-address
+            - 0.0.0.0:2379
+            - --endpoint
+            - sqlite:///etc/kine/db/db.sqlite
+            - --server-cert-file
+            - /etc/kine/tls/tls.crt
+            - --server-key-file
+            - /etc/kine/tls/tls.key
+          securityContext:
+            {{- toYaml .Values.kine.securityContext | nindent 12 }}
+          image: "{{ .Values.kine.image.repository }}:{{ .Values.kine.image.tag }}"
+          imagePullPolicy: {{ .Values.kine.image.pullPolicy }}
+          ports:
+            - name: metrics
+              containerPort: 8080
+              protocol: TCP
+            - name: kine
+              containerPort: 2379
+              protocol: TCP
+          volumeMounts:
+            - name: data
+              readOnly: false
+              mountPath: /etc/kine/db
+            - name: tls
+              readOnly: true
+              mountPath: /etc/kine/tls
+          livenessProbe:
+            exec:
+              command:
+                - grpc_health_probe
+                - -addr
+                - 127.0.0.1:2379
+                - -tls
+                - -tls-ca-cert
+                - /etc/kine/tls/ca.crt
+                - -tls-client-cert
+                - /etc/kine/tls/tls.crt
+                - -tls-client-key
+                - /etc/kine/tls/tls.key
+            initialDelaySeconds: 5
+          readinessProbe:
+            exec:
+              command:
+                - grpc_health_probe
+                - -addr
+                - 127.0.0.1:2379
+                - -tls
+                - -tls-ca-cert
+                - /etc/kine/tls/ca.crt
+                - -tls-client-cert
+                - /etc/kine/tls/tls.crt
+                - -tls-client-key
+                - /etc/kine/tls/tls.key
+            initialDelaySeconds: 5
+          resources:
+            {{- toYaml .Values.kine.resources | nindent 12 }}
+      volumes:
+        - name: data
+          emptyDir: {}
+        - name: tls
+          secret:
+            secretName: {{ include "hosted-control-plane.fullname" . }}-etcd-server
+            defaultMode: 420
+      {{- with .Values.kine.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.kine.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.kine.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

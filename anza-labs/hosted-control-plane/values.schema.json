@@ -1,0 +1,416 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "cert-manager": {
+      "properties": {
+        "deploy": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "certificates": {
+      "properties": {
+        "issuerKind": {
+          "type": "string"
+        },
+        "issuerNameOverride": {
+          "type": "string"
+        },
+        "selfSigned": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "fullnameOverride": {
+      "type": "string"
+    },
+    "generator": {
+      "properties": {
+        "image": {
+          "properties": {
+            "pullPolicy": {
+              "type": "string"
+            },
+            "repository": {
+              "type": "string"
+            },
+            "tag": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "nodeSelector": {
+          "properties": {},
+          "type": "object"
+        },
+        "podAnnotations": {
+          "properties": {},
+          "type": "object"
+        },
+        "podLabels": {
+          "properties": {},
+          "type": "object"
+        },
+        "podSecurityContext": {
+          "properties": {},
+          "type": "object"
+        },
+        "resources": {
+          "properties": {},
+          "type": "object"
+        },
+        "secretType": {
+          "type": "string"
+        },
+        "securityContext": {
+          "properties": {},
+          "type": "object"
+        },
+        "serviceAnnotations": {
+          "properties": {},
+          "type": "object"
+        },
+        "tolerations": {
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "imagePullSecrets": {
+      "type": "array"
+    },
+    "ingress": {
+      "properties": {
+        "annotations": {
+          "properties": {},
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        },
+        "defualtHost": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "hosts": {
+          "items": {
+            "properties": {
+              "host": {
+                "type": "string"
+              },
+              "paths": {
+                "items": {
+                  "properties": {
+                    "path": {
+                      "type": "string"
+                    },
+                    "pathType": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "tls": {
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "kine": {
+      "properties": {
+        "affinity": {
+          "properties": {},
+          "type": "object"
+        },
+        "image": {
+          "properties": {
+            "pullPolicy": {
+              "type": "string"
+            },
+            "repository": {
+              "type": "string"
+            },
+            "tag": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "nodeSelector": {
+          "properties": {},
+          "type": "object"
+        },
+        "podAnnotations": {
+          "properties": {},
+          "type": "object"
+        },
+        "podLabels": {
+          "properties": {},
+          "type": "object"
+        },
+        "podSecurityContext": {
+          "properties": {},
+          "type": "object"
+        },
+        "resources": {
+          "properties": {},
+          "type": "object"
+        },
+        "securityContext": {
+          "properties": {},
+          "type": "object"
+        },
+        "serviceAnnotations": {
+          "properties": {},
+          "type": "object"
+        },
+        "serviceMonitor": {
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "tolerations": {
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "kubeApiserver": {
+      "properties": {
+        "affinity": {
+          "properties": {},
+          "type": "object"
+        },
+        "image": {
+          "properties": {
+            "pullPolicy": {
+              "type": "string"
+            },
+            "repository": {
+              "type": "string"
+            },
+            "tag": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "nodeSelector": {
+          "properties": {},
+          "type": "object"
+        },
+        "podAnnotations": {
+          "properties": {},
+          "type": "object"
+        },
+        "podLabels": {
+          "properties": {},
+          "type": "object"
+        },
+        "podSecurityContext": {
+          "properties": {},
+          "type": "object"
+        },
+        "replicaCount": {
+          "type": "integer"
+        },
+        "resources": {
+          "properties": {},
+          "type": "object"
+        },
+        "securityContext": {
+          "properties": {},
+          "type": "object"
+        },
+        "serviceAnnotations": {
+          "properties": {},
+          "type": "object"
+        },
+        "serviceMonitor": {
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "tolerations": {
+          "type": "array"
+        },
+        "verbosity": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "kubeControllerManager": {
+      "properties": {
+        "affinity": {
+          "properties": {},
+          "type": "object"
+        },
+        "image": {
+          "properties": {
+            "pullPolicy": {
+              "type": "string"
+            },
+            "repository": {
+              "type": "string"
+            },
+            "tag": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "nodeSelector": {
+          "properties": {},
+          "type": "object"
+        },
+        "podAnnotations": {
+          "properties": {},
+          "type": "object"
+        },
+        "podLabels": {
+          "properties": {},
+          "type": "object"
+        },
+        "podSecurityContext": {
+          "properties": {},
+          "type": "object"
+        },
+        "replicaCount": {
+          "type": "integer"
+        },
+        "resources": {
+          "properties": {},
+          "type": "object"
+        },
+        "securityContext": {
+          "properties": {},
+          "type": "object"
+        },
+        "serviceAnnotations": {
+          "properties": {},
+          "type": "object"
+        },
+        "serviceMonitor": {
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "tolerations": {
+          "type": "array"
+        },
+        "verbosity": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "kubeScheduler": {
+      "properties": {
+        "affinity": {
+          "properties": {},
+          "type": "object"
+        },
+        "image": {
+          "properties": {
+            "pullPolicy": {
+              "type": "string"
+            },
+            "repository": {
+              "type": "string"
+            },
+            "tag": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "nodeSelector": {
+          "properties": {},
+          "type": "object"
+        },
+        "podAnnotations": {
+          "properties": {},
+          "type": "object"
+        },
+        "podLabels": {
+          "properties": {},
+          "type": "object"
+        },
+        "podSecurityContext": {
+          "properties": {},
+          "type": "object"
+        },
+        "replicaCount": {
+          "type": "integer"
+        },
+        "resources": {
+          "properties": {},
+          "type": "object"
+        },
+        "securityContext": {
+          "properties": {},
+          "type": "object"
+        },
+        "serviceAnnotations": {
+          "properties": {},
+          "type": "object"
+        },
+        "serviceMonitor": {
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "tolerations": {
+          "type": "array"
+        },
+        "verbosity": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "kubernetes": {
+      "properties": {
+        "clusterCIDR": {
+          "type": "string"
+        },
+        "serviceIPRange": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "nameOverride": {
+      "type": "string"
+    }
+  },
+  "type": "object"
+}

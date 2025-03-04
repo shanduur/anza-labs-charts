@@ -1,0 +1,116 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "hosted-control-plane.fullname" . }}-api-server
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "hosted-control-plane.labels" . | nindent 4 }}
+spec:
+  issuerRef:
+    kind: Issuer
+    name: {{ include "hosted-control-plane.fullname" . }}-ca
+  commonName: kubernetes
+  subject:
+    organizations:
+      - system:masters
+  duration: 8760h
+  renewBefore: 720h
+  secretName: {{ include "hosted-control-plane.fullname" . }}-api-server
+  secretTemplate:
+    labels: 
+      {{- include "hosted-control-plane.selectorLabels" . | nindent 6 }}
+  usages:
+    - digital signature
+    - key encipherment
+    - server auth
+  dnsNames:
+    - localhost
+    - kubernetes
+    - kubernetes.default
+    - kubernetes.default.svc
+    - kubernetes.default.svc.cluster.local
+    - {{ include "hosted-control-plane.fullname" . }}-apiserver
+    - {{ include "hosted-control-plane.fullname" . }}-apiserver.{{ .Release.Namespace }}
+    - {{ include "hosted-control-plane.fullname" . }}-apiserver.{{ .Release.Namespace }}.svc
+    - {{ include "hosted-control-plane.fullname" . }}-apiserver.{{ .Release.Namespace }}.svc.cluster.local
+    {{- if .Values.ingress.enabled -}}
+      {{- range .Values.ingress.hosts }}
+        {{- printf "- %s" .host | nindent 4 }}
+      {{- end }}
+    {{- end }}
+  ipAddresses:
+    - 127.0.0.1
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "hosted-control-plane.fullname" . }}-sa
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "hosted-control-plane.labels" . | nindent 4 }}
+spec:
+  issuerRef:
+    kind: Issuer
+    name: {{ include "hosted-control-plane.fullname" . }}-ca
+  commonName: Kubernetes
+  subject:
+    organizations:
+      - system:serviceaccounts
+  duration: 8760h
+  renewBefore: 720h
+  secretName: {{ include "hosted-control-plane.fullname" . }}-sa
+  secretTemplate:
+    labels: 
+      {{- include "hosted-control-plane.selectorLabels" . | nindent 6 }}
+  dnsNames:
+    - localhost
+    - kubernetes
+    - kubernetes.default
+    - kubernetes.default.svc
+    - kubernetes.default.svc.cluster.local
+    - {{ include "hosted-control-plane.fullname" . }}-apiserver
+    - {{ include "hosted-control-plane.fullname" . }}-apiserver.{{ .Release.Namespace }}
+    - {{ include "hosted-control-plane.fullname" . }}-apiserver.{{ .Release.Namespace }}.svc
+    - {{ include "hosted-control-plane.fullname" . }}-apiserver.{{ .Release.Namespace }}.svc.cluster.local
+    {{- if .Values.ingress.enabled -}}
+      {{- range .Values.ingress.hosts }}
+        {{- printf "- %s" .host | nindent 4 }}
+      {{- end }}
+    {{- end }}
+  ipAddresses:
+    - 127.0.0.1
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "hosted-control-plane.fullname" . }}-etcd-client
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "hosted-control-plane.labels" . | nindent 4 }}
+spec:
+  issuerRef:
+    kind: Issuer
+    name: {{ include "hosted-control-plane.fullname" . }}-etcd
+  commonName: Kubernetes
+  subject:
+    organizations:
+      - apiserver
+  duration: 8760h
+  renewBefore: 720h
+  secretName: {{ include "hosted-control-plane.fullname" . }}-etcd-client
+  secretTemplate:
+    labels: 
+      {{- include "hosted-control-plane.selectorLabels" . | nindent 6 }}
+  usages:
+    - digital signature
+    - key encipherment
+    - client auth
+  dnsNames:
+    - localhost
+    - {{ include "hosted-control-plane.fullname" . }}-kine
+    - {{ include "hosted-control-plane.fullname" . }}-kine.{{ .Release.Namespace }}
+    - {{ include "hosted-control-plane.fullname" . }}-kine.{{ .Release.Namespace }}.svc
+    - {{ include "hosted-control-plane.fullname" . }}-kine.{{ .Release.Namespace }}.svc.cluster.local
+  ipAddresses:
+    - 127.0.0.1

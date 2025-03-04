@@ -1,0 +1,26 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "hosted-control-plane.fullname" . }}-controller-manager-cert
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "hosted-control-plane.labels" . | nindent 4 }}
+spec:
+  issuerRef:
+    kind: Issuer
+    name: {{ include "hosted-control-plane.fullname" . }}-ca
+  commonName: system:kube-controller-manager
+  subject:
+    organizations:
+      - system:kube-controller-manager
+  duration: 8760h
+  renewBefore: 720h
+  secretName: {{ include "hosted-control-plane.fullname" . }}-controller-manager-cert
+  secretTemplate:
+    labels: 
+      {{- include "hosted-control-plane.selectorLabels" . | nindent 6 }}
+  usages:
+    - digital signature
+    - key encipherment
+    - client auth

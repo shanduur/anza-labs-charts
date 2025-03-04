@@ -1,0 +1,129 @@
+{{- if .Values.certificates.selfSigned }}
+---
+apiVersion: cert-manager.io/v1
+kind: {{ include "hosted-control-plane.issuer.kind" . }}
+metadata:
+  name: {{ include "hosted-control-plane.issuer.name" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "hosted-control-plane.labels" . | nindent 4 }}
+spec:
+  selfSigned: {}
+{{- end }}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "hosted-control-plane.fullname" . }}-ca
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "hosted-control-plane.labels" . | nindent 4 }}
+spec:
+  issuerRef:
+    kind: {{ include "hosted-control-plane.issuer.kind" . }}
+    name: {{ include "hosted-control-plane.issuer.name" . }}
+  isCA: true
+  commonName: Kubernetes API
+  duration: 87600h
+  renewBefore: 720h
+  privateKey:
+    algorithm: RSA
+    size: 2048
+  secretName: {{ include "hosted-control-plane.fullname" . }}-ca
+  secretTemplate:
+    labels: 
+      {{- include "hosted-control-plane.selectorLabels" . | nindent 6 }}
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: {{ include "hosted-control-plane.fullname" . }}-ca
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "hosted-control-plane.labels" . | nindent 4 }}
+spec:
+  ca:
+    secretName: {{ include "hosted-control-plane.fullname" . }}-ca
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "hosted-control-plane.fullname" . }}-proxy
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "hosted-control-plane.labels" . | nindent 4 }}
+spec:
+  issuerRef:
+    kind: {{ include "hosted-control-plane.issuer.kind" . }}
+    name: {{ include "hosted-control-plane.issuer.name" . }}
+  isCA: true
+  commonName: Front-End Proxy
+  duration: 87600h
+  renewBefore: 720h
+  privateKey:
+    algorithm: RSA
+    size: 2048
+  secretName: {{ include "hosted-control-plane.fullname" . }}-proxy
+  secretTemplate:
+    labels: 
+      {{- include "hosted-control-plane.selectorLabels" . | nindent 6 }}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "hosted-control-plane.fullname" . }}-etcd
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "hosted-control-plane.labels" . | nindent 4 }}
+spec:
+  issuerRef:
+    kind: {{ include "hosted-control-plane.issuer.kind" . }}
+    name: {{ include "hosted-control-plane.issuer.name" . }}
+  isCA: true
+  commonName: ETCD CA
+  duration: 87600h
+  renewBefore: 720h
+  privateKey:
+    algorithm: RSA
+    size: 2048
+  secretName: {{ include "hosted-control-plane.fullname" . }}-etcd
+  secretTemplate:
+    labels: 
+      {{- include "hosted-control-plane.selectorLabels" . | nindent 6 }}
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: {{ include "hosted-control-plane.fullname" . }}-etcd
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "hosted-control-plane.labels" . | nindent 4 }}
+spec:
+  ca:
+    secretName: {{ include "hosted-control-plane.fullname" . }}-etcd
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "hosted-control-plane.fullname" . }}-admin-cert
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "hosted-control-plane.labels" . | nindent 4 }}
+spec:
+  issuerRef:
+    kind: Issuer
+    name: {{ include "hosted-control-plane.fullname" . }}-ca
+  commonName: cluster-admin
+  subject:
+    organizations:
+      - system:masters
+  duration: 8760h
+  renewBefore: 720h
+  secretName: {{ include "hosted-control-plane.fullname" . }}-admin-cert
+  secretTemplate:
+    labels:
+      {{- include "hosted-control-plane.selectorLabels" . | nindent 6 }}
+  usages:
+    - digital signature
+    - key encipherment
+    - client auth

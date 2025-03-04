@@ -1,0 +1,22 @@
+{{- if .Values.kubeApiserver.serviceMonitor.enabled -}}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "hosted-control-plane.fullname" . }}-apiserver
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "hosted-control-plane.labels" . | nindent 4 }}
+    {{- include "hosted-control-plane.apiserver.labels" . | nindent 4 }}
+spec:
+  endpoints:
+    - path: /metrics
+      port: server
+      scheme: https
+      bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+      tlsConfig:
+        insecureSkipVerify: true
+  selector:
+    matchLabels:
+      {{- include "hosted-control-plane.selectorLabels" . | nindent 6 }}
+      {{- include "hosted-control-plane.apiserver.labels" . | nindent 6 }}
+{{- end }}
