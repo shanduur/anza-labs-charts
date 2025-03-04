@@ -9,8 +9,17 @@
     {
       "automerge": false,
       "matchManagers": [
-        "helm-values",
-        "regex"
+        "helm-values"
+      ],
+      "labels": [
+        "area/dependency",
+        "do-not-merge"
+      ]
+    },
+    {
+      "automerge": false,
+      "matchDatasources": [
+        "docker"
       ],
       "labels": [
         "area/dependency",

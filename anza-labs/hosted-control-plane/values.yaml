@@ -1,6 +1,6 @@
 kubernetes:
   # -- Version of the Kubernetes Control Plane.
-  # renovate: datasource=github-tags depName=kubernetes/kubernetes
+  # renovate: datasource=docker depName=registry.k8s.io/kube-apiserver
   version: v1.32.0
   # -- Set the cluster CIDR.
   clusterCIDR: 10.200.0.0/16

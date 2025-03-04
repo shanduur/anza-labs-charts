@@ -5,7 +5,7 @@ description: |
   _hosted-control-plane_ is a PoC/testing ground for any improvements that might
   reach KinK Control-Plane provider manifests.
 home: https://github.com/anza-labs/kink
-version: 0.1.1
+version: 0.1.2
 appVersion: "v1.32.0"
 maintainers:
   - name: Mateusz Urbanek
