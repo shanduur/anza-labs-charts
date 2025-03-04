@@ -3,6 +3,27 @@ entries:
   hosted-control-plane:
   - apiVersion: v2
     appVersion: v1.32.0
+    created: "2025-03-04T11:39:59.214111981Z"
+    dependencies:
+    - condition: cert-manager.deploy
+      name: cert-manager
+      repository: https://charts.jetstack.io
+      version: '>=v1.16.0'
+    description: '_hosted-control-plane_ is a PoC/testing ground for any improvements
+      that might reach KinK Control-Plane provider manifests. '
+    digest: a314610bd07ae2c376f6f8d9148ca9cb4e7925c1dcf6fc8ff48311b15aae3928
+    home: https://github.com/anza-labs/kink
+    maintainers:
+    - email: matueusz.urbanek.98@gmail.com
+      name: Mateusz Urbanek
+      url: http://linkedin.com/in/urbanekmateusz
+    name: hosted-control-plane
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/hosted-control-plane-0.1.2/hosted-control-plane-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: v1.32.0
     created: "2025-03-04T11:32:46.681578365Z"
     dependencies:
     - condition: cert-manager.deploy
@@ -799,4 +820,4 @@ entries:
     urls:
     - https://github.com/anza-labs/charts/releases/download/scribe-0.1.0/scribe-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-04T11:32:46.681693201Z"
+generated: "2025-03-04T11:39:59.214223941Z"
