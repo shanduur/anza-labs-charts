@@ -14,12 +14,12 @@ image:
 kvm:
   # -- Name of the KVM device requested. Should be one of:
   # `"devices.kubevirt.io/kvm"` when using https://github.com/kubevirt/kubernetes-device-plugins,
-  # `"devices.anza-labs.com/kvm"` when using https://github.com/anza-labs/kvm-device-plugin.
-  name: "devices.anza-labs.com/kvm"
+  # `"devices.anza-labs.dev/kvm"` when using https://github.com/anza-labs/kvm-device-plugin.
+  name: "devices.anza-labs.dev/kvm"
 
 tap:
   # -- Name of the TAP device requested.
-  name: "devices.anza-labs.com/tap"
+  name: "devices.anza-labs.dev/tap"
 
 config:
   machine:
