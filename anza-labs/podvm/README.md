@@ -1,6 +1,6 @@
 # podvm
 
-![Version: 0.0.0-alpha.1](https://img.shields.io/badge/Version-0.0.0--alpha.1-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: 1.10.1](https://img.shields.io/badge/AppVersion-1.10.1-informational?style=flat)
+![Version: 0.0.0-alpha.2](https://img.shields.io/badge/Version-0.0.0--alpha.2-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: 1.10.1](https://img.shields.io/badge/AppVersion-1.10.1-informational?style=flat)
 
 _podvm_ is a PoC/testing ground for any improvements that might
 reach Cluster API Infrastructure Provider KinK manifests.
@@ -25,7 +25,7 @@ reach Cluster API Infrastructure Provider KinK manifests.
 | image.repository | string | `"ghcr.io/anza-labs/library/firecracker"` | Registry and repository for the podvm image. |
 | image.tag | string | `"1.10.1"` | Tag for the image. |
 | imagePullSecrets | list | `[]` | Secrets for pulling images. |
-| kvm.name | string | `"linux.anza-labs.com/kvm"` | Name of the KVM device requested. Should be one of: `"devices.kubevirt.io/kvm"` when using https://github.com/kubevirt/kubernetes-device-plugins, `"linux.anza-labs.com/kvm"` when using https://github.com/anza-labs/kvm-device-plugin. |
+| kvm.name | string | `"devices.anza-labs.com/kvm"` | Name of the KVM device requested. Should be one of: `"devices.kubevirt.io/kvm"` when using https://github.com/kubevirt/kubernetes-device-plugins, `"devices.anza-labs.com/kvm"` when using https://github.com/anza-labs/kvm-device-plugin. |
 | nameOverride | string | `""` | Override for the name. |
 | nodeSelector | object | `{}` | Node selector for the pods. |
 | podAnnotations | object | `{}` | Annotations to be added to the pods. |
@@ -33,6 +33,6 @@ reach Cluster API Infrastructure Provider KinK manifests.
 | podSecurityContext | object | `{}` |  |
 | replicaCount | int | `1` | Number of replicas for the deployment. |
 | securityContext | object | `{}` |  |
-| tap.name | string | `"linux.anza-labs.com/tap"` | Name of the TAP device requested. |
+| tap.name | string | `"devices.anza-labs.com/tap"` | Name of the TAP device requested. |
 | tolerations | list | `[]` | Tolerations for the pods. |
 
