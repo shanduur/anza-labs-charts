@@ -7,6 +7,30 @@
   ],
   "packageRules": [
     {
+      "paths": [
+        "anza-labs/hosted-control-plane/**"
+      ],
+      "additionalBranchPrefix": "hcp-"
+    },
+    {
+      "paths": [
+        "anza-labs/lubelogger/**"
+      ],
+      "additionalBranchPrefix": "lubelogger-"
+    },
+    {
+      "paths": [
+        "anza-labs/kube-storage-version-migrator/**"
+      ],
+      "additionalBranchPrefix": "ksvm-"
+    },
+    {
+      "paths": [
+        "anza-labs/kamaji/**"
+      ],
+      "additionalBranchPrefix": "kamaji-"
+    },
+    {
       "automerge": false,
       "matchManagers": [
         "helm-values"
