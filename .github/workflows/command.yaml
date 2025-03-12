@@ -62,3 +62,4 @@ jobs:
       - uses: hmarr/auto-approve-action@v4
         with:
           github-token: ${{ secrets.PAT }}
+          pull-request-number: ${{ github.event.issue.number }}
