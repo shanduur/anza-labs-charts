@@ -59,6 +59,8 @@ jobs:
         with:
           github_token: ${{ secrets.PAT }}
           branch: ${{ env.branch }}
+      - run: |
+          sleep 30
       - uses: hmarr/auto-approve-action@v4
         with:
           github-token: ${{ secrets.PAT }}
