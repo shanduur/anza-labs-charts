@@ -7,28 +7,40 @@
   ],
   "packageRules": [
     {
+      "groupName": "hosted-control-plane dependencies",
+      "matchDatasources": [
+        "docker"
+      ],
       "paths": [
         "anza-labs/hosted-control-plane/**"
-      ],
-      "additionalBranchPrefix": "hcp-"
+      ]
     },
     {
+      "groupName": "lubelogger dependencies",
+      "matchDatasources": [
+        "docker"
+      ],
       "paths": [
         "anza-labs/lubelogger/**"
-      ],
-      "additionalBranchPrefix": "lubelogger-"
+      ]
     },
     {
+      "groupName": "kube-storage-version-migrator dependencies",
+      "matchDatasources": [
+        "docker"
+      ],
       "paths": [
         "anza-labs/kube-storage-version-migrator/**"
-      ],
-      "additionalBranchPrefix": "ksvm-"
+      ]
     },
     {
+      "groupName": "kamaji dependencies",
+      "matchDatasources": [
+        "docker"
+      ],
       "paths": [
         "anza-labs/kamaji/**"
-      ],
-      "additionalBranchPrefix": "kamaji-"
+      ]
     },
     {
       "automerge": false,
