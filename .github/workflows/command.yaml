@@ -25,8 +25,16 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
       - run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.COMMIT_SIGNING }}" > ~/.ssh/signing_key
+          chmod 600 ~/.ssh/signing_key
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/signing_key
           git config user.name shanduur-auto
           git config user.email 75127809+shanduur-auto@users.noreply.github.com
+          git config gpg.format ssh
+          git config user.signingkey ~/.ssh/signing_key
+          git config commit.gpgsign true
       - id: extract_info
         env:
           GH_TOKEN: ${{ github.token }}
