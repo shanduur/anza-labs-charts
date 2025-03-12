@@ -1,12 +1,6 @@
 name: autopilot
 
-on:
-  pull_request_target:
-    types:
-      - opened
-      - reopened
-      - synchronize
-      - unlabeled
+on: pull_request_target
 
 jobs:
   auto-approve:
