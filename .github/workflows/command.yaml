@@ -59,3 +59,7 @@ jobs:
         with:
           github_token: ${{ secrets.PAT }}
           branch: ${{ env.branch }}
+      - uses: actions-ecosystem/action-remove-labels@v1
+        with:
+          github_token: ${{ secrets.PAT }}
+          labels: do-not-merge
