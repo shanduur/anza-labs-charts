@@ -686,6 +686,22 @@ entries:
   podvm:
   - apiVersion: v2
     appVersion: 1.10.1
+    created: "2025-03-17T16:08:43.407487215Z"
+    description: '_podvm_ is a PoC/testing ground for any improvements that might
+      reach Cluster API Infrastructure Provider KinK manifests. '
+    digest: 74990a4cb458ea4425f0e93a8db8a26228f5389e51e027450ee499f9d58e402e
+    home: https://anza-labs.github.io/kink
+    maintainers:
+    - email: matueusz.urbanek.98@gmail.com
+      name: Mateusz Urbanek
+      url: http://linkedin.com/in/urbanekmateusz
+    name: podvm
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/podvm-0.0.0-alpha.4/podvm-0.0.0-alpha.4.tgz
+    version: 0.0.0-alpha.4
+  - apiVersion: v2
+    appVersion: 1.10.1
     created: "2025-03-05T13:10:16.221242694Z"
     description: '_podvm_ is a PoC/testing ground for any improvements that might
       reach Cluster API Infrastructure Provider KinK manifests. '
@@ -948,4 +964,4 @@ entries:
     urls:
     - https://github.com/anza-labs/charts/releases/download/scribe-0.1.0/scribe-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-12T11:36:52.621742966Z"
+generated: "2025-03-17T16:08:43.40763983Z"
