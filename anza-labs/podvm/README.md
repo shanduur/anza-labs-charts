@@ -1,6 +1,6 @@
 # podvm
 
-![Version: 0.0.0-alpha.4](https://img.shields.io/badge/Version-0.0.0--alpha.4-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: 1.10.1](https://img.shields.io/badge/AppVersion-1.10.1-informational?style=flat)
+![Version: 0.0.0-alpha.5](https://img.shields.io/badge/Version-0.0.0--alpha.5-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: 1.10.1](https://img.shields.io/badge/AppVersion-1.10.1-informational?style=flat)
 
 _podvm_ is a PoC/testing ground for any improvements that might
 reach Cluster API Infrastructure Provider KinK manifests.

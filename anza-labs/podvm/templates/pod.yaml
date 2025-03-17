@@ -48,6 +48,7 @@ spec:
         envsubst < /etc/firecracker/vmconfig.json > /tmp/generated/vmconfig.json
       securityContext:
         capabilities:
+          drop: ["ALL"]
           add: ["NET_ADMIN"]
       image: "{{ .Values.sidecar.image.repository }}:{{ .Values.sidecar.image.tag }}"
       imagePullPolicy: {{ .Values.sidecar.image.pullPolicy }}
