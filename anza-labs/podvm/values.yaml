@@ -3,30 +3,73 @@
 # -- Number of replicas for the deployment.
 replicaCount: 1
 
-image:
-  # -- Registry and repository for the podvm image.
-  repository: ghcr.io/anza-labs/library/firecracker
-  # -- Tag for the image.
-  tag: "1.10.1"
-  # -- Image pull policy.
-  pullPolicy: IfNotPresent
-
-kvm:
-  # -- Name of the KVM device requested. Should be one of:
-  # `"devices.kubevirt.io/kvm"` when using https://github.com/kubevirt/kubernetes-device-plugins,
-  # `"devices.anza-labs.dev/kvm"` when using https://github.com/anza-labs/kvm-device-plugin.
-  name: "devices.anza-labs.dev/kvm"
-
-tap:
-  # -- Name of the TAP device requested.
-  name: "devices.anza-labs.dev/tap"
-
 config:
   machine:
     # -- Number of VCPUs. Must be integer.
     cpu: 2
     # -- Memory size in mebibytes. Must be integer.
-    memory: 1024
+    memory: 128
+    # -- VM network card MAC address.
+    mac: "02:FC:00:00:00:05"
+
+  kernel:
+    image:
+      # -- Registry and repository for the podvm image.
+      repository: ""
+      # -- Tag for the image.
+      tag: ""
+      # -- Image pull policy.
+      pullPolicy: IfNotPresent
+
+      bootArgs: |-
+        ro console=ttyS0 noapic reboot=k panic=1 pci=off nomodules random.trust_cpu=on
+        ip=${FC_IP}::${TAP_IP}:${MASK_LONG}::eth0:off
+
+  disk:
+    image:
+      # -- Registry and repository for the podvm image.
+      repository: ""
+      # -- Tag for the image.
+      tag: ""
+      # -- Image pull policy.
+      pullPolicy: IfNotPresent
+
+firecracker:
+  image:
+    # -- Registry and repository for the podvm image.
+    repository: ghcr.io/anza-labs/library/firecracker
+    # -- Tag for the image.
+    tag: "1.10.1"
+    # -- Image pull policy.
+    pullPolicy: IfNotPresent
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+sidecar:
+  image:
+    # -- Registry and repository for the podvm image.
+    repository: ghcr.io/anza-labs/library/iproute2
+    # -- Tag for the image.
+    tag: "6.11.0-r0"
+    # -- Image pull policy.
+    pullPolicy: IfNotPresent
+
+kvm:
+  # -- Name of the KVM device requested. Should be one of:
+  # `"devices.kubevirt.io/kvm"` when using https://github.com/kubevirt/kubernetes-device-plugins,
+  # `"devices.anza-labs.dev/kvm"` when using https://github.com/anza-labs/kubelet-device-plugins.
+  name: "devices.anza-labs.dev/kvm"
+
+tun:
+  # -- Name of the TUN device requested.
+  # `"devices.anza-labs.dev/tun"` when using https://github.com/anza-labs/kubelet-device-plugins.
+  name: "devices.anza-labs.dev/tun"
 
 # -- Secrets for pulling images.
 imagePullSecrets: []
@@ -42,14 +85,6 @@ podLabels: {}
 
 podSecurityContext: {}
   # fsGroup: 2000
-
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
 
 # -- Node selector for the pods.
 nodeSelector: {}

@@ -10,9 +10,62 @@ spec:
   imagePullSecrets:
     {{- toYaml . | nindent 4 }}
   {{- end }}
-  serviceAccountName: {{ include "podvm.fullname" . }}
+  # serviceAccountName: {{ include "podvm.fullname" . }}
   securityContext:
     {{- toYaml .Values.podSecurityContext | nindent 4 }}
+  initContainers:
+    - name: network
+      command:
+      - /bin/sh
+      - -c
+      - |
+        set -eux
+
+        while [[ -z "$(ip -j addr show eth0 | jq -r '.[0].addr_info.[] | select(.family == "inet") | .local')" ]]; do
+            echo "Waiting for IP on eth0..."
+            sleep 1
+        done
+
+        POD_IP=$(ip -j addr show eth0 | jq -r '.[0].addr_info.[] | select(.family == "inet") | .local')
+        MASK_SHORT=$(ip -j addr show eth0 | jq -r '.[0].addr_info.[] | select(.family == "inet") | .prefixlen')
+        MASK_LONG=$(ipcalc -m "${POD_IP}/${MASK_SHORT}" | cut -d'=' -f2)
+
+        brctl delbr br0 || true
+        ip link del tap0 2> /dev/null || true
+
+        ip link set eth0 down
+        ip addr flush dev eth0
+        ip addr add "${POD_IP}/${MASK_SHORT}" dev br0
+        
+        ip tuntap add dev tap0 mode tap
+        brctl addbr br0
+        brctl addif br0 eth0
+        brctl addif br0 tap0
+
+        ip link set br0 up
+        ip link set eth0 up
+        ip link set tap0 up
+        envsubst < /etc/firecracker/vmconfig.json > /tmp/generated/vmconfig.json
+      securityContext:
+        capabilities:
+          add: ["NET_ADMIN"]
+      image: "{{ .Values.sidecar.image.repository }}:{{ .Values.sidecar.image.tag }}"
+      imagePullPolicy: {{ .Values.sidecar.image.pullPolicy }}
+      volumeMounts:
+        - name: vmconfig
+          readOnly: true
+          mountPath: /etc/firecracker
+        - name: vmconfig-generated
+          mountPath: /tmp/generated
+      resources:
+        requests:
+          cpu: 50m
+          memory: 64Mi
+          {{- printf "%s: '1'" .Values.tun.name | nindent 10 }}
+        limits:
+          cpu: 100m
+          memory: 64Mi
+          {{- printf "%s: '1'" .Values.tun.name | nindent 10 }}
   containers:
     - name: firecracker
       command:
@@ -22,24 +75,25 @@ spec:
         - --config-file
         - /etc/firecracker/vmconfig.json
       securityContext:
-        {{- toYaml .Values.securityContext | nindent 8 }}
-      image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-      imagePullPolicy: {{ .Values.image.pullPolicy }}
+        {{- toYaml .Values.firecracker.securityContext | nindent 8 }}
+      image: "{{ .Values.firecracker.image.repository }}:{{ .Values.firecracker.image.tag }}"
+      imagePullPolicy: {{ .Values.firecracker.image.pullPolicy }}
       volumeMounts:
-        - name: vmconfig
-          readOnly: true
+        - name: vmconfig-generated
           mountPath: /etc/firecracker
       resources:
         requests:
           memory: "{{ printf "%dMi" (int .Values.config.machine.memory) }}"
-          cpu: "{{ printf "%d" (int .Values.config.machine.cpu) }}"
-          {{- printf "%s: '1'" .Values.kvm.name | nindent 10 }}
-          {{- printf "%s: '1'" .Values.tap.name | nindent 10 }}
+          # cpu: "{{ printf "%d" (int .Values.config.machine.cpu) }}"
+          {{/*- printf "%s: '1'" .Values.kvm.name | nindent 10 */}}
+          {{- printf "%s: '1'" .Values.tun.name | nindent 10 }}
         limits:
           memory: "{{ printf "%dMi" (int .Values.config.machine.memory) }}"
-          {{- printf "%s: '1'" .Values.kvm.name | nindent 10 }}
-          {{- printf "%s: '1'" .Values.tap.name | nindent 10 }}
+          {{/*- printf "%s: '1'" .Values.kvm.name | nindent 10 */}}
+          {{- printf "%s: '1'" .Values.tun.name | nindent 10 }}
   volumes:
+    - name: vmconfig-generated
+      emptyDir: {}
     - name: vmconfig
       configMap:
         name: {{ include "podvm.fullname" . }}

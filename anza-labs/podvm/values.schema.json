@@ -46,10 +46,54 @@
     },
     "config": {
       "properties": {
+        "disk": {
+          "properties": {
+            "image": {
+              "properties": {
+                "pullPolicy": {
+                  "type": "string"
+                },
+                "repository": {
+                  "type": "string"
+                },
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "kernel": {
+          "properties": {
+            "image": {
+              "properties": {
+                "bootArgs": {
+                  "type": "string"
+                },
+                "pullPolicy": {
+                  "type": "string"
+                },
+                "repository": {
+                  "type": "string"
+                },
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
         "machine": {
           "properties": {
             "cpu": {
               "type": "integer"
+            },
+            "mac": {
+              "type": "string"
             },
             "memory": {
               "type": "integer"
@@ -60,22 +104,31 @@
       },
       "type": "object"
     },
-    "fullnameOverride": {
-      "type": "string"
-    },
-    "image": {
+    "firecracker": {
       "properties": {
-        "pullPolicy": {
-          "type": "string"
+        "image": {
+          "properties": {
+            "pullPolicy": {
+              "type": "string"
+            },
+            "repository": {
+              "type": "string"
+            },
+            "tag": {
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
-        "repository": {
-          "type": "string"
-        },
-        "tag": {
-          "type": "string"
+        "securityContext": {
+          "properties": {},
+          "type": "object"
         }
       },
       "type": "object"
+    },
+    "fullnameOverride": {
+      "type": "string"
     },
     "imagePullSecrets": {
       "type": "array"
@@ -110,20 +163,35 @@
     "replicaCount": {
       "type": "integer"
     },
-    "securityContext": {
-      "properties": {},
-      "type": "object"
-    },
-    "tap": {
+    "sidecar": {
       "properties": {
-        "name": {
-          "type": "string"
+        "image": {
+          "properties": {
+            "pullPolicy": {
+              "type": "string"
+            },
+            "repository": {
+              "type": "string"
+            },
+            "tag": {
+              "type": "string"
+            }
+          },
+          "type": "object"
         }
       },
       "type": "object"
     },
     "tolerations": {
       "type": "array"
+    },
+    "tun": {
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"
