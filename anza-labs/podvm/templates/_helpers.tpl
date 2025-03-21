@@ -49,3 +49,27 @@ Selector labels
 app.kubernetes.io/name: {{ include "podvm.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{/*
+Kernel Dir
+*/}}
+{{- define "podvm.kernelDir" -}}
+  {{- $path := (index .Values.config "boot-source") -}}
+  {{- with $path }}
+    {{- $parts := regexSplit "/" .kernel_image_path -1 -}}
+    {{- $dir := join "/" (slice $parts 0 (sub (len $parts) 1)) -}}
+    {{- $dir -}}
+  {{- end }}
+{{- end -}}
+
+{{/*
+Rootfs Dir
+*/}}
+{{- define "podvm.rootfsDir" -}}
+  {{- $path := (index .Values.config.drives 0 ) -}}
+  {{- with $path }}
+    {{- $parts := regexSplit "/" .path_on_host -1 -}}
+    {{- $dir := join "/" (slice $parts 0 (sub (len $parts) 1)) -}}
+    {{- $dir -}}
+  {{- end }}
+{{- end -}}

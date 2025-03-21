@@ -46,60 +46,98 @@
     },
     "config": {
       "properties": {
-        "disk": {
-          "properties": {
-            "image": {
-              "properties": {
-                "pullPolicy": {
-                  "type": "string"
-                },
-                "repository": {
-                  "type": "string"
-                },
-                "tag": {
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "type": "object"
+        "balloon": {
+          "type": "string"
         },
-        "kernel": {
+        "boot-source": {
           "properties": {
-            "image": {
-              "properties": {
-                "bootArgs": {
-                  "type": "string"
-                },
-                "pullPolicy": {
-                  "type": "string"
-                },
-                "repository": {
-                  "type": "string"
-                },
-                "tag": {
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "type": "object"
-        },
-        "machine": {
-          "properties": {
-            "cpu": {
-              "type": "integer"
-            },
-            "mac": {
+            "boot_args": {
               "type": "string"
             },
-            "memory": {
+            "initrd_path": {
+              "type": "string"
+            },
+            "kernel_image_path": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "cpu-config": {
+          "type": "string"
+        },
+        "drives": {
+          "items": {
+            "properties": {
+              "cache_type": {
+                "type": "string"
+              },
+              "drive_id": {
+                "type": "string"
+              },
+              "io_engine": {
+                "type": "string"
+              },
+              "is_read_only": {
+                "type": "boolean"
+              },
+              "is_root_device": {
+                "type": "boolean"
+              },
+              "partuuid": {
+                "type": "string"
+              },
+              "path_on_host": {
+                "type": "string"
+              },
+              "rate_limiter": {
+                "type": "string"
+              },
+              "socket": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "entropy": {
+          "type": "string"
+        },
+        "logger": {
+          "type": "string"
+        },
+        "machine-config": {
+          "properties": {
+            "huge_pages": {
+              "type": "string"
+            },
+            "mem_size_mib": {
+              "type": "integer"
+            },
+            "smt": {
+              "type": "boolean"
+            },
+            "track_dirty_pages": {
+              "type": "boolean"
+            },
+            "vcpu_count": {
               "type": "integer"
             }
           },
           "type": "object"
+        },
+        "metrics": {
+          "type": "string"
+        },
+        "mmds-config": {
+          "type": "string"
+        },
+        "network-interfaces": {
+          "type": "array"
+        },
+        "vsock": {
+          "type": "string"
         }
       },
       "type": "object"
@@ -133,6 +171,25 @@
     "imagePullSecrets": {
       "type": "array"
     },
+    "kernel": {
+      "properties": {
+        "image": {
+          "properties": {
+            "pullPolicy": {
+              "type": "string"
+            },
+            "repository": {
+              "type": "string"
+            },
+            "tag": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
     "kvm": {
       "properties": {
         "name": {
@@ -163,7 +220,7 @@
     "replicaCount": {
       "type": "integer"
     },
-    "sidecar": {
+    "rootfs": {
       "properties": {
         "image": {
           "properties": {
@@ -192,6 +249,12 @@
         }
       },
       "type": "object"
+    },
+    "volumeMounts": {
+      "type": "array"
+    },
+    "volumes": {
+      "type": "array"
     }
   },
   "type": "object"
