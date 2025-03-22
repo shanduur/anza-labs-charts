@@ -156,6 +156,55 @@ entries:
             - linux/amd64
             - linux/arm64
     apiVersion: v2
+    appVersion: edge-25.3.2
+    created: "2025-03-22T08:47:12.773654219Z"
+    dependencies:
+    - condition: kamaji-etcd.deploy
+      name: kamaji-etcd
+      repository: https://clastix.github.io/charts
+      version: '>=0.8.1'
+    description: '_Kamaji_ is the Kubernetes Control Plane Manager. '
+    digest: 056a9b31a300d1dca9468d40d4f3f6b429aaec722539c1d94dad3df79e24226b
+    home: https://kamaji.clastix.io
+    maintainers:
+    - email: matueusz.urbanek.98@gmail.com
+      name: Mateusz Urbanek
+      url: http://linkedin.com/in/urbanekmateusz
+    name: kamaji
+    sources:
+    - https://github.com/clastix/kamaji
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/kamaji-0.1.3/kamaji-0.1.3.tgz
+    version: 0.1.3
+  - annotations:
+      artifacthub.io/images: |
+        - name: proxy-server
+          image: registry.k8s.io/kas-network-proxy/proxy-server:v0.28.6
+          platforms:
+            - linux/amd64
+            - linux/arm64
+        - name: kamaji
+          image: docker.io/clastix/kamaji:edge-24.12.1
+          platforms:
+            - linux/amd64
+            - linux/arm64
+        - name: kube-apiserver
+          image: registry.k8s.io/kube-apiserver:v1.28.6
+          platforms:
+            - linux/amd64
+            - linux/arm64
+        - name: kube-controller-manager
+          image: registry.k8s.io/kube-controller-manager:v1.28.6
+          platforms:
+            - linux/amd64
+            - linux/arm64
+        - name: kube-scheduler
+          image: registry.k8s.io/kube-scheduler:v1.28.6
+          platforms:
+            - linux/amd64
+            - linux/arm64
+    apiVersion: v2
     appVersion: edge-24.12.1
     created: "2025-03-22T08:08:30.916667359Z"
     dependencies:
@@ -1043,4 +1092,4 @@ entries:
     urls:
     - https://github.com/anza-labs/charts/releases/download/scribe-0.1.0/scribe-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-22T08:08:30.916814765Z"
+generated: "2025-03-22T08:47:12.773778422Z"
