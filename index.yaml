@@ -157,6 +157,55 @@ entries:
             - linux/arm64
     apiVersion: v2
     appVersion: edge-24.12.1
+    created: "2025-03-22T08:08:30.916667359Z"
+    dependencies:
+    - condition: kamaji-etcd.deploy
+      name: kamaji-etcd
+      repository: https://clastix.github.io/charts
+      version: '>=0.8.1'
+    description: '_Kamaji_ is the Kubernetes Control Plane Manager. '
+    digest: dcbf53521341e9bb621af7de96cb1ade26860e556450738a90af81ef89cfd67e
+    home: https://kamaji.clastix.io
+    maintainers:
+    - email: matueusz.urbanek.98@gmail.com
+      name: Mateusz Urbanek
+      url: http://linkedin.com/in/urbanekmateusz
+    name: kamaji
+    sources:
+    - https://github.com/clastix/kamaji
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/kamaji-0.1.2/kamaji-0.1.2.tgz
+    version: 0.1.2
+  - annotations:
+      artifacthub.io/images: |
+        - name: proxy-server
+          image: registry.k8s.io/kas-network-proxy/proxy-server:v0.28.6
+          platforms:
+            - linux/amd64
+            - linux/arm64
+        - name: kamaji
+          image: docker.io/clastix/kamaji:edge-24.12.1
+          platforms:
+            - linux/amd64
+            - linux/arm64
+        - name: kube-apiserver
+          image: registry.k8s.io/kube-apiserver:v1.28.6
+          platforms:
+            - linux/amd64
+            - linux/arm64
+        - name: kube-controller-manager
+          image: registry.k8s.io/kube-controller-manager:v1.28.6
+          platforms:
+            - linux/amd64
+            - linux/arm64
+        - name: kube-scheduler
+          image: registry.k8s.io/kube-scheduler:v1.28.6
+          platforms:
+            - linux/amd64
+            - linux/arm64
+    apiVersion: v2
+    appVersion: edge-24.12.1
     created: "2025-02-03T20:06:54.088765Z"
     dependencies:
     - condition: kamaji-etcd.deploy
@@ -994,4 +1043,4 @@ entries:
     urls:
     - https://github.com/anza-labs/charts/releases/download/scribe-0.1.0/scribe-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-21T12:22:14.02280916Z"
+generated: "2025-03-22T08:08:30.916814765Z"
