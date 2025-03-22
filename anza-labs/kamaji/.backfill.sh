@@ -21,3 +21,7 @@ while IFS= read -r CRD; do
     curl -fsSL "https://raw.githubusercontent.com/clastix/kamaji/refs/tags/${VERSION}/${CRD}" > "${CRD_FILE}"
     "${YQ}" '.' "${CRD_FILE}" -i
 done <<< "${CRDS}"
+
+curl -fsSL "https://raw.githubusercontent.com/clastix/kamaji/refs/tags/${VERSION}/charts/kamaji/Chart.yaml" > Chart.tmp.yaml
+"${YQ}" '.dependencies = load("./Chart.tmp.yaml").dependencies' './Chart.yaml' -i
+rm -rf Chart.tmp.yaml

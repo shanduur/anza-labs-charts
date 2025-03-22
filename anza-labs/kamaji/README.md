@@ -1,6 +1,6 @@
 # kamaji
 
-![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: edge-25.3.2](https://img.shields.io/badge/AppVersion-edge--25.3.2-informational?style=flat)
+![Version: 0.1.4](https://img.shields.io/badge/Version-0.1.4-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: edge-25.3.2](https://img.shields.io/badge/AppVersion-edge--25.3.2-informational?style=flat)
 
 _Kamaji_ is the Kubernetes Control Plane Manager.
 
@@ -20,7 +20,7 @@ _Kamaji_ is the Kubernetes Control Plane Manager.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://clastix.github.io/charts | kamaji-etcd | >=0.8.1 |
+| https://clastix.github.io/charts | kamaji-etcd | >=0.9.2 |
 
 ## Values
 

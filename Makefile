@@ -13,7 +13,7 @@ SHELL = /usr/bin/env bash -o pipefail
 .SHELLFLAGS = -ec
 
 .PHONY: all
-all: backfill-all-app-versions generate-schemas generate-docs readme
+all: backfill-all-app-versions update-dependencies generate-schemas generate-docs readme
 
 ##@ General
 
@@ -43,11 +43,12 @@ cluster-reset: kind ctlptl
 	@PATH=${LOCALBIN}:$(PATH) $(CTLPTL) delete -f hack/kind.yaml
 
 .PHONY: ci
-ci: _ci _generate-schema _generate-docs readme
+ci: update-repos _ci _generate-schema _generate-docs readme
 
 .PHONY: _ci
 _ci:
 	$(MAKE) _backfill-app-version CHART=${CHART}
+	$(MAKE) _update-dependencies CHART=${CHART}
 	$(MAKE) _set-chart-version VERSION=${VERSION}
 
 .PHONY: readme
@@ -65,6 +66,17 @@ _backfill-app-version: yq
 .PHONY: _set-chart-version
 _set-chart-version: yq
 	cd ${CHART}; $(YQ) ".version = \"${VERSION}\"" './Chart.yaml' -i
+
+.PHONY: repos
+update-repos:
+	./hack/repos.sh ./anza-labs
+
+.PHONY: dependencies
+update-dependencies: update-repos yq ## Update chart dependencies
+	for dir in anza-labs/*; do $(MAKE) _update-dependencies CHART="$$dir"; done
+
+_update-dependencies: yq
+	cd ${CHART}; helm dependency update --skip-refresh .
 
 .PHONY: generate-docs
 generate-docs: helm-docs ## Run kube-linter on Kubernetes manifests.

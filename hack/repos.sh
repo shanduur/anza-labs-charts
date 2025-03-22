@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eou
+set -eu
 
 CHARTS="$1"
 

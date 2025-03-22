@@ -43,6 +43,7 @@ jobs:
           make lint-manifests
       - run: |
           make \
+            update-dependencies \
             generate-docs \
             generate-schemas \
             readme \
