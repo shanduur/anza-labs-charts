@@ -23,7 +23,7 @@ ingress:
   # -- Specifies whether ingress should be enabled.
   enabled: true
   # -- Specifies the default host FQDN.
-  defualtHost: hosted-control-plane.example.local
+  defaultHost: hosted-control-plane.example.local
   # -- Ingress class name.
   className: ""
   # -- Annotations to add to the ingress.
@@ -114,6 +114,102 @@ kubeApiserver:
   serviceMonitor:
     # -- Enable Prometheus ServiceMonitor.
     enabled: false
+
+konnectivity:
+  server:
+    image:
+      # -- Registry and repository for the kas-network-proxy server image.
+      repository: registry.k8s.io/kas-network-proxy/proxy-server
+      # -- Tag for the image.
+      tag: "v0.32.0"
+      # -- Image pull policy.
+      pullPolicy: IfNotPresent
+
+    # -- Set log verbosity of the component.
+    verbosity: 4
+
+    securityContext: {}
+      # capabilities:
+      #   drop:
+      #   - ALL
+      # readOnlyRootFilesystem: true
+      # runAsNonRoot: true
+      # runAsUser: 1000
+
+    resources: {}
+      # We usually recommend not to specify default resources and to leave this as a conscious
+      # choice for the user. This also increases chances charts run on environments with little
+      # resources, such as Minikube. If you do want to specify resources, uncomment the following
+      # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+      # limits:
+      #   cpu: 100m
+      #   memory: 128Mi
+      # requests:
+      #   cpu: 100m
+      #   memory: 128Mi
+
+  agent:
+    image:
+      # -- Registry and repository for the kas-network-proxy agent image.
+      repository: registry.k8s.io/kas-network-proxy/proxy-agent
+      # -- Tag for the image.
+      tag: "v0.32.0"
+      # -- Image pull policy.
+      pullPolicy: IfNotPresent
+
+    # -- Set log verbosity of the component.
+    verbosity: 4
+
+  installer:
+    # -- Type of generated secret.
+    secretType: Opaque
+
+    image:
+      # -- Registry and repository for the kine image.
+      repository: docker.io/bitnami/kubectl
+      # -- Tag for the image.
+      tag: "1.32.3"
+      # -- Image pull policy.
+      pullPolicy: IfNotPresent
+
+    # -- Annotations to be added to the pods.
+    podAnnotations: {}
+    # -- Labels to be added to the pods.
+    podLabels: {}
+    # -- Annotations to be added to the services.
+    serviceAnnotations: {}
+      # prometheus.io/scrape: 'true'
+      # prometheus.io/path: '/metrics'
+      # prometheus.io/port: '8080'
+
+    podSecurityContext: {}
+      # fsGroup: 2000
+
+    securityContext: {}
+      # capabilities:
+      #   drop:
+      #   - ALL
+      # readOnlyRootFilesystem: true
+      # runAsNonRoot: true
+      # runAsUser: 1000
+
+    resources: {}
+      # We usually recommend not to specify default resources and to leave this as a conscious
+      # choice for the user. This also increases chances charts run on environments with little
+      # resources, such as Minikube. If you do want to specify resources, uncomment the following
+      # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+      # limits:
+      #   cpu: 100m
+      #   memory: 128Mi
+      # requests:
+      #   cpu: 100m
+      #   memory: 128Mi
+
+    # -- Node selector for the pods.
+    nodeSelector: {}
+
+    # -- Tolerations for the pods.
+    tolerations: []
 
 kubeControllerManager:
   # -- Number of replicas for the deployment.

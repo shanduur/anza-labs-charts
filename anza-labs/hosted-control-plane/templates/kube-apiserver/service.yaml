@@ -7,11 +7,16 @@ metadata:
     {{- include "hosted-control-plane.labels" . | nindent 4 }}
     {{- include "hosted-control-plane.apiserver.labels" . | nindent 4 }}
 spec:
+  type: LoadBalancer
   ports:
     - name: server
       port: 6443
       protocol: TCP
       targetPort: server
+    - name: agent
+      port: 8132
+      protocol: TCP
+      targetPort: agent
   selector:
     {{- include "hosted-control-plane.selectorLabels" . | nindent 4 }}
     {{- include "hosted-control-plane.apiserver.labels" . | nindent 4 }}

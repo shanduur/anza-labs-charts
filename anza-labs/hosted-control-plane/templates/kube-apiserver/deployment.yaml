@@ -50,6 +50,7 @@ spec:
             - --etcd-servers=https://{{ include "hosted-control-plane.fullname" . }}-kine.{{ .Release.Namespace }}.svc.cluster.local:2379
             - --authorization-mode=Node,RBAC
             - --service-cluster-ip-range={{ .Values.kubernetes.serviceIPRange }}
+            - --egress-selector-config-file=/etc/konnectivity/egress-selector-configuration.yaml
           securityContext:
             {{- toYaml .Values.kubeApiserver.securityContext | nindent 12 }}
           image: "{{ .Values.kubeApiserver.image.repository }}:{{ $tag }}"
@@ -71,6 +72,9 @@ spec:
             - name: service-accounts-cert
               readOnly: true
               mountPath: /etc/pki/service-accounts
+            - name: configs
+              readOnly: true
+              mountPath: /etc/konnectivity
           startupProbe:
             httpGet:
               path: /livez
@@ -91,6 +95,61 @@ spec:
             initialDelaySeconds: 10
           resources:
             {{- toYaml .Values.kubeApiserver.resources | nindent 12 }}
+        - name: konnectivity
+          command:
+            - /proxy-server
+          args:
+            - --v={{ .Values.konnectivity.server.verbosity }}
+            - --mode=grpc
+            - --cluster-cert=/etc/pki/kubernetes/tls.crt
+            - --cluster-key=/etc/pki/kubernetes/tls.key
+            - --uds-name=/etc/kubernetes/konnectivity-server/konnectivity-server.socket
+            - --delete-existing-uds-file=true
+            - --server-port=0
+            - --agent-port=8132
+            - --admin-port=8133
+            - --health-port=8134
+            - --agent-namespace=kube-system
+            - --agent-service-account=konnectivity-agent
+            - --kubeconfig=/etc/kubernetes/value
+            - --authentication-audience=system:konnectivity-server
+          securityContext:
+            {{- toYaml .Values.konnectivity.server.securityContext | nindent 12 }}
+          image: "{{ .Values.konnectivity.server.image.repository }}:{{ .Values.konnectivity.server.image.tag }}"
+          imagePullPolicy: {{ .Values.konnectivity.server.image.pullPolicy }}
+          ports:
+            - name: agent
+              containerPort: 8132
+              protocol: TCP
+            - name: admin
+              containerPort: 8133
+              protocol: TCP
+            - name: health
+              containerPort: 8134
+              protocol: TCP
+          volumeMounts:
+            - name: uds
+              mountPath: /etc/kubernetes/konnectivity-server
+            - name: root-ca
+              readOnly: true
+              mountPath: /etc/pki/kubernetes
+            - name: kubeconfig
+              readOnly: true
+              mountPath: /etc/kubernetes
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: health
+              scheme: HTTP
+            initialDelaySeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: health
+              scheme: HTTP
+            initialDelaySeconds: 10
+          resources:
+            {{- toYaml .Values.konnectivity.server.resources | nindent 12 }}
       volumes:
         - name: etcd
           secret:
@@ -108,6 +167,15 @@ spec:
           secret:
             secretName: {{ include "hosted-control-plane.fullname" . }}-sa
             defaultMode: 420
+        - name: kubeconfig
+          secret:
+            secretName: {{ include "hosted-control-plane.fullname" . }}-konnectivity-kubeconfig
+            defaultMode: 420
+        - name: uds
+          emptyDir: {}
+        - name: configs
+          configMap:
+            name: {{ include "hosted-control-plane.fullname" . }}-configs-{{ .Release.Revision }}
       {{- with .Values.kubeApiserver.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

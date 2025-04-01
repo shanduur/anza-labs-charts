@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "hosted-control-plane.fullname" . }}-configs-{{ .Release.Revision }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "hosted-control-plane.labels" . | nindent 4 }}
+    {{- include "hosted-control-plane.apiserver.labels" . | nindent 4 }}
+data:
+  egress-selector-configuration.yaml: |
+    {{- tpl (.Files.Get "static/egress-selector-configuration.yaml") . | nindent 4}}
+

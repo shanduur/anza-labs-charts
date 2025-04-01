@@ -1,6 +1,6 @@
 # hosted-control-plane
 
-![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v1.32.3](https://img.shields.io/badge/AppVersion-v1.32.3-informational?style=flat)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v1.32.3](https://img.shields.io/badge/AppVersion-v1.32.3-informational?style=flat)
 
 _hosted-control-plane_ is a PoC/testing ground for any improvements that might
 reach Cluster API Control Plane Provider KinK manifests.
@@ -43,7 +43,7 @@ reach Cluster API Control Plane Provider KinK manifests.
 | imagePullSecrets | list | `[]` | Secrets for pulling images. |
 | ingress.annotations | object | `{}` | Annotations to add to the ingress. |
 | ingress.className | string | `""` | Ingress class name. |
-| ingress.defualtHost | string | `"hosted-control-plane.example.local"` | Specifies the default host FQDN. |
+| ingress.defaultHost | string | `"hosted-control-plane.example.local"` | Specifies the default host FQDN. |
 | ingress.enabled | bool | `true` | Specifies whether ingress should be enabled. |
 | ingress.hosts | list | `[{"host":"hosted-control-plane.example.local","paths":[{"path":"/","pathType":"ImplementationSpecific"}]}]` | List of ingress hosts. |
 | ingress.tls | list | `[]` | List of TLS configurations for the ingress. |
@@ -60,6 +60,28 @@ reach Cluster API Control Plane Provider KinK manifests.
 | kine.serviceAnnotations | object | `{}` | Annotations to be added to the services. |
 | kine.serviceMonitor.enabled | bool | `false` | Enable Prometheus ServiceMonitor. |
 | kine.tolerations | list | `[]` | Tolerations for the pods. |
+| konnectivity.agent.image.pullPolicy | string | `"IfNotPresent"` | Image pull policy. |
+| konnectivity.agent.image.repository | string | `"registry.k8s.io/kas-network-proxy/proxy-agent"` | Registry and repository for the kas-network-proxy agent image. |
+| konnectivity.agent.image.tag | string | `"v0.32.0"` | Tag for the image. |
+| konnectivity.agent.verbosity | int | `4` | Set log verbosity of the component. |
+| konnectivity.installer.image.pullPolicy | string | `"IfNotPresent"` | Image pull policy. |
+| konnectivity.installer.image.repository | string | `"docker.io/bitnami/kubectl"` | Registry and repository for the kine image. |
+| konnectivity.installer.image.tag | string | `"1.32.3"` | Tag for the image. |
+| konnectivity.installer.nodeSelector | object | `{}` | Node selector for the pods. |
+| konnectivity.installer.podAnnotations | object | `{}` | Annotations to be added to the pods. |
+| konnectivity.installer.podLabels | object | `{}` | Labels to be added to the pods. |
+| konnectivity.installer.podSecurityContext | object | `{}` |  |
+| konnectivity.installer.resources | object | `{}` |  |
+| konnectivity.installer.secretType | string | `"Opaque"` | Type of generated secret. |
+| konnectivity.installer.securityContext | object | `{}` |  |
+| konnectivity.installer.serviceAnnotations | object | `{}` | Annotations to be added to the services. |
+| konnectivity.installer.tolerations | list | `[]` | Tolerations for the pods. |
+| konnectivity.server.image.pullPolicy | string | `"IfNotPresent"` | Image pull policy. |
+| konnectivity.server.image.repository | string | `"registry.k8s.io/kas-network-proxy/proxy-server"` | Registry and repository for the kas-network-proxy server image. |
+| konnectivity.server.image.tag | string | `"v0.32.0"` | Tag for the image. |
+| konnectivity.server.resources | object | `{}` |  |
+| konnectivity.server.securityContext | object | `{}` |  |
+| konnectivity.server.verbosity | int | `4` | Set log verbosity of the component. |
 | kubeApiserver.affinity | object | `{}` | Affinity settings for the pods. |
 | kubeApiserver.image.pullPolicy | string | `"IfNotPresent"` | Image pull policy. |
 | kubeApiserver.image.repository | string | `"registry.k8s.io/kube-apiserver"` | Registry and repository for the controller-manager image. |

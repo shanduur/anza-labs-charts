@@ -5,6 +5,12 @@ else
 GOBIN=$(shell go env GOBIN)
 endif
 
+# CONTAINER_TOOL defines the container tool to be used for building images.
+# Be aware that the target commands are only tested with Docker which is
+# scaffolded by default. However, you might want to replace it to use other
+# tools. (i.e. podman)
+CONTAINER_TOOL ?= docker
+
 CHART ?=
 
 # Setting SHELL to bash allows bash commands to be executed by recipes.
@@ -36,11 +42,17 @@ help: ## Display this help.
 
 .PHONY: cluster
 cluster: kind ctlptl
-	@PATH=${LOCALBIN}:$(PATH) $(CTLPTL) apply -f hack/kind.yaml
+	@PATH="${LOCALBIN}:$(PATH)" $(CTLPTL) apply -f hack/kind.yaml
+	$(CONTAINER_TOOL) run \
+		--rm --interactive --tty --detach \
+		--name cloud-provider-kind \
+		--network kind \
+		-v /var/run/docker.sock:/var/run/docker.sock \
+		registry.k8s.io/cloud-provider-kind/cloud-controller-manager:${CLOUD_PROVIDER_KIND_VERSION} || true
 
 .PHONY: cluster-reset
 cluster-reset: kind ctlptl
-	@PATH=${LOCALBIN}:$(PATH) $(CTLPTL) delete -f hack/kind.yaml
+	@PATH="${LOCALBIN}:$(PATH)" $(CTLPTL) delete -f hack/kind.yaml
 
 .PHONY: ci
 ci: update-repos _ci _generate-schema _generate-docs readme
@@ -121,6 +133,9 @@ KUBE_LINTER             ?= $(LOCALBIN)/kube-linter
 YQ                      ?= $(LOCALBIN)/yq
 
 ## Tool Versions
+# renovate: datasource=docker depName=registry.k8s.io/cloud-provider-kind/cloud-controller-manager
+CLOUD_PROVIDER_KIND_VERSION ?= v0.6.0
+
 # renovate: datasource=github-tags depName=tilt-dev/ctlptl
 CTLPTL_VERSION ?= v0.8.40
 
