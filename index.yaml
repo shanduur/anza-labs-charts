@@ -948,6 +948,16 @@ entries:
     urls:
     - https://github.com/anza-labs/charts/releases/download/lubelogger-0.2.0/lubelogger-0.2.0.tgz
     version: 0.2.0
+  meta-chart:
+  - apiVersion: v2
+    appVersion: meta
+    created: "2025-04-14T15:15:28.232479491Z"
+    digest: 1be3f3bacb9e43234574c266f1783c6335e14327db351b60d4c8c3892c5a2ac4
+    name: meta-chart
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/meta-chart-0.1.0/meta-chart-0.1.0.tgz
+    version: 0.1.0
   podvm:
   - apiVersion: v2
     appVersion: 1.10.1
@@ -1259,4 +1269,4 @@ entries:
     urls:
     - https://github.com/anza-labs/charts/releases/download/scribe-0.1.0/scribe-0.1.0.tgz
     version: 0.1.0
-generated: "2025-04-06T08:28:12.85305354Z"
+generated: "2025-04-14T15:15:28.232664866Z"
