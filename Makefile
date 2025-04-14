@@ -67,6 +67,14 @@ _ci:
 readme:
 	go run ./hack/readme
 
+.PHONY: test
+test: ## Run helm unittest on all charts.
+	for dir in anza-labs/*; do $(MAKE) _test CHART="$$dir"; done
+
+.PHONY: _test
+_test:
+	helm unittest ${CHART}
+
 .PHONY: backfill-all-app-versions
 backfill-all-app-versions: yq
 	for dir in anza-labs/*; do $(MAKE) _backfill-app-version CHART="$$dir"; done

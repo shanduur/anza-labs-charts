@@ -1,0 +1,33 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/helm-unittest/helm-unittest/main/schema/helm-testsuite.json
+suite: Test custom resources
+templates:
+  - templates/resource.yaml
+tests:
+  - it: should create a Deployment
+    set:
+      resources:
+        - apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: test-deploy
+            namespace: prod
+          spec:
+            replicas: 1
+            selector:
+              matchLabels:
+                app: test
+            template:
+              metadata:
+                labels:
+                  app: test
+              spec:
+                containers:
+                  - name: test
+                    image: nginx
+    asserts:
+      - hasDocuments:
+          count: 1
+      - containsDocument:
+          apiVersion: apps/v1
+          kind: Deployment
+          name: test-deploy

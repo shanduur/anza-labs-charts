@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "namespaces": {
+      "type": "array"
+    },
+    "resources": {
+      "type": "array"
+    }
+  },
+  "type": "object"
+}

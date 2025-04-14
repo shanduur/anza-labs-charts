@@ -1,0 +1,13 @@
+{{- range .Values.resources }}
+---
+{{- $apiVersion := required ".Values.resources[].apiVersion is required." .apiVersion }}
+{{- $kind := required ".Values.resources[].kind is required." .kind }}
+{{- $metadata := required ".Values.resources[].metadata is required." .metadata }}
+{{- $spec := required ".Values.resources[].spec is required." .spec }}
+apiVersion: {{ $apiVersion }}
+kind: {{ $kind }}
+metadata:
+  {{- $metadata | toYaml | nindent 2}}
+spec:
+  {{- $spec | toYaml | nindent 2 }}
+{{- end }}

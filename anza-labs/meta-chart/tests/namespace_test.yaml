@@ -1,0 +1,16 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/helm-unittest/helm-unittest/main/schema/helm-testsuite.json
+suite: Test namespace creation
+templates:
+  - templates/namespace.yaml
+tests:
+  - it: should create 3 namespaces
+    set:
+      namespaces:
+        - dev
+        - staging
+        - prod
+    asserts:
+      - hasDocuments:
+          count: 3
+      - isKind:
+          of: Namespace
