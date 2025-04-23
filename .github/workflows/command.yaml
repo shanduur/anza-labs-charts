@@ -25,6 +25,10 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
       - run: |
+          wget -O /usr/local/bin/semver \
+            https://raw.githubusercontent.com/fsaintjacques/semver-tool/master/src/semver
+            chmod +x /usr/local/bin/semver
+      - run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.COMMIT_SIGNING }}" > ~/.ssh/signing_key
           chmod 600 ~/.ssh/signing_key

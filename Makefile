@@ -52,6 +52,7 @@ cluster: kind ctlptl
 
 .PHONY: cluster-reset
 cluster-reset: kind ctlptl
+	$(CONTAINER_TOOL) kill cloud-provider-kind
 	@PATH="${LOCALBIN}:$(PATH)" $(CTLPTL) delete -f hack/kind.yaml
 
 .PHONY: ci
@@ -139,6 +140,7 @@ HELM_VALUES_SCHEMA_JSON ?= $(LOCALBIN)/helm-values-schema-json
 KIND                    ?= $(LOCALBIN)/kind
 KUBE_LINTER             ?= $(LOCALBIN)/kube-linter
 YQ                      ?= $(LOCALBIN)/yq
+SEMVER                  ?= $(LOCALBIN)/semver
 
 ## Tool Versions
 # renovate: datasource=docker depName=registry.k8s.io/cloud-provider-kind/cloud-controller-manager
@@ -186,6 +188,13 @@ $(KIND)-$(KIND_VERSION): $(LOCALBIN)
 kube-linter: $(KUBE_LINTER)-$(KUBE_LINTER_VERSION) ## Download kube-linter locally if necessary.
 $(KUBE_LINTER)-$(KUBE_LINTER_VERSION): $(LOCALBIN)
 	$(call go-install-tool,$(KUBE_LINTER),golang.stackrox.io/kube-linter/cmd/kube-linter,$(KUBE_LINTER_VERSION))
+
+.PHONY: semver
+semver: $(SEMVER) ## Download semver locally if necessary
+$(SEMVER):
+	curl -fsSL \
+		https://raw.githubusercontent.com/fsaintjacques/semver-tool/master/src/semver > $(SEMVER)
+	chmod +x $(SEMVER)
 
 .PHONY: yq
 yq: $(YQ)-$(YQ_VERSION) ## Download yq locally if necessary.
