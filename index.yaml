@@ -981,6 +981,20 @@ entries:
     version: 0.1.0
   podvm:
   - apiVersion: v2
+    appVersion: v1.11.0
+    created: "2025-04-23T19:58:35.378070618Z"
+    description: '_podvm_ is a PoC/testing for running Firecracker in Kubernetes. '
+    digest: 7ecebef6f6f8b79c11e2be13cb4e7bc7de09da6b158fd55808c752eb481805e0
+    maintainers:
+    - email: matueusz.urbanek.98@gmail.com
+      name: Mateusz Urbanek
+      url: http://linkedin.com/in/urbanekmateusz
+    name: podvm
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/podvm-0.0.0-alpha.7/podvm-0.0.0-alpha.7.tgz
+    version: 0.0.0-alpha.7
+  - apiVersion: v2
     appVersion: 1.10.1
     created: "2025-03-21T12:22:14.022612274Z"
     description: '_podvm_ is a PoC/testing for running Firecracker in Kubernetes. '
@@ -1290,4 +1304,4 @@ entries:
     urls:
     - https://github.com/anza-labs/charts/releases/download/scribe-0.1.0/scribe-0.1.0.tgz
     version: 0.1.0
-generated: "2025-04-23T19:38:45.798913998Z"
+generated: "2025-04-23T19:58:35.378205609Z"
