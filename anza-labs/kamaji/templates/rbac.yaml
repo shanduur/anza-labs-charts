@@ -55,7 +55,7 @@ metadata:
   creationTimestamp: null
   name: kamaji-manager-role
 rules:
-{{ tpl (.Files.Get "generated/cluster-role.yaml") . }}
+{{ tpl (.Files.Get "generated/clusterrole.yaml") . }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
