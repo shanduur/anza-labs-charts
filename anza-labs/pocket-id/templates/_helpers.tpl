@@ -68,7 +68,7 @@ Create config map name used for configuring Pocket-ID.
 {{/*
 Create secret name used for configuring Pocket-ID.
 */}}
-{{- define "pocket-id.config" -}}
+{{- define "pocket-id.secret" -}}
     {{- default (printf "%s" (include "pocket-id.fullname" .)) .Values.secret.name }}
 {{- end }}
 
