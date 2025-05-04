@@ -654,6 +654,24 @@ entries:
   lubelogger:
   - apiVersion: v2
     appVersion: v1.4.7
+    created: "2025-05-04T15:42:58.975211348Z"
+    description: '_LubeLogger_ is a web-based vehicle maintenance and fuel mileage
+      tracker '
+    digest: 870e36b4862084c971eace3cad2f9769d0b558e3aa6ec180f8ed6f758e7a29a5
+    home: https://lubelogger.com
+    maintainers:
+    - email: matueusz.urbanek.98@gmail.com
+      name: Mateusz Urbanek
+      url: http://linkedin.com/in/urbanekmateusz
+    name: lubelogger
+    sources:
+    - https://github.com/hargata/lubelog
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/lubelogger-0.8.2/lubelogger-0.8.2.tgz
+    version: 0.8.2
+  - apiVersion: v2
+    appVersion: v1.4.7
     created: "2025-05-04T13:51:01.276759631Z"
     description: '_LubeLogger_ is a web-based vehicle maintenance and fuel mileage
       tracker '
@@ -1169,6 +1187,24 @@ entries:
   pocket-id:
   - apiVersion: v2
     appVersion: v0.51.1
+    created: "2025-05-04T15:42:59.107853491Z"
+    description: '_pocket-id_ is a simple and easy-to-use OIDC provider that allows
+      users to authenticate with their passkeys to your services. '
+    digest: de8f774b9624220d75afa384506dcb741f51c8ee3081bde5eceed540df4b06d9
+    home: https://pocket-id.org
+    maintainers:
+    - email: matueusz.urbanek.98@gmail.com
+      name: Mateusz Urbanek
+      url: http://linkedin.com/in/urbanekmateusz
+    name: pocket-id
+    sources:
+    - https://github.com/pocket-id/pocket-id
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/pocket-id-0.2.0/pocket-id-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: v0.51.1
     created: "2025-05-04T13:51:01.431017061Z"
     description: '_pocket-id_ is a simple and easy-to-use OIDC provider that allows
       users to authenticate with their passkeys to your services. '
@@ -1600,4 +1636,4 @@ entries:
     urls:
     - https://github.com/anza-labs/charts/releases/download/scribe-0.1.0/scribe-0.1.0.tgz
     version: 0.1.0
-generated: "2025-05-04T13:51:01.431393567Z"
+generated: "2025-05-04T15:42:59.108217327Z"
