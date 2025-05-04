@@ -1,0 +1,347 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "affinity": {
+      "properties": {},
+      "type": "object"
+    },
+    "config": {
+      "properties": {
+        "create": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "publicUI": {
+          "properties": {
+            "settings": {
+              "properties": {
+                "app": {
+                  "properties": {
+                    "allowOwnAccountEdit": {
+                      "type": "boolean"
+                    },
+                    "appName": {
+                      "type": "string"
+                    },
+                    "disableAnimations": {
+                      "type": "boolean"
+                    },
+                    "emailsVerified": {
+                      "type": "boolean"
+                    },
+                    "sessionDuration": {
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                },
+                "email": {
+                  "properties": {
+                    "loginNotificationEnabled": {
+                      "type": "boolean"
+                    },
+                    "oneTimeAccessEnabled": {
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                },
+                "ldap": {
+                  "properties": {
+                    "attributes": {
+                      "properties": {
+                        "group": {
+                          "properties": {
+                            "adminGroup": {
+                              "type": "string"
+                            },
+                            "member": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "uniqueIdentifier": {
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "user": {
+                          "properties": {
+                            "email": {
+                              "type": "string"
+                            },
+                            "firstName": {
+                              "type": "string"
+                            },
+                            "lastName": {
+                              "type": "string"
+                            },
+                            "profilePicture": {
+                              "type": "string"
+                            },
+                            "uniqueIdentifier": {
+                              "type": "string"
+                            },
+                            "username": {
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "base": {
+                      "type": "string"
+                    },
+                    "bindDN": {
+                      "type": "string"
+                    },
+                    "bindPassword": {
+                      "type": "string"
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "skipCertVerify": {
+                      "type": "boolean"
+                    },
+                    "url": {
+                      "type": "string"
+                    },
+                    "userGroupSearchFilter": {
+                      "type": "string"
+                    },
+                    "userSearchFilter": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "smtp": {
+                  "properties": {
+                    "from": {
+                      "type": "string"
+                    },
+                    "host": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    },
+                    "port": {
+                      "type": "string"
+                    },
+                    "skipCertVerify": {
+                      "type": "boolean"
+                    },
+                    "tls": {
+                      "type": "string"
+                    },
+                    "user": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "useDefaults": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "database": {
+      "properties": {
+        "connectionString": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "fullnameOverride": {
+      "type": "string"
+    },
+    "geoliteDatabaseURL": {
+      "type": "string"
+    },
+    "image": {
+      "properties": {
+        "pullPolicy": {
+          "type": "string"
+        },
+        "repository": {
+          "type": "string"
+        },
+        "tag": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "imagePullSecrets": {
+      "type": "array"
+    },
+    "ingress": {
+      "properties": {
+        "annotations": {
+          "properties": {},
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "host": {
+          "type": "string"
+        },
+        "paths": {
+          "items": {
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "pathType": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "tls": {
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "maxmindLicenseKey": {
+      "type": "string"
+    },
+    "nameOverride": {
+      "type": "string"
+    },
+    "nodeSelector": {
+      "properties": {},
+      "type": "object"
+    },
+    "persistence": {
+      "properties": {
+        "data": {
+          "properties": {
+            "accessMode": {
+              "type": "string"
+            },
+            "annotations": {
+              "properties": {},
+              "type": "object"
+            },
+            "enabled": {
+              "type": "boolean"
+            },
+            "existingClaim": {
+              "type": "string"
+            },
+            "size": {
+              "type": "string"
+            },
+            "storageClass": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "podAnnotations": {
+      "properties": {},
+      "type": "object"
+    },
+    "podLabels": {
+      "properties": {},
+      "type": "object"
+    },
+    "podSecurityContext": {
+      "properties": {},
+      "type": "object"
+    },
+    "replicaCount": {
+      "type": "integer"
+    },
+    "resources": {
+      "properties": {},
+      "type": "object"
+    },
+    "secret": {
+      "properties": {
+        "create": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "securityContext": {
+      "properties": {},
+      "type": "object"
+    },
+    "service": {
+      "properties": {
+        "port": {
+          "type": "integer"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "serviceAccount": {
+      "properties": {
+        "annotations": {
+          "properties": {},
+          "type": "object"
+        },
+        "automount": {
+          "type": "boolean"
+        },
+        "create": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "tolerations": {
+      "type": "array"
+    },
+    "updateStrategy": {
+      "properties": {
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "type": "object"
+}

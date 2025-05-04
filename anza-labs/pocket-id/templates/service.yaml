@@ -1,0 +1,17 @@
+{{- $svcPort := .Values.service.port -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "lubelog.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "lubelog.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type | default "ClusterIP" }}
+  ports:
+    - port: {{ $svcPort }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "lubelog.selectorLabels" . | nindent 4 }}

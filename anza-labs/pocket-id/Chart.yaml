@@ -1,0 +1,17 @@
+apiVersion: v2
+type: application
+name: pocket-id
+description: |
+  _pocket-id_ is a simple and easy-to-use OIDC provider that allows users to authenticate
+  with their passkeys to your services.
+home: https://pocket-id.org
+version: 0.1.0
+appVersion: "v0.51.1"
+sources:
+  - https://github.com/pocket-id/pocket-id
+keywords: []
+annotations: {}
+maintainers:
+  - name: Mateusz Urbanek
+    email: matueusz.urbanek.98@gmail.com
+    url: http://linkedin.com/in/urbanekmateusz

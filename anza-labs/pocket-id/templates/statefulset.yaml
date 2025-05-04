@@ -1,0 +1,112 @@
+{{- $provider := .Values.database.provider | default "sqlite" }}
+{{- $replicaCount := .Values.replicaCount | default 1 }}
+{{- if and (eq $provider "sqlite") (gt $replicaCount 1) }}
+  {{- fail (printf "Invalid configuration: .Values.replicaCount is %d but must be 1 when .Values.database.provider is 'sqlite'." $replicaCount) }}
+{{- end }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "pocket-id.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "pocket-id.labels" . | nindent 4 }}
+spec:
+  serviceName: {{ include "pocket-id.fullname" . }}
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ $replicaCount }}
+  {{- end }}
+  {{- if .Values.updateStrategy }}
+  {{- with .Values.updateStrategy }}
+  strategy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "pocket-id.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "pocket-id.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "pocket-id.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- if .Values.persistence.data.enabled }}
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "pocket-id.pvcData" . }}
+      {{- end }}
+      containers:
+        - name: pocket-id
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+          readinessProbe:
+            initialDelaySeconds: 60
+            httpGet:
+              path: /health
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- if .Values.persistence.data.enabled }}
+          volumeMounts:
+            - name: data
+              mountPath: /app/backend/data
+          {{- end }}
+          envFrom:
+            - secretRef:
+                name: {{ include "pocket-id.secret" . }}
+            - configMapRef:
+                name: {{ include "pocket-id.config" . }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ include "pocket-id.pvcData" . }}
+        labels:
+          {{- include "pocket-id.labels" . | nindent 10 }}
+        {{- if .Values.persistence.data.annotations }}
+        annotations:
+          {{- toYaml .Values.persistence.data.annotations | nindent 10 }}
+        {{- end }}
+      spec:
+        accessModes:
+          - {{ .Values.persistence.data.accessMode }}
+        resources:
+          requests:
+            storage: {{ .Values.persistence.data.size }}
+        {{- if .Values.persistence.data.storageClass }}
+        storageClassName: {{ .Values.persistence.data.storageClass }}
+        {{- end }}
