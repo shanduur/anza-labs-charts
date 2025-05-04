@@ -9,8 +9,8 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
-  {{ if .Values.upgradeStrategy }}
-  {{- with .Values.upgradeStrategy }}
+  {{ if .Values.deploymentStrategy }}
+  {{- with .Values.deploymentStrategy }}
   strategy:
     {{- toYaml . | nindent 4 }}
   {{- end }}

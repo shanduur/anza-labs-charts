@@ -1,6 +1,6 @@
 # lubelogger
 
-![Version: 0.6.2](https://img.shields.io/badge/Version-0.6.2-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v1.4.6](https://img.shields.io/badge/AppVersion-v1.4.6-informational?style=flat)
+![Version: 0.7.0](https://img.shields.io/badge/Version-0.7.0-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v1.4.6](https://img.shields.io/badge/AppVersion-v1.4.6-informational?style=flat)
 
 _LubeLogger_ is a web-based vehicle maintenance and fuel mileage tracker
 
@@ -54,6 +54,7 @@ _LubeLogger_ is a web-based vehicle maintenance and fuel mileage tracker
 | curl.image.pullPolicy | string | `"IfNotPresent"` | Image pull policy. |
 | curl.image.repository | string | `"docker.io/curlimages/curl"` | Registry and repository for the image. |
 | curl.image.tag | string | `"8.13.0"` | Tag for the image. |
+| deploymentStrategy.type | string | `"Recreate"` | The deployment strategy to use to replace existing pods with new ones. Options: "Recreate" or "RollingUpdate". |
 | fullnameOverride | string | `""` | Override for the full name. |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy. |
 | image.repository | string | `"ghcr.io/hargata/lubelogger"` | Registry and repository for the lubelogger image. |
@@ -126,5 +127,4 @@ _LubeLogger_ is a web-based vehicle maintenance and fuel mileage tracker
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created. |
 | serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template. |
 | tolerations | list | `[]` | Tolerations for the pods. |
-| upgradeStrategy.type | string | `"Recreate"` | The update strategy type for the deployment. Options: "Recreate" or "RollingUpdate". |
 

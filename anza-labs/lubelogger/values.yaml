@@ -3,8 +3,8 @@
 # -- Number of replicas for the deployment.
 replicaCount: 1
 
-upgradeStrategy:
-  # -- The update strategy type for the deployment. Options: "Recreate" or "RollingUpdate".
+deploymentStrategy:
+  # -- The deployment strategy to use to replace existing pods with new ones. Options: "Recreate" or "RollingUpdate".
   type: Recreate
   # rollingUpdate:
     # maxUnavailable: 100%
