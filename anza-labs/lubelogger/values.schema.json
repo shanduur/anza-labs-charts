@@ -157,14 +157,6 @@
       },
       "type": "object"
     },
-    "deploymentStrategy": {
-      "properties": {
-        "type": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
     "fullnameOverride": {
       "type": "string"
     },
@@ -491,6 +483,14 @@
     },
     "tolerations": {
       "type": "array"
+    },
+    "updateStrategy": {
+      "properties": {
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     }
   },
   "type": "object"

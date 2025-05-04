@@ -1,6 +1,6 @@
 # lubelogger
 
-![Version: 0.7.1](https://img.shields.io/badge/Version-0.7.1-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v1.4.7](https://img.shields.io/badge/AppVersion-v1.4.7-informational?style=flat)
+![Version: 0.8.0](https://img.shields.io/badge/Version-0.8.0-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v1.4.7](https://img.shields.io/badge/AppVersion-v1.4.7-informational?style=flat)
 
 _LubeLogger_ is a web-based vehicle maintenance and fuel mileage tracker
 
@@ -11,6 +11,10 @@ _LubeLogger_ is a web-based vehicle maintenance and fuel mileage tracker
 | Name | Email | Url |
 | ---- | ------ | --- |
 | Mateusz Urbanek | <matueusz.urbanek.98@gmail.com> | <http://linkedin.com/in/urbanekmateusz> |
+
+## Source Code
+
+* <https://github.com/hargata/lubelog>
 
 ## Values
 
@@ -54,7 +58,6 @@ _LubeLogger_ is a web-based vehicle maintenance and fuel mileage tracker
 | curl.image.pullPolicy | string | `"IfNotPresent"` | Image pull policy. |
 | curl.image.repository | string | `"docker.io/curlimages/curl"` | Registry and repository for the image. |
 | curl.image.tag | string | `"8.13.0"` | Tag for the image. |
-| deploymentStrategy.type | string | `"Recreate"` | The deployment strategy to use to replace existing pods with new ones. Options: "Recreate" or "RollingUpdate". |
 | fullnameOverride | string | `""` | Override for the full name. |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy. |
 | image.repository | string | `"ghcr.io/hargata/lubelogger"` | Registry and repository for the lubelogger image. |
@@ -127,4 +130,5 @@ _LubeLogger_ is a web-based vehicle maintenance and fuel mileage tracker
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created. |
 | serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template. |
 | tolerations | list | `[]` | Tolerations for the pods. |
+| updateStrategy.type | string | `"Recreate"` | The deployment strategy to use to replace existing pods with new ones. Options: "Recreate" or "RollingUpdate". |
 

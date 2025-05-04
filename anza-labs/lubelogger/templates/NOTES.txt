@@ -16,5 +16,5 @@ Get the application URL by running these commands:
 WARNING!
 
 Your set the replica count to >1. Application does not sync Data, Documents and Images between replicas, so you will see 
-inconsistency and you will might observe data loss.
+inconsistency and you might observe data loss.
 {{- end }}

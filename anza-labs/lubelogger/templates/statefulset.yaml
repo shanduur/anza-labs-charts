@@ -1,16 +1,17 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "lubelog.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "lubelog.labels" . | nindent 4 }}
 spec:
+  serviceName: {{ include "lubelog.fullname" . }}
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
-  {{ if .Values.deploymentStrategy }}
-  {{- with .Values.deploymentStrategy }}
+  {{- if .Values.updateStrategy }}
+  {{- with .Values.updateStrategy }}
   strategy:
     {{- toYaml . | nindent 4 }}
   {{- end }}
@@ -175,3 +176,58 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ include "lubelog.pvcData" . }}
+        labels:
+          {{- include "lubelog.labels" . | nindent 10 }}
+        annotations:
+          helm.sh/resource-policy: "keep"
+        {{- if .Values.persistence.data.annotations }}
+          {{- toYaml .Values.persistence.data.annotations | nindent 10 }}
+        {{- end }}
+      spec:
+        accessModes:
+          - {{ .Values.persistence.data.accessMode }}
+        resources:
+          requests:
+            storage: {{ .Values.persistence.data.size }}
+        {{- if .Values.persistence.data.storageClass }}
+        storageClassName: {{ .Values.persistence.data.storageClass }}
+        {{- end }}
+    - metadata:
+        name: {{ include "lubelog.pvcDocuments" . }}
+        labels:
+          {{- include "lubelog.labels" . | nindent 10 }}
+        annotations:
+          helm.sh/resource-policy: "keep"
+        {{- if .Values.persistence.documents.annotations }}
+          {{- toYaml .Values.persistence.documents.annotations | nindent 10 }}
+        {{- end }}
+      spec:
+        accessModes:
+          - {{ .Values.persistence.documents.accessMode }}
+        resources:
+          requests:
+            storage: {{ .Values.persistence.documents.size }}
+        {{- if .Values.persistence.documents.storageClass }}
+        storageClassName: {{ .Values.persistence.documents.storageClass }}
+        {{- end }}
+    - metadata:
+        name: {{ include "lubelog.pvcImages" . }}
+        labels:
+          {{- include "lubelog.labels" . | nindent 10 }}
+        annotations:
+          helm.sh/resource-policy: "keep"
+        {{- if .Values.persistence.images.annotations }}
+          {{- toYaml .Values.persistence.images.annotations | nindent 10 }}
+        {{- end }}
+      spec:
+        accessModes:
+          - {{ .Values.persistence.images.accessMode }}
+        resources:
+          requests:
+            storage: {{ .Values.persistence.images.size }}
+        {{- if .Values.persistence.images.storageClass }}
+        storageClassName: {{ .Values.persistence.images.storageClass }}
+        {{- end }}
