@@ -1,6 +1,6 @@
 # pocket-id
 
-![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v0.51.1](https://img.shields.io/badge/AppVersion-v0.51.1-informational?style=flat)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v0.51.1](https://img.shields.io/badge/AppVersion-v0.51.1-informational?style=flat)
 
 _pocket-id_ is a simple and easy-to-use OIDC provider that allows users to authenticate
 with their passkeys to your services.
@@ -22,6 +22,25 @@ with their passkeys to your services.
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity settings for the pods. |
+| backup.busyTimeout | string | `""` | Busy timeout, if empty, default is used. |
+| backup.checkpointInterval | string | `""` | Interval between checkpoints in Go duration format. If empty, default is used. |
+| backup.image.pullPolicy | string | `"IfNotPresent"` | Image pull policy. |
+| backup.image.repository | string | `"docker.io/litestream/litestream"` | Registry and repository for the pocket-id image. |
+| backup.image.tag | string | `"0.3.13"` | Tag for the image. |
+| backup.logging.level | string | `"INFO"` | Logging level. Options: DEBUG, INFO, WARNING, ERROR |
+| backup.logging.stderr | bool | `false` | Whether to log to stderr (default is stdout) |
+| backup.logging.type | string | `"text"` | Logging format. Options: text or json |
+| backup.maxCheckpointPageCount | string | `""` | Maximum number of pages processed during a checkpoint. |
+| backup.metricsAddress | string | `"0.0.0.0:8080"` | The address the metrics endpoint binds to. |
+| backup.minCheckpointPageCount | string | `""` | Minimum number of pages to trigger a checkpoint. |
+| backup.monitorInterval | string | `""` | Interval for monitoring in Go duration format (e.g. "30s"). If empty, default is used. |
+| backup.resources | object | `{}` |  |
+| backup.secret.accessKey | string | `""` | Primary S3 access key. |
+| backup.secret.create | bool | `true` | Specifies whether a secret should be created. |
+| backup.secret.name | string | `""` | Specifies name of a secret used to configure the pocket-id. If not filled, uses full name. |
+| backup.secret.replicas | list | `[]` |  |
+| backup.secret.secretKey | string | `""` | Primary S3 secret key. |
+| backup.securityContext | object | `{}` |  |
 | config.create | bool | `true` | Specifies whether a config map should be created. |
 | config.name | string | `""` | Specifies name of a config map used to configure the pocket-id. If not filled, uses full name. |
 | config.publicUI.settings.app.allowOwnAccountEdit | bool | `true` | Whether users can edit their own account details |
@@ -61,9 +80,6 @@ with their passkeys to your services.
 | database.provider | string | `"sqlite"` | Database provider to use. Options: "sqlite" or "postgres". |
 | fullnameOverride | string | `""` | Override for the full name. |
 | geoliteDatabaseURL | string | `"https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=%s&suffix=tar.gz"` | URL template to download the MaxMind GeoLite2-City database. `%s` will be replaced with the license key. |
-| image.pullPolicy | string | `"IfNotPresent"` | Image pull policy. |
-| image.repository | string | `"ghcr.io/pocket-id/pocket-id"` | Registry and repository for the pocket-id image. |
-| image.tag | string | `"v0.51.1"` | Tag for the image. |
 | imagePullSecrets | list | `[]` | Secrets for pulling images. |
 | ingress.annotations | object | `{}` | Annotations to add to the ingress. |
 | ingress.className | string | `""` | Ingress class name. |
@@ -81,14 +97,17 @@ with their passkeys to your services.
 | persistence.data.existingClaim | string | `""` | Use an existing PVC if defined, otherwise create one. |
 | persistence.data.size | string | `"10Gi"` | Storage size for the PVC. |
 | persistence.data.storageClass | string | `""` | Specify the StorageClass (if required). |
+| pocketID.image.pullPolicy | string | `"IfNotPresent"` | Image pull policy. |
+| pocketID.image.repository | string | `"ghcr.io/pocket-id/pocket-id"` | Registry and repository for the pocket-id image. |
+| pocketID.image.tag | string | `"v0.51.1"` | Tag for the image. |
+| pocketID.resources | object | `{}` |  |
+| pocketID.securityContext | object | `{}` |  |
 | podAnnotations | object | `{}` | Annotations to be added to the pods. |
 | podLabels | object | `{}` | Labels to be added to the pods. |
 | podSecurityContext | object | `{}` |  |
 | replicaCount | int | `1` | Number of replicas for the stateful set. |
-| resources | object | `{}` |  |
 | secret.create | bool | `true` | Specifies whether a secret should be created. |
 | secret.name | string | `""` | Specifies name of a secret used to configure the pocket-id. If not filled, uses full name. |
-| securityContext | object | `{}` |  |
 | service.port | int | `80` | Service port. |
 | service.type | string | `"ClusterIP"` | Service type. |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account. |
@@ -96,5 +115,7 @@ with their passkeys to your services.
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created. |
 | serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template. |
 | tolerations | list | `[]` | Tolerations for the pods. |
-| updateStrategy.type | string | `"Recreate"` | The update strategy type for the stateful set. Options: "Recreate" or "RollingUpdate". |
+| updateStrategy.rollingUpdate.maxUnavailable | string | `"100%"` |  |
+| updateStrategy.rollingUpdate.partition | int | `0` |  |
+| updateStrategy.type | string | `"RollingUpdate"` | The deployment strategy to use to replace existing pods with new ones. Options: "RollingUpdate" or "OnDelete". |
 

@@ -12,7 +12,7 @@ spec:
   {{- end }}
   {{- if .Values.updateStrategy }}
   {{- with .Values.updateStrategy }}
-  strategy:
+  updateStrategy:
     {{- toYaml . | nindent 4 }}
   {{- end }}
   {{- end }}

@@ -15,7 +15,7 @@ spec:
   replicas: {{ $replicaCount }}
   {{- if .Values.updateStrategy }}
   {{- with .Values.updateStrategy }}
-  strategy:
+  updateStrategy:
     {{- toYaml . | nindent 4 }}
   {{- end }}
   {{- end }}
@@ -41,12 +41,44 @@ spec:
       serviceAccountName: {{ include "pocket-id.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      volumes:
+      {{- if .Values.backup.enabled }}
+        - name: config
+          configMap:
+            name: {{ include "pocket-id.backupConfig" . }}
+      {{- end }}
+      {{- if not .Values.persistence.data.enabled }}
+        - name: {{ include "pocket-id.pvcData" . }}
+          emptyDir: {}
+      {{- end }}
+      {{- if .Values.backup.enabled }}
+      initContainers:
+        - name: restorer
+          securityContext:
+            {{- toYaml .Values.backup.securityContext | nindent 12 }}
+          image: "{{ .Values.backup.image.repository }}:{{ .Values.backup.image.tag }}"
+          imagePullPolicy: {{ .Values.backup.image.pullPolicy }}
+          args:
+            - restore
+            - -if-replica-exists=true
+            - -config=/mnt/config/litestream.yaml
+          resources:
+            {{- toYaml .Values.pocketID.resources | nindent 12 }}
+          volumeMounts:
+            - name: {{ include "pocket-id.pvcData" . }}
+              mountPath: /app/backend/data
+            - name: config
+              mountPath: /mnt/config
+          envFrom:
+            - secretRef:
+                name: {{ include "pocket-id.backupSecret" . }}
+      {{- end }}
       containers:
         - name: pocket-id
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+            {{- toYaml .Values.pocketID.securityContext | nindent 12 }}
+          image: "{{ .Values.pocketID.image.repository }}:{{ .Values.pocketID.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.pocketID.image.pullPolicy }}
           ports:
             - name: http
               containerPort: 10080
@@ -61,17 +93,35 @@ spec:
               path: /health
               port: http
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-          {{- if .Values.persistence.data.enabled }}
+            {{- toYaml .Values.pocketID.resources | nindent 12 }}
           volumeMounts:
             - name: {{ include "pocket-id.pvcData" . }}
               mountPath: /app/backend/data
-          {{- end }}
           envFrom:
             - secretRef:
                 name: {{ include "pocket-id.secret" . }}
             - configMapRef:
                 name: {{ include "pocket-id.config" . }}
+        {{- if .Values.backup.enabled }}
+        - name: replication
+          securityContext:
+            {{- toYaml .Values.backup.securityContext | nindent 12 }}
+          image: "{{ .Values.backup.image.repository }}:{{ .Values.backup.image.tag }}"
+          imagePullPolicy: {{ .Values.backup.image.pullPolicy }}
+          args:
+            - replicate
+            - -config=/mnt/config/litestream.yaml
+          resources:
+            {{- toYaml .Values.pocketID.resources | nindent 12 }}
+          volumeMounts:
+            - name: {{ include "pocket-id.pvcData" . }}
+              mountPath: /app/backend/data
+            - name: config
+              mountPath: /mnt/config
+          envFrom:
+            - secretRef:
+                name: {{ include "pocket-id.backupSecret" . }}
+        {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

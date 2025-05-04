@@ -1,0 +1,40 @@
+{{- if .Values.backup.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "pocket-id.backupSecret" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "pocket-id.labels" . | nindent 4 }}
+    {{- with .Values.podLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+data:
+  litestream.yaml: |
+    addr: {{ .Values.backup.metricsAddress }}
+    logging:
+      level: {{ .Values.backup.logging.level }}
+      type: {{ .Values.backup.logging.type }}
+      stderr: {{ .Values.backup.logging.stderr }}
+    access-key-id: "$ACCESS_KEY"
+    secret-access-key: "$SECRET_KEY"
+    dbs:
+      - path: /data/pocket-id.db
+        monitor-interval: {{ printf "%d" .Values.backup.monitorInterval }}
+        checkpoint-interval: {{ printf "%d" .Values.backup.checkpointInterval }}
+        busy-timeout: {{ printf "%d" .Values.backup.busyTimeout }}
+        min-checkpoint-page-count: {{ default (printf "%d" .Values.backup.minCheckpointPageCount) "null" }}
+        max-checkpoint-page-count: {{ default (printf "%d" .Values.backup.maxCheckpointPageCount) "null" }}
+        replicas:
+    {{- range $i, $val := .Values.backup.secret.replicas }}
+          - type: "{{ printf "$REPLICA_%d_TYPE" $i }}"
+            path: "{{ printf "$REPLICA_%d_PATH" $i }}"
+            access-key-id: "{{ printf "$REPLICA_%d_ACCESS_KEY" $i }}"
+            secret-access-key: "{{ printf "$REPLICA_%d_SECRET_KEY" $i }}"
+            region: "{{ printf "$REPLICA_%d_REGION" $i }}"
+            bucket: "{{ printf "$REPLICA_%d_BUCKET" $i }}"
+            endpoint: "{{ printf "$REPLICA_%d_ENDPOINT" $i }}"
+            force-path-style: "{{ printf "$REPLICA_%d_FORCE_PATH_STYLE" $i }}"
+            skip-verify: "{{ printf "$REPLICA_%d_SKIP_VERIFY" $i }}"
+    {{- end }}
+{{- end }}

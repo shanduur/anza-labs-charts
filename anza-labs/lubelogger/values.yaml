@@ -4,11 +4,11 @@
 replicaCount: 1
 
 updateStrategy:
-  # -- The deployment strategy to use to replace existing pods with new ones. Options: "Recreate" or "RollingUpdate".
-  type: Recreate
-  # rollingUpdate:
-    # maxUnavailable: 100%
-    # maxSurge: 0
+  # -- The deployment strategy to use to replace existing pods with new ones. Options: "RollingUpdate" or "OnDelete".
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 100%
+    partition: 0
 
 image:
   # -- Registry and repository for the lubelogger image.

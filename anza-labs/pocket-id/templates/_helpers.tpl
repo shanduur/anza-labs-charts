@@ -73,6 +73,20 @@ Create secret name used for configuring Pocket-ID.
 {{- end }}
 
 {{/*
+Create backup secret name used for configuring Litestream.
+*/}}
+{{- define "pocket-id.backupSecret" -}}
+    {{- default (printf "%s-backup" (include "pocket-id.fullname" .)) .Values.secret.name }}
+{{- end }}
+
+{{/*
+Create backup secret name used for configuring Litestream.
+*/}}
+{{- define "pocket-id.backupConfig" -}}
+    {{- printf "%s-backup" (include "pocket-id.fullname" .) }}
+{{- end }}
+
+{{/*
 Create pvc name used for configuring the data persistence in app.
 */}}
 {{- define "pocket-id.pvcData" -}}

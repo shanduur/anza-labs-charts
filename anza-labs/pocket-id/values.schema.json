@@ -5,6 +5,85 @@
       "properties": {},
       "type": "object"
     },
+    "backup": {
+      "properties": {
+        "busyTimeout": {
+          "type": "string"
+        },
+        "checkpointInterval": {
+          "type": "string"
+        },
+        "image": {
+          "properties": {
+            "pullPolicy": {
+              "type": "string"
+            },
+            "repository": {
+              "type": "string"
+            },
+            "tag": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "logging": {
+          "properties": {
+            "level": {
+              "type": "string"
+            },
+            "stderr": {
+              "type": "boolean"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "maxCheckpointPageCount": {
+          "type": "string"
+        },
+        "metricsAddress": {
+          "type": "string"
+        },
+        "minCheckpointPageCount": {
+          "type": "string"
+        },
+        "monitorInterval": {
+          "type": "string"
+        },
+        "resources": {
+          "properties": {},
+          "type": "object"
+        },
+        "secret": {
+          "properties": {
+            "accessKey": {
+              "type": "string"
+            },
+            "create": {
+              "type": "boolean"
+            },
+            "name": {
+              "type": "string"
+            },
+            "replicas": {
+              "type": "array"
+            },
+            "secretKey": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "securityContext": {
+          "properties": {},
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
     "config": {
       "properties": {
         "create": {
@@ -177,20 +256,6 @@
     "geoliteDatabaseURL": {
       "type": "string"
     },
-    "image": {
-      "properties": {
-        "pullPolicy": {
-          "type": "string"
-        },
-        "repository": {
-          "type": "string"
-        },
-        "tag": {
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
     "imagePullSecrets": {
       "type": "array"
     },
@@ -268,6 +333,33 @@
       },
       "type": "object"
     },
+    "pocketID": {
+      "properties": {
+        "image": {
+          "properties": {
+            "pullPolicy": {
+              "type": "string"
+            },
+            "repository": {
+              "type": "string"
+            },
+            "tag": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "resources": {
+          "properties": {},
+          "type": "object"
+        },
+        "securityContext": {
+          "properties": {},
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
     "podAnnotations": {
       "properties": {},
       "type": "object"
@@ -283,10 +375,6 @@
     "replicaCount": {
       "type": "integer"
     },
-    "resources": {
-      "properties": {},
-      "type": "object"
-    },
     "secret": {
       "properties": {
         "create": {
@@ -296,10 +384,6 @@
           "type": "string"
         }
       },
-      "type": "object"
-    },
-    "securityContext": {
-      "properties": {},
       "type": "object"
     },
     "service": {
@@ -336,6 +420,17 @@
     },
     "updateStrategy": {
       "properties": {
+        "rollingUpdate": {
+          "properties": {
+            "maxUnavailable": {
+              "type": "string"
+            },
+            "partition": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
         "type": {
           "type": "string"
         }

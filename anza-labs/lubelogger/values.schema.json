@@ -486,6 +486,17 @@
     },
     "updateStrategy": {
       "properties": {
+        "rollingUpdate": {
+          "properties": {
+            "maxUnavailable": {
+              "type": "string"
+            },
+            "partition": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
         "type": {
           "type": "string"
         }
