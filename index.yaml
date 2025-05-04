@@ -1151,6 +1151,24 @@ entries:
   pocket-id:
   - apiVersion: v2
     appVersion: v0.51.1
+    created: "2025-05-04T12:08:57.833675802Z"
+    description: '_pocket-id_ is a simple and easy-to-use OIDC provider that allows
+      users to authenticate with their passkeys to your services. '
+    digest: bf6ab4b538f31f0241f2cab205e691b811d4058e2efa5166fb6706182ca707e5
+    home: https://pocket-id.org
+    maintainers:
+    - email: matueusz.urbanek.98@gmail.com
+      name: Mateusz Urbanek
+      url: http://linkedin.com/in/urbanekmateusz
+    name: pocket-id
+    sources:
+    - https://github.com/pocket-id/pocket-id
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/pocket-id-0.1.3/pocket-id-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
+    appVersion: v0.51.1
     created: "2025-05-04T11:55:05.530664024Z"
     description: '_pocket-id_ is a simple and easy-to-use OIDC provider that allows
       users to authenticate with their passkeys to your services. '
@@ -1528,4 +1546,4 @@ entries:
     urls:
     - https://github.com/anza-labs/charts/releases/download/scribe-0.1.0/scribe-0.1.0.tgz
     version: 0.1.0
-generated: "2025-05-04T11:55:05.530868659Z"
+generated: "2025-05-04T12:08:57.833817928Z"
