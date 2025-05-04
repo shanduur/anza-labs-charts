@@ -41,12 +41,6 @@ spec:
       serviceAccountName: {{ include "pocket-id.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      {{- if .Values.persistence.data.enabled }}
-      volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: {{ include "pocket-id.pvcData" . }}
-      {{- end }}
       containers:
         - name: pocket-id
           securityContext:
@@ -70,7 +64,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- if .Values.persistence.data.enabled }}
           volumeMounts:
-            - name: data
+            - name: {{ include "pocket-id.pvcData" . }}
               mountPath: /app/backend/data
           {{- end }}
           envFrom:
@@ -90,6 +84,7 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  {{- if .Values.persistence.data.enabled }}
   volumeClaimTemplates:
     - metadata:
         name: {{ include "pocket-id.pvcData" . }}
@@ -108,3 +103,4 @@ spec:
         {{- if .Values.persistence.data.storageClass }}
         storageClassName: {{ .Values.persistence.data.storageClass }}
         {{- end }}
+  {{- end }}

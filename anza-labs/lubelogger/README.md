@@ -1,6 +1,6 @@
 # lubelogger
 
-![Version: 0.8.0](https://img.shields.io/badge/Version-0.8.0-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v1.4.7](https://img.shields.io/badge/AppVersion-v1.4.7-informational?style=flat)
+![Version: 0.8.1](https://img.shields.io/badge/Version-0.8.1-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v1.4.7](https://img.shields.io/badge/AppVersion-v1.4.7-informational?style=flat)
 
 _LubeLogger_ is a web-based vehicle maintenance and fuel mileage tracker
 

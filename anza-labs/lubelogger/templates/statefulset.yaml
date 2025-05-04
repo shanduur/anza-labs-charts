@@ -49,21 +49,6 @@ spec:
           emptyDir: {}
         - name: config
           emptyDir: {}
-      {{- if .Values.persistence.data.enabled }}
-        - name: data
-          persistentVolumeClaim:
-            claimName: {{ include "lubelog.pvcData" . }}
-      {{- end }}
-      {{- if .Values.persistence.documents.enabled }}
-        - name: documents
-          persistentVolumeClaim:
-            claimName: {{ include "lubelog.pvcDocuments" . }}
-      {{- end }}
-      {{- if .Values.persistence.images.enabled }}
-        - name: images
-          persistentVolumeClaim:
-            claimName: {{ include "lubelog.pvcImages" . }}
-      {{- end }}
       {{- if .Values.config.translations }}
       initContainers:
         - name: init-translations
@@ -109,15 +94,15 @@ spec:
             - name: translations
               mountPath: /App/wwwroot/translations
           {{- if .Values.persistence.data.enabled }}
-            - name: data
+            - name: {{ include "lubelog.pvcData" . }}
               mountPath: /App/data
           {{- end }}
           {{- if .Values.persistence.documents.enabled }}
-            - name: documents
+            - name: {{ include "lubelog.pvcDocuments" . }}
               mountPath: /App/wwwroot/documents
           {{- end }}
           {{- if .Values.persistence.images.enabled }}
-            - name: images
+            - name: {{ include "lubelog.pvcImages" . }}
               mountPath: /App/wwwroot/images
           {{- end }}
           env:
