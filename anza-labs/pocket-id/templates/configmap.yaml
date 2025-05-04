@@ -17,9 +17,9 @@ metadata:
 data:
   TRUST_PROXY: "true"
   CADDY_DISABLED: "false"
-  CADDY_PORT: "80"
+  CADDY_PORT: "10080"
   PORT: "3000"
-  BACKEND_PORT: "8000"
+  BACKEND_PORT: "8080"
   HOST: "0.0.0.0"
   INTERNAL_BACKEND_URL: "http://localhost:8080"
   UPDATE_CHECK_DISABLED: "true"
