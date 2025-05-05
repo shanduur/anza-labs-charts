@@ -1,6 +1,6 @@
 # meta-chart
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: meta](https://img.shields.io/badge/AppVersion-meta-informational?style=flat)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: meta](https://img.shields.io/badge/AppVersion-meta-informational?style=flat)
 
 ## Values
 
