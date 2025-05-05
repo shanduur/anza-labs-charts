@@ -3,4 +3,11 @@
 set -eu
 
 CR="${1}"
-"${CR}" index --config .cr.yaml
+TOKEN="${2}"
+
+"${CR}" index \
+    --config .cr.yaml \
+    --token="${TOKEN}" \
+    --owner anza-labs \
+    --git-repo charts \
+    --push

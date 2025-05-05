@@ -34,21 +34,12 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       - run: |
-          ./hack/repos.sh ./anza-labs
-      - name: Detect changed chart versions
-        id: detect
-        run: |
+          ./hack/repos.sh ./charts
+      - run: |
           make release-detect
-      # - name: Package charts with version changes
-      #   run: |
-      #     make release-package
-      # - name: Upload releases to GitHub
-      #   env:
-      #     CR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   run: |
-      #     make release-upload
-      # - name: Index charts
-      #   env:
-      #     CR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   run: |
-      #     make release-index
+      - run: |
+          make release-package
+      - run: |
+          make release-upload CR_TOKEN=${{ secrets.GITHUB_TOKEN }}
+      - run: |
+          make release-index CR_TOKEN=${{ secrets.GITHUB_TOKEN }}

@@ -12,6 +12,7 @@ endif
 CONTAINER_TOOL ?= docker
 
 CHART ?=
+CR_TOKEN ?=
 
 # Setting SHELL to bash allows bash commands to be executed by recipes.
 # Options are set to exit when a recipe line exits non-zero or a piped command fails.
@@ -65,11 +66,11 @@ release-package: chart-releaser
 
 .PHONY: release-upload
 release-upload: chart-releaser
-	./hack/release-upload.sh $(CHART_RELEASER)
+	./hack/release-upload.sh $(CHART_RELEASER) $(CR_TOKEN)
 
 .PHONY: release-index
 release-index: chart-releaser
-	./hack/release-index.sh $(CHART_RELEASER)
+	./hack/release-index.sh $(CHART_RELEASER) $(CR_TOKEN)
 
 .PHONY: ci
 ci: update-repos _ci _generate-schema _generate-docs readme
