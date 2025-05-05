@@ -38,3 +38,7 @@ Session.vim
 
 # Brew bundle lock
 Brewfile.lock.json
+
+# chart releaser
+changed.txt
+.cr-release-packages
