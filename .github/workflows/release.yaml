@@ -1,7 +1,6 @@
 name: release
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
@@ -18,9 +17,6 @@ jobs:
         with:
           fetch-depth: 0
       - uses: fregante/setup-git-user@v2
-      - uses: actions/setup-go@v5
-        with:
-          go-version-file: ./go.mod
       - name: Prepare GPG key
         env:
           GPG_KEYRING_BASE64: ${{ secrets.GPG_KEYRING_BASE64 }}
@@ -35,11 +31,9 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - run: |
           ./hack/repos.sh ./charts
-      - run: |
-          make release-detect
-      - run: |
-          make release-package
-      - run: |
-          make release-upload CR_TOKEN=${{ secrets.GITHUB_TOKEN }}
-      - run: |
-          make release-index CR_TOKEN=${{ secrets.GITHUB_TOKEN }}
+      - id: releaser
+        uses: helm/chart-releaser-action@v1
+        env:
+          CR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          config: .cr.yaml

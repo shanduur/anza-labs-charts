@@ -12,7 +12,6 @@ endif
 CONTAINER_TOOL ?= docker
 
 CHART ?=
-CR_TOKEN ?=
 
 # Setting SHELL to bash allows bash commands to be executed by recipes.
 # Options are set to exit when a recipe line exits non-zero or a piped command fails.
@@ -55,22 +54,6 @@ cluster: kind ctlptl
 cluster-reset: kind ctlptl
 	$(CONTAINER_TOOL) kill cloud-provider-kind
 	@PATH="${LOCALBIN}:$(PATH)" $(CTLPTL) delete -f hack/kind.yaml
-
-.PHONY: release-detect
-release-detect: yq
-	./hack/release-detect.sh $(YQ) changed.txt
-
-.PHONY: release-package
-release-package: chart-releaser
-	./hack/release-package.sh $(CHART_RELEASER) changed.txt
-
-.PHONY: release-upload
-release-upload: chart-releaser
-	./hack/release-upload.sh $(CHART_RELEASER) $(CR_TOKEN)
-
-.PHONY: release-index
-release-index: chart-releaser
-	./hack/release-index.sh $(CHART_RELEASER) $(CR_TOKEN)
 
 .PHONY: ci
 ci: update-repos _ci _generate-schema _generate-docs readme
@@ -167,9 +150,6 @@ CLOUD_PROVIDER_KIND_VERSION ?= v0.6.0
 # renovate: datasource=github-tags depName=tilt-dev/ctlptl
 CTLPTL_VERSION ?= v0.8.40
 
-# renovate: datasource=github-tags depName=helm/chart-releaser
-CHART_RELEASER_VERSION ?= main
-
 # renovate: datasource=github-tags depName=norwoodj/helm-docs
 HELM_DOCS_VERSION ?= v1.14.2
 
@@ -189,11 +169,6 @@ YQ_VERSION ?= v4.45.2
 ctlptl: $(CTLPTL)-$(CTLPTL_VERSION) ## Download ctlptl locally if necessary.
 $(CTLPTL)-$(CTLPTL_VERSION): $(LOCALBIN)
 	$(call go-install-tool,$(CTLPTL),github.com/tilt-dev/ctlptl/cmd/ctlptl,$(CTLPTL_VERSION))
-
-.PHONY: chart-releaser
-chart-releaser: $(CHART_RELEASER)-$(CHART_RELEASER_VERSION) ## Download chart-releaser locally if necessary.
-$(CHART_RELEASER)-$(CHART_RELEASER_VERSION): $(LOCALBIN)
-	$(call go-install-tool,$(CHART_RELEASER),github.com/helm/chart-releaser/cr,$(CHART_RELEASER_VERSION))
 
 .PHONY: helm-docs
 helm-docs: $(HELM_DOCS)-$(HELM_DOCS_VERSION) ## Download helm-docs locally if necessary.

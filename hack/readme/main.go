@@ -15,7 +15,7 @@ import (
 
 const (
 	readmeTemplateFile = "./README.md.gotpl"
-	chartsDir          = "./anza-labs"
+	chartsDir          = "./charts"
 )
 
 // Chart represents the structure of a Chart.yaml file.
