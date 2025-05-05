@@ -60,12 +60,15 @@ jobs:
           git add .
           git commit -sm "fix: generated chart ${{ env.chart_name }} version ${{ env.chart_version }}" || echo "No changes to commit"
       - uses: ad-m/github-push-action@master
+        if: env.branch != 'main' && env.branch != ''
         with:
           github_token: ${{ secrets.PAT }}
           branch: ${{ env.branch }}
-      - run: |
+      - if: env.branch != 'main' && env.branch != ''
+        run: |
           sleep 30
-      - uses: hmarr/auto-approve-action@v4
+      - if: env.branch != 'main' && env.branch != ''
+        uses: hmarr/auto-approve-action@v4
         with:
           github-token: ${{ secrets.PAT }}
           pull-request-number: ${{ github.event.issue.number }}

@@ -15,11 +15,17 @@ PW='[0-9]*[a-zA-Z-][0-9a-zA-Z-]*'
 MW='[0-9a-zA-Z-]+'
 
 if [[ "$COMMENT" =~ ^/ci[[:space:]]+([a-zA-Z0-9_-]+)[[:space:]]+(.+)$ ]]; then
-    echo "chart_name=${BASH_REMATCH[1]}" >> $GITHUB_ENV
+    echo "chart_name=${BASH_REMATCH[1]}" >> "${GITHUB_ENV}"
     "${SEMVER}" validate "${BASH_REMATCH[2]}"
-    echo "chart_version=${BASH_REMATCH[2]}" >> $GITHUB_ENV
+    echo "chart_version=${BASH_REMATCH[2]}" >> "${GITHUB_ENV}"
     branch=$(gh pr view "${PR}" --json='headRefName' -q='.headRefName')
-    echo "branch=${branch}" >> $GITHUB_ENV
+    echo "branch=${branch}" >> "${GITHUB_ENV}"
+
+    # Failsafe: Do not allow running on the 'main' branch
+    if [[ "${branch}" == "main" ]]; then
+        echo "Refusing to run this command on the 'main' branch." >&2
+        exit 1
+    fi
 else
     echo "Comment format invalid. Expected '/ci <chart-name> <chart-version>'." >&2
     exit 1
