@@ -86,7 +86,7 @@ readme:
 
 .PHONY: test
 test: ## Run helm unittest on all charts.
-	for dir in anza-labs/*; do $(MAKE) _test CHART="$$dir"; done
+	for dir in charts/*; do $(MAKE) _test CHART="$$dir"; done
 
 .PHONY: _test
 _test:
@@ -94,7 +94,7 @@ _test:
 
 .PHONY: backfill-all-app-versions
 backfill-all-app-versions: yq
-	for dir in anza-labs/*; do $(MAKE) _backfill-app-version CHART="$$dir"; done
+	for dir in charts/*; do $(MAKE) _backfill-app-version CHART="$$dir"; done
 
 .PHONY: _backfill-app-version
 _backfill-app-version: yq
@@ -106,25 +106,25 @@ _set-chart-version: yq
 
 .PHONY: repos
 update-repos:
-	./hack/repos.sh ./anza-labs
+	./hack/repos.sh ./charts
 
 .PHONY: dependencies
 update-dependencies: update-repos yq ## Update chart dependencies
-	for dir in anza-labs/*; do $(MAKE) _update-dependencies CHART="$$dir"; done
+	for dir in charts/*; do $(MAKE) _update-dependencies CHART="$$dir"; done
 
 _update-dependencies: yq
 	cd ${CHART}; helm dependency update --skip-refresh .
 
 .PHONY: generate-docs
 generate-docs: helm-docs ## Run kube-linter on Kubernetes manifests.
-	for dir in anza-labs/*; do $(MAKE) _generate-docs CHART="$$dir"; done
+	for dir in charts/*; do $(MAKE) _generate-docs CHART="$$dir"; done
 
 _generate-docs: helm-docs
 	cd ${CHART}; $(HELM_DOCS) --badge-style=flat --template-files=README.md.gotpl
 
 .PHONY: generate-schemas
 generate-schemas: helm-values-schema-json ## Run kube-linter on Kubernetes manifests.
-	for dir in anza-labs/*; do $(MAKE) _generate-schema CHART="$$dir"; done
+	for dir in charts/*; do $(MAKE) _generate-schema CHART="$$dir"; done
 
 .PHONY: _generate-schema
 _generate-schema: helm-values-schema-json
@@ -136,7 +136,7 @@ _generate-schema: helm-values-schema-json
 
 .PHONY: lint-manifests
 lint-manifests: kube-linter ## Run kube-linter on Kubernetes manifests.
-	$(KUBE_LINTER) lint --config=.kube-linter.yaml ./anza-labs/**
+	$(KUBE_LINTER) lint --config=.kube-linter.yaml ./charts/**
 
 .PHONY: diff
 diff:
