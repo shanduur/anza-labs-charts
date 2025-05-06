@@ -14,25 +14,7 @@
         "docker"
       ],
       "matchFileNames": [
-        "anza-labs/hosted-control-plane/**"
-      ]
-    },
-    {
-      "groupName": "lubelogger dependencies",
-      "matchDatasources": [
-        "docker"
-      ],
-      "matchFileNames": [
-        "anza-labs/lubelogger/**"
-      ]
-    },
-    {
-      "groupName": "kube-storage-version-migrator dependencies",
-      "matchDatasources": [
-        "docker"
-      ],
-      "matchFileNames": [
-        "anza-labs/kube-storage-version-migrator/**"
+        "charts/hosted-control-plane/**"
       ]
     },
     {
@@ -41,7 +23,34 @@
         "docker"
       ],
       "matchFileNames": [
-        "anza-labs/kamaji/**"
+        "charts/kamaji/**"
+      ]
+    },
+    {
+      "groupName": "kube-storage-version-migrator dependencies",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchFileNames": [
+        "charts/kube-storage-version-migrator/**"
+      ]
+    },
+    {
+      "groupName": "lubelogger dependencies",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchFileNames": [
+        "charts/lubelogger/**"
+      ]
+    },
+    {
+      "groupName": "pocket-id dependencies",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchFileNames": [
+        "charts/pocket-id/**"
       ]
     },
     {
