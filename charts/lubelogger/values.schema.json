@@ -314,46 +314,6 @@
             }
           },
           "type": "object"
-        },
-        "documents": {
-          "properties": {
-            "accessMode": {
-              "type": "string"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "existingClaim": {
-              "type": "string"
-            },
-            "size": {
-              "type": "string"
-            },
-            "storageClass": {
-              "type": "string"
-            }
-          },
-          "type": "object"
-        },
-        "images": {
-          "properties": {
-            "accessMode": {
-              "type": "string"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "existingClaim": {
-              "type": "string"
-            },
-            "size": {
-              "type": "string"
-            },
-            "storageClass": {
-              "type": "string"
-            }
-          },
-          "type": "object"
         }
       },
       "type": "object"

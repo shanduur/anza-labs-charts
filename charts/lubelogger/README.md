@@ -1,6 +1,6 @@
 # lubelogger
 
-![Version: 0.8.5](https://img.shields.io/badge/Version-0.8.5-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v1.4.7](https://img.shields.io/badge/AppVersion-v1.4.7-informational?style=flat)
+![Version: 0.9.1](https://img.shields.io/badge/Version-0.9.1-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v1.4.7](https://img.shields.io/badge/AppVersion-v1.4.7-informational?style=flat)
 
 _LubeLogger_ is a web-based vehicle maintenance and fuel mileage tracker
 
@@ -91,16 +91,6 @@ _LubeLogger_ is a web-based vehicle maintenance and fuel mileage tracker
 | persistence.data.existingClaim | string | `""` | Use an existing PVC if defined, otherwise create one. |
 | persistence.data.size | string | `"10Gi"` | Storage size for the PVC. |
 | persistence.data.storageClass | string | `""` | Specify the StorageClass (if required). |
-| persistence.documents.accessMode | string | `"ReadWriteOnce"` | Access mode for the PVC. |
-| persistence.documents.enabled | bool | `true` | Enable/disable PVC creation for documents. |
-| persistence.documents.existingClaim | string | `""` | Use an existing PVC if defined, otherwise create one. |
-| persistence.documents.size | string | `"10Gi"` | Storage size for the PVC. |
-| persistence.documents.storageClass | string | `""` | Specify the StorageClass (if required). |
-| persistence.images.accessMode | string | `"ReadWriteOnce"` | Access mode for the PVC. |
-| persistence.images.enabled | bool | `true` | Enable/disable PVC creation for images. |
-| persistence.images.existingClaim | string | `""` | Use an existing PVC if defined, otherwise create one. |
-| persistence.images.size | string | `"10Gi"` | Storage size for the PVC. |
-| persistence.images.storageClass | string | `""` | Specify the StorageClass (if required). |
 | podAnnotations | object | `{}` | Annotations to be added to the pods. |
 | podLabels | object | `{}` | Labels to be added to the pods. |
 | podSecurityContext | object | `{}` |  |
