@@ -3,6 +3,27 @@ entries:
   hosted-control-plane:
   - apiVersion: v2
     appVersion: v1.33.0
+    created: "2025-05-09T15:19:20.049958748Z"
+    dependencies:
+    - condition: cert-manager.deploy
+      name: cert-manager
+      repository: https://charts.jetstack.io
+      version: '>=v1.16.0'
+    description: '_hosted-control-plane_ is a PoC/testing ground for any improvements
+      that might reach Cluster API Control Plane Provider KinK manifests. '
+    digest: a6af940a09fe0021e7d57b3b8a19a0b71230446b4ef3f28c023561694880fe16
+    home: https://anza-labs.github.io/kink
+    maintainers:
+    - email: maturb@proton.me
+      name: shanduur
+      url: http://linkedin.com/in/urbanekmateusz
+    name: hosted-control-plane
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/hosted-control-plane-0.2.3/hosted-control-plane-0.2.3.tgz
+    version: 0.2.3
+  - apiVersion: v2
+    appVersion: v1.33.0
     created: "2025-04-24T14:33:07.712521475Z"
     dependencies:
     - condition: cert-manager.deploy
@@ -191,6 +212,55 @@ entries:
     - https://github.com/anza-labs/charts/releases/download/hosted-control-plane-0.1.0/hosted-control-plane-0.1.0.tgz
     version: 0.1.0
   kamaji:
+  - annotations:
+      artifacthub.io/images: |
+        - name: proxy-server
+          image: registry.k8s.io/kas-network-proxy/proxy-server:v0.28.6
+          platforms:
+            - linux/amd64
+            - linux/arm64
+        - name: kamaji
+          image: docker.io/clastix/kamaji:edge-24.12.1
+          platforms:
+            - linux/amd64
+            - linux/arm64
+        - name: kube-apiserver
+          image: registry.k8s.io/kube-apiserver:v1.28.6
+          platforms:
+            - linux/amd64
+            - linux/arm64
+        - name: kube-controller-manager
+          image: registry.k8s.io/kube-controller-manager:v1.28.6
+          platforms:
+            - linux/amd64
+            - linux/arm64
+        - name: kube-scheduler
+          image: registry.k8s.io/kube-scheduler:v1.28.6
+          platforms:
+            - linux/amd64
+            - linux/arm64
+    apiVersion: v2
+    appVersion: edge-25.4.1
+    created: "2025-05-09T15:19:20.198008468Z"
+    dependencies:
+    - condition: kamaji-etcd.deploy
+      name: kamaji-etcd
+      repository: https://clastix.github.io/charts
+      version: '>=0.9.2'
+    description: '_Kamaji_ is the Kubernetes Control Plane Manager. '
+    digest: fdaa1774d2edec36fa29523e59d8e0a10b99430bd6607e3e777e772843e57932
+    home: https://kamaji.clastix.io
+    maintainers:
+    - email: maturb@proton.me
+      name: shanduur
+      url: http://linkedin.com/in/urbanekmateusz
+    name: kamaji
+    sources:
+    - https://github.com/clastix/kamaji
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/kamaji-0.1.9/kamaji-0.1.9.tgz
+    version: 0.1.9
   - annotations:
       artifacthub.io/images: |
         - name: proxy-server
@@ -608,6 +678,25 @@ entries:
   kube-storage-version-migrator:
   - apiVersion: v2
     appVersion: v0.0.5
+    created: "2025-05-09T15:19:20.387065825Z"
+    deprecated: true
+    description: '_kube-storage-version-migrator_ migrates stored data in etcd to
+      the latest storage version.  This is useful for clusters with K8s < 1.30. In
+      clusters version 1.30, admins should enable the following Feature Gate: - _StorageVersionMigrator_[^1]  [^1]:
+      https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/ '
+    digest: 6b7bc54534d12eee5fa80b401a062d88214e7ccae50c9f436d4f206487099927
+    home: https://github.com/kubernetes-sigs/kube-storage-version-migrator
+    maintainers:
+    - email: maturb@proton.me
+      name: shanduur
+      url: http://linkedin.com/in/urbanekmateusz
+    name: kube-storage-version-migrator
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/kube-storage-version-migrator-0.1.1/kube-storage-version-migrator-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: v0.0.5
     created: "2025-01-28T08:57:48.165265382Z"
     deprecated: true
     description: '_kube-storage-version-migrator_ migrates stored data in etcd to
@@ -701,6 +790,24 @@ entries:
     - https://github.com/anza-labs/charts/releases/download/kube-storage-version-migrator-0.0.1/kube-storage-version-migrator-0.0.1.tgz
     version: 0.0.1
   lubelogger:
+  - apiVersion: v2
+    appVersion: v1.4.7
+    created: "2025-05-09T15:19:20.50946596Z"
+    description: '_LubeLogger_ is a web-based vehicle maintenance and fuel mileage
+      tracker '
+    digest: ed17c3eebd6a385c467f589a0f72a353cc9683a0f736273db20369280ab40465
+    home: https://lubelogger.com
+    maintainers:
+    - email: maturb@proton.me
+      name: shanduur
+      url: http://linkedin.com/in/urbanekmateusz
+    name: lubelogger
+    sources:
+    - https://github.com/hargata/lubelog
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/lubelogger-0.9.2/lubelogger-0.9.2.tgz
+    version: 0.9.2
   - apiVersion: v2
     appVersion: v1.4.7
     created: "2025-05-09T14:45:47.598094867Z"
@@ -1335,6 +1442,24 @@ entries:
   pocket-id:
   - apiVersion: v2
     appVersion: v0.51.1
+    created: "2025-05-09T15:19:20.631377013Z"
+    description: '_pocket-id_ is a simple and easy-to-use OIDC provider that allows
+      users to authenticate with their passkeys to your services. '
+    digest: 785df92560a40e95ee52108e35730b7b4dec6f76c61fa637eb94a526ff24e816
+    home: https://pocket-id.org
+    maintainers:
+    - email: maturb@proton.me
+      name: shanduur
+      url: http://linkedin.com/in/urbanekmateusz
+    name: pocket-id
+    sources:
+    - https://github.com/pocket-id/pocket-id
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/pocket-id-0.2.1/pocket-id-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
+    appVersion: v0.51.1
     created: "2025-05-04T15:42:59.107853491Z"
     description: '_pocket-id_ is a simple and easy-to-use OIDC provider that allows
       users to authenticate with their passkeys to your services. '
@@ -1462,6 +1587,20 @@ entries:
   podvm:
   - apiVersion: v2
     appVersion: v1.11.0
+    created: "2025-05-09T15:19:20.783170072Z"
+    description: '_podvm_ is a PoC/testing for running Firecracker in Kubernetes. '
+    digest: e92bf1571c0e8a24989bfcb5316519f563afdf347ca27edc079fb07c7ec39d4f
+    maintainers:
+    - email: maturb@proton.me
+      name: shanduur
+      url: http://linkedin.com/in/urbanekmateusz
+    name: podvm
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/podvm-0.0.0-alpha.8/podvm-0.0.0-alpha.8.tgz
+    version: 0.0.0-alpha.8
+  - apiVersion: v2
+    appVersion: v1.11.0
     created: "2025-04-23T19:58:35.378070618Z"
     description: '_podvm_ is a PoC/testing for running Firecracker in Kubernetes. '
     digest: 7ecebef6f6f8b79c11e2be13cb4e7bc7de09da6b158fd55808c752eb481805e0
@@ -1583,6 +1722,23 @@ entries:
     - https://github.com/anza-labs/charts/releases/download/podvm-0.0.0-alpha.1/podvm-0.0.0-alpha.1.tgz
     version: 0.0.0-alpha.1
   scribe:
+  - apiVersion: v2
+    appVersion: v0.3.0
+    created: "2025-05-09T15:19:20.892488035Z"
+    deprecated: true
+    description: '_Scribe_ is a tool that automates the propagation of annotations
+      across Kubernetes resources based on the annotations in a Namespace. '
+    digest: 2c2b4468974537bbac52a150ceebfea1a43804988a1c1701e773952007c9b886
+    home: https://github.com/anza-labs/scribe
+    maintainers:
+    - email: maturb@proton.me
+      name: shanduur
+      url: http://linkedin.com/in/urbanekmateusz
+    name: scribe
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/scribe-0.3.7/scribe-0.3.7.tgz
+    version: 0.3.7
   - apiVersion: v2
     appVersion: v0.3.0
     created: "2025-02-03T20:06:54.283675813Z"
@@ -1798,4 +1954,4 @@ entries:
     urls:
     - https://github.com/anza-labs/charts/releases/download/scribe-0.1.0/scribe-0.1.0.tgz
     version: 0.1.0
-generated: "2025-05-09T14:45:47.598882703Z"
+generated: "2025-05-09T15:19:20.892952152Z"
