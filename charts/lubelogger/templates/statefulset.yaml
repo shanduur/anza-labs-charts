@@ -45,10 +45,14 @@ spec:
             items:
               - key: userConfig
                 path: userConfig.json
-        - name: translations
+      {{- if (and .Values.persistence.data.enabled (not (eq .Values.persistence.data.existingClaim ""))) }}
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "lubelog.pvcData" . }}
+      {{- else if not .Values.persistence.data.enabled }}
+        - name: data
           emptyDir: {}
-        - name: config
-          emptyDir: {}
+      {{- end }}
       {{- if .Values.config.translations }}
       initContainers:
         - name: init-translations
@@ -57,20 +61,35 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             - |
-              mkdir -p /config
-              cp /config-ro/* /config
-              mkdir -p /translations
+              #!/bin/sh
+
+              set -eu
+
+              echo "[INFO] Ensuring /data/config directory exists..."
+              mkdir -p /data/config
+
+              echo "[INFO] Diffing /config-ro and /data/config:"
+              diff -qr /config-ro /data/config || echo "[WARN] Differences detected or /data/config is empty."
+
+              echo "[INFO] Copying files from /config-ro to /data/config..."
+              cp -v /config-ro/* /data/config
+
+              echo "[INFO] Ensuring /data/translations directory exists..."
+              mkdir -p /data/translations
+
               {{- range .Values.config.translations }}
-              echo "Fetching {{ . }}"
-              curl -o "/translations/$(basename {{ . }})" "{{ . }}"
+              echo "[INFO] Fetching translation: {{ . }}"
+              curl -fSL -o "/data/translations/$(basename {{ . }})" "{{ . }}"
               {{- end }}
           volumeMounts:
             - name: config-ro
               mountPath: /config-ro
-            - name: config
-              mountPath: /config
-            - name: translations
-              mountPath: /translations
+          {{- if (and .Values.persistence.data.enabled (eq .Values.persistence.data.existingClaim "")) }}
+            - name: {{ include "lubelog.pvcData" . }}
+          {{- else }}
+            - name: data
+          {{- end }}
+              mountPath: /data
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}
@@ -89,22 +108,12 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - name: config
-              mountPath: /App/config
-            - name: translations
-              mountPath: /App/wwwroot/translations
-          {{- if .Values.persistence.data.enabled }}
+          {{- if (and .Values.persistence.data.enabled (eq .Values.persistence.data.existingClaim "")) }}
             - name: {{ include "lubelog.pvcData" . }}
+          {{- else }}
+            - name: data
+          {{- end }}
               mountPath: /App/data
-          {{- end }}
-          {{- if .Values.persistence.documents.enabled }}
-            - name: {{ include "lubelog.pvcDocuments" . }}
-              mountPath: /App/wwwroot/documents
-          {{- end }}
-          {{- if .Values.persistence.images.enabled }}
-            - name: {{ include "lubelog.pvcImages" . }}
-              mountPath: /App/wwwroot/images
-          {{- end }}
           env:
             - name: "LC_ALL"
               value: {{ .Values.config.LC_ALL | default "en_US.UTF-8" | quote }}
@@ -161,6 +170,7 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  {{- if (and .Values.persistence.data.enabled (eq .Values.persistence.data.existingClaim "")) }}
   volumeClaimTemplates:
     - metadata:
         name: {{ include "lubelog.pvcData" . }}
@@ -180,39 +190,4 @@ spec:
         {{- if .Values.persistence.data.storageClass }}
         storageClassName: {{ .Values.persistence.data.storageClass }}
         {{- end }}
-    - metadata:
-        name: {{ include "lubelog.pvcDocuments" . }}
-        labels:
-          {{- include "lubelog.labels" . | nindent 10 }}
-        annotations:
-          helm.sh/resource-policy: "keep"
-        {{- if .Values.persistence.documents.annotations }}
-          {{- toYaml .Values.persistence.documents.annotations | nindent 10 }}
-        {{- end }}
-      spec:
-        accessModes:
-          - {{ .Values.persistence.documents.accessMode }}
-        resources:
-          requests:
-            storage: {{ .Values.persistence.documents.size }}
-        {{- if .Values.persistence.documents.storageClass }}
-        storageClassName: {{ .Values.persistence.documents.storageClass }}
-        {{- end }}
-    - metadata:
-        name: {{ include "lubelog.pvcImages" . }}
-        labels:
-          {{- include "lubelog.labels" . | nindent 10 }}
-        annotations:
-          helm.sh/resource-policy: "keep"
-        {{- if .Values.persistence.images.annotations }}
-          {{- toYaml .Values.persistence.images.annotations | nindent 10 }}
-        {{- end }}
-      spec:
-        accessModes:
-          - {{ .Values.persistence.images.accessMode }}
-        resources:
-          requests:
-            storage: {{ .Values.persistence.images.size }}
-        {{- if .Values.persistence.images.storageClass }}
-        storageClassName: {{ .Values.persistence.images.storageClass }}
-        {{- end }}
+  {{- end }}

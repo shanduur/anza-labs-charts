@@ -144,28 +144,6 @@ persistence:
     accessMode: ReadWriteOnce
     # -- Storage size for the PVC.
     size: 10Gi
-  documents:
-    # -- Enable/disable PVC creation for documents.
-    enabled: true
-    # -- Use an existing PVC if defined, otherwise create one.
-    existingClaim: ""
-    # -- Specify the StorageClass (if required).
-    storageClass: ""
-    # -- Access mode for the PVC.
-    accessMode: ReadWriteOnce
-    # -- Storage size for the PVC.
-    size: 10Gi
-  images:
-    # -- Enable/disable PVC creation for images.
-    enabled: true
-    # -- Use an existing PVC if defined, otherwise create one.
-    existingClaim: ""
-    # -- Specify the StorageClass (if required).
-    storageClass: ""
-    # -- Access mode for the PVC.
-    accessMode: ReadWriteOnce
-    # -- Storage size for the PVC.
-    size: 10Gi
 
 postgres:
   # -- Defines if the secret with Postgres connection details should be created.

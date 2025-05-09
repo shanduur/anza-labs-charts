@@ -92,17 +92,3 @@ Create pvc name used for configuring the data persistence in app.
 {{- define "lubelog.pvcData" -}}
     {{- default ( printf "%s-data" (include "lubelog.fullname" .)) .Values.persistence.data.existingClaim }}
 {{- end }}
-
-{{/*
-Create pvc name used for configuring the documents persistence in app.
-*/}}
-{{- define "lubelog.pvcDocuments" -}}
-    {{- default ( printf "%s-documents" (include "lubelog.fullname" .)) .Values.persistence.documents.existingClaim }}
-{{- end }}
-
-{{/*
-Create pvc name used for configuring the images persistence in app.
-*/}}
-{{- define "lubelog.pvcImages" -}}
-    {{- default ( printf "%s-images" (include "lubelog.fullname" .)) .Values.persistence.images.existingClaim }}
-{{- end }}
