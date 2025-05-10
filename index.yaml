@@ -3,6 +3,27 @@ entries:
   hosted-control-plane:
   - apiVersion: v2
     appVersion: v1.33.0
+    created: "2025-05-10T14:22:50.677278339Z"
+    dependencies:
+    - condition: cert-manager.deploy
+      name: cert-manager
+      repository: https://charts.jetstack.io
+      version: '>=v1.16.0'
+    description: '_hosted-control-plane_ is a PoC/testing ground for any improvements
+      that might reach Cluster API Control Plane Provider KinK manifests. '
+    digest: 1ae792659085fa9e34d939f498f09d15218966d32759ae7ba907228e240e1465
+    home: https://anza-labs.github.io/kink
+    maintainers:
+    - email: maturb@proton.me
+      name: shanduur
+      url: http://linkedin.com/in/urbanekmateusz
+    name: hosted-control-plane
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/hosted-control-plane-0.2.4/hosted-control-plane-0.2.4.tgz
+    version: 0.2.4
+  - apiVersion: v2
+    appVersion: v1.33.0
     created: "2025-05-09T15:19:20.049958748Z"
     dependencies:
     - condition: cert-manager.deploy
@@ -1586,6 +1607,20 @@ entries:
     version: 0.1.0
   podvm:
   - apiVersion: v2
+    appVersion: v1.12.0
+    created: "2025-05-10T14:22:50.760911052Z"
+    description: '_podvm_ is a PoC/testing for running Firecracker in Kubernetes. '
+    digest: b354fc224e41de9efca2c7e4750135ddd6b8e50e6cbc4bb5ffedb7390f2404c9
+    maintainers:
+    - email: maturb@proton.me
+      name: shanduur
+      url: http://linkedin.com/in/urbanekmateusz
+    name: podvm
+    type: application
+    urls:
+    - https://github.com/anza-labs/charts/releases/download/podvm-0.0.0-alpha.9/podvm-0.0.0-alpha.9.tgz
+    version: 0.0.0-alpha.9
+  - apiVersion: v2
     appVersion: v1.11.0
     created: "2025-05-09T15:19:20.783170072Z"
     description: '_podvm_ is a PoC/testing for running Firecracker in Kubernetes. '
@@ -1968,4 +2003,4 @@ entries:
     urls:
     - https://github.com/anza-labs/charts/releases/download/scribe-0.1.0/scribe-0.1.0.tgz
     version: 0.1.0
-generated: "2025-05-10T14:15:24.004169339Z"
+generated: "2025-05-10T14:22:50.761170577Z"
