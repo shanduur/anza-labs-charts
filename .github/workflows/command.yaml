@@ -55,7 +55,7 @@ jobs:
         with:
           go-version-file: ./go.mod
       - run: |
-          make ci CHART=anza-labs/${{ env.chart_name }} VERSION=${{ env.chart_version }}
+          make ci CHART=charts/${{ env.chart_name }} VERSION=${{ env.chart_version }}
       - run: |
           git add .
           git commit -sm "fix: generated chart ${{ env.chart_name }} version ${{ env.chart_version }}" || echo "No changes to commit"
