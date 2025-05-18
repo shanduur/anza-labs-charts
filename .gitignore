@@ -42,3 +42,6 @@ Brewfile.lock.json
 # chart releaser
 changed.txt
 .cr-release-packages
+
+# chart testing
+__snapshot__
