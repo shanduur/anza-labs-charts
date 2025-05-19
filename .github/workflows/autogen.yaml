@@ -54,10 +54,10 @@ jobs:
 
       - run: |
           git add .
-          git commit -sm "fix: generated chart ${{ env.chart_name }} version ${{ env.chart_version }}" || echo "No changes to commit"
+          git commit -sm "fix: generated chart ${{ env.chart_name }} version ${{ env.chart_version }}" || echo "skip_push=true" >> "${GITHUB_ENV}"
 
       - uses: ad-m/github-push-action@master
-        if: env.branch != 'main' && env.branch != ''
+        if: env.branch != 'main' && env.branch != '' && env.skip_push != 'true'
         with:
           github_token: ${{ secrets.PAT }}
           branch: ${{ env.branch }}
