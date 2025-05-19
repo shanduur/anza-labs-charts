@@ -19,12 +19,12 @@ image:
   pullPolicy: IfNotPresent
 
 config:
-  # -- Locale and Language Settings, this will affect how numbers, currencies, and dates are 
+  # -- Locale and Language Settings, this will affect how numbers, currencies, and dates are
   # formatted.
   LANG: en_US.UTF-8
   # -- Same as above. Note that some languages don't have UTF-8 encodings.
   LC_ALL: en_US.UTF-8
-  # -- Specifies the level of logs. Valid levels are `Trace`, `Debug`, `Information`, 
+  # -- Specifies the level of logs. Valid levels are `Trace`, `Debug`, `Information`,
   # `Warning`, `Error`, `Critical` and `None`. Learn more at:
   # https://learn.microsoft.com/en-us/aspnet/core/fundamentals/logging/
   LOGLEVEL: Information
