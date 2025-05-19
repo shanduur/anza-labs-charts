@@ -5,10 +5,6 @@
   "separate-pull-requests": true,
   "skip-github-release": true,
   "packages": {
-    "charts/hosted-control-plane": {
-      "release-type": "helm",
-      "tag-separator": ""
-    },
     "charts/kamaji": {
       "release-type": "helm"
     },
