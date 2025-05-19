@@ -1,13 +1,14 @@
-name: command
+name: autogen
 
 on:
-  issue_comment:
-    types:
-      - created
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
-  process-comment:
-    if: startsWith(github.event.comment.body, '/ci ')
+  process-pr:
+    if: |
+      github.actor == 'shanduur-auto' &&
+      github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
 
     permissions:
@@ -20,14 +21,17 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           reaction: 'eyes'
+
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
           fetch-depth: 0
+
       - run: |
           wget -O /usr/local/bin/semver \
             https://raw.githubusercontent.com/fsaintjacques/semver-tool/master/src/semver
-            chmod +x /usr/local/bin/semver
+          chmod +x /usr/local/bin/semver
+
       - run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.COMMIT_SIGNING }}" > ~/.ssh/signing_key
@@ -39,36 +43,36 @@ jobs:
           git config gpg.format ssh
           git config user.signingkey ~/.ssh/signing_key
           git config commit.gpgsign true
+
       - id: extract_info
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          ./hack/comment.sh "${{ github.event.comment.body }}" "${{ github.event.issue.number }}" "${GITHUB_ENV}"
-      - env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          PR_NUMBER=${{ github.event.issue.number }}
-          BRANCH_NAME=$(gh pr view $PR_NUMBER --json headRefName --jq '.headRefName')
-          git fetch origin $BRANCH_NAME
-          git checkout $BRANCH_NAME
+          ./hack/autogen.sh "${{ github.event.pull_request.title }}" "${{ github.event.pull_request.number }}" "${GITHUB_ENV}"
+
       - uses: actions/setup-go@v5
         with:
           go-version-file: ./go.mod
+
       - run: |
           make ci CHART=charts/${{ env.chart_name }} VERSION=${{ env.chart_version }}
+
       - run: |
           git add .
           git commit -sm "fix: generated chart ${{ env.chart_name }} version ${{ env.chart_version }}" || echo "No changes to commit"
+
       - uses: ad-m/github-push-action@master
         if: env.branch != 'main' && env.branch != ''
         with:
           github_token: ${{ secrets.PAT }}
           branch: ${{ env.branch }}
+
       - if: env.branch != 'main' && env.branch != ''
         run: |
           sleep 30
+
       - if: env.branch != 'main' && env.branch != ''
         uses: hmarr/auto-approve-action@v4
         with:
           github-token: ${{ secrets.PAT }}
-          pull-request-number: ${{ github.event.issue.number }}
+          pull-request-number: ${{ github.event.pull_request.number }}
