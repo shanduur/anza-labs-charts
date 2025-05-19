@@ -15,7 +15,10 @@ import (
 
 const (
 	readmeTemplateFile = "./README.md.gotpl"
-	chartsDir          = "./charts"
+)
+
+var (
+	chartsDirs = []string{"./charts", "./deprecated"}
 )
 
 // Chart represents the structure of a Chart.yaml file.
@@ -27,7 +30,7 @@ type Chart struct {
 }
 
 func main() {
-	charts, err := loadCharts(chartsDir)
+	charts, err := loadCharts(chartsDirs)
 	if err != nil {
 		log.Fatalf("Error loading charts: %v", err)
 	}
@@ -46,26 +49,28 @@ func main() {
 }
 
 // loadCharts recursively loads all Chart.yaml files from the given directory.
-func loadCharts(dir string) ([]Chart, error) {
+func loadCharts(dirs []string) ([]Chart, error) {
 	var charts []Chart
 
-	err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-		if info.IsDir() || filepath.Base(path) != "Chart.yaml" {
-			return nil
-		}
+	for _, dir := range dirs {
+		err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
+			if err != nil {
+				return err
+			}
+			if info.IsDir() || filepath.Base(path) != "Chart.yaml" {
+				return nil
+			}
 
-		chart, err := loadChart(path)
+			chart, err := loadChart(path)
+			if err != nil {
+				return fmt.Errorf("failed to load %s: %w", path, err)
+			}
+			charts = append(charts, chart)
+			return nil
+		})
 		if err != nil {
-			return fmt.Errorf("failed to load %s: %w", path, err)
+			return nil, err
 		}
-		charts = append(charts, chart)
-		return nil
-	})
-	if err != nil {
-		return nil, err
 	}
 
 	return charts, nil

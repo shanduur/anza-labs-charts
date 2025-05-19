@@ -1,0 +1,22 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/refs/heads/main/schemas/config.json",
+  "signoff": "Auto [bot] <75127809+shanduur-auto@users.noreply.github.com>",
+  "include-component-in-tag": true,
+  "separate-pull-requests": true,
+  "skip-github-release": true,
+  "packages": {
+    "charts/hosted-control-plane": {
+      "release-type": "helm",
+      "tag-separator": ""
+    },
+    "charts/kamaji": {
+      "release-type": "helm"
+    },
+    "charts/lubelogger": {
+      "release-type": "helm"
+    },
+    "charts/pocket-id": {
+      "release-type": "helm"
+    }
+  }
+}

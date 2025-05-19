@@ -7,16 +7,12 @@
   "labels": [
     "area/dependency"
   ],
+  "ignorePaths": [
+    "**/node_modules/**",
+    "**/bower_components/**",
+    "deprecated/**"
+  ],
   "packageRules": [
-    {
-      "groupName": "hosted-control-plane dependencies",
-      "matchDatasources": [
-        "docker"
-      ],
-      "matchFileNames": [
-        "charts/hosted-control-plane/**"
-      ]
-    },
     {
       "groupName": "kamaji dependencies",
       "matchDatasources": [
@@ -24,15 +20,6 @@
       ],
       "matchFileNames": [
         "charts/kamaji/**"
-      ]
-    },
-    {
-      "groupName": "kube-storage-version-migrator dependencies",
-      "matchDatasources": [
-        "docker"
-      ],
-      "matchFileNames": [
-        "charts/kube-storage-version-migrator/**"
       ]
     },
     {

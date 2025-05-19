@@ -1,5 +1,7 @@
 # hosted-control-plane
 
+> **:exclamation: This Helm Chart is deprecated!**
+
 ![Version: 0.2.5](https://img.shields.io/badge/Version-0.2.5-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v1.33.1](https://img.shields.io/badge/AppVersion-v1.33.1-informational?style=flat)
 
 _hosted-control-plane_ is a PoC/testing ground for any improvements that might

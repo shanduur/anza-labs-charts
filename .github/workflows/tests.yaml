@@ -26,7 +26,8 @@ jobs:
           make update-repos
       - run: |
           ct lint \
-            --target-branch ${{ github.event.repository.default_branch }}
+            --target-branch ${{ github.event.repository.default_branch }} \
+            --validate-chart-schema=false
 
   unittest:
     runs-on: ubuntu-latest

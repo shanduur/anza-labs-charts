@@ -1,6 +1,8 @@
 # podvm
 
-![Version: 0.0.0-alpha.9](https://img.shields.io/badge/Version-0.0.0--alpha.9-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v1.12.0](https://img.shields.io/badge/AppVersion-v1.12.0-informational?style=flat)
+> **:exclamation: This Helm Chart is deprecated!**
+
+![Version: 0.0.0-alpha.10](https://img.shields.io/badge/Version-0.0.0--alpha.10-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v1.12.0](https://img.shields.io/badge/AppVersion-v1.12.0-informational?style=flat)
 
 _podvm_ is a PoC/testing for running Firecracker in Kubernetes.
 

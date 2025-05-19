@@ -7,9 +7,19 @@ on:
 
 permissions:
   contents: write
+  issues: write
   pull-requests: write
 
 jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          token: ${{ secrets.PAT }}
+          config-file: release-please-config.json
+
   release:
     runs-on: ubuntu-latest
     steps:

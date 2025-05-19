@@ -1,4 +1,5 @@
 apiVersion: v2
+deprecated: true # Mark as deprecated, no longer developed
 type: application
 name: hosted-control-plane
 description: |
