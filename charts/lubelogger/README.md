@@ -1,6 +1,6 @@
 # lubelogger
 
-![Version: 0.9.2](https://img.shields.io/badge/Version-0.9.2-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v1.4.7](https://img.shields.io/badge/AppVersion-v1.4.7-informational?style=flat)
+![Version: 0.9.3](https://img.shields.io/badge/Version-0.9.3-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v1.4.7](https://img.shields.io/badge/AppVersion-v1.4.7-informational?style=flat)
 
 _LubeLogger_ is a web-based vehicle maintenance and fuel mileage tracker
 
@@ -26,9 +26,9 @@ _LubeLogger_ is a web-based vehicle maintenance and fuel mileage tracker
 | autoscaling.minReplicas | int | `1` | Minimum number of replicas for autoscaling. |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` | Target CPU utilization percentage for autoscaling. |
 | autoscaling.targetMemoryUtilizationPercentage | int | `80` | Target memory utilization percentage for autoscaling. |
-| config.LANG | string | `"en_US.UTF-8"` | Locale and Language Settings, this will affect how numbers, currencies, and dates are  formatted. |
+| config.LANG | string | `"en_US.UTF-8"` | Locale and Language Settings, this will affect how numbers, currencies, and dates are formatted. |
 | config.LC_ALL | string | `"en_US.UTF-8"` | Same as above. Note that some languages don't have UTF-8 encodings. |
-| config.LOGLEVEL | string | `"Information"` | Specifies the level of logs. Valid levels are `Trace`, `Debug`, `Information`,  `Warning`, `Error`, `Critical` and `None`. Learn more at: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/logging/ |
+| config.LOGLEVEL | string | `"Information"` | Specifies the level of logs. Valid levels are `Trace`, `Debug`, `Information`, `Warning`, `Error`, `Critical` and `None`. Learn more at: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/logging/ |
 | config.translations | list | `["https://raw.githubusercontent.com/hargata/lubelog_translations/main/Europe/pl_PL.json"]` | Translations defines a list of URLs from which translation files will be fetched. These URLs point to JSON files containing translations for different languages or regions. The files will be downloaded by the init container and stored in the appropriate directory. |
 | config.userConfig.AllowedHosts | string | `"*"` | Specifies allowed hosts for the application (use "*" to allow all hosts). |
 | config.userConfig.DefaultTab | int | `8` | Sets the default tab to be shown when the application starts. |
