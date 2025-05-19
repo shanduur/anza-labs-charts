@@ -17,11 +17,6 @@ jobs:
       pull-requests: write
 
     steps:
-      - uses: dkershner6/reaction-action@v2
-        with:
-          token: ${{ secrets.PAT }}
-          reaction: 'eyes'
-
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
