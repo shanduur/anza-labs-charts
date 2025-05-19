@@ -66,13 +66,3 @@ jobs:
         with:
           github_token: ${{ secrets.PAT }}
           branch: ${{ env.branch }}
-
-      - if: env.branch != 'main' && env.branch != ''
-        run: |
-          sleep 30
-
-      - if: env.branch != 'main' && env.branch != ''
-        uses: hmarr/auto-approve-action@v4
-        with:
-          github-token: ${{ secrets.PAT }}
-          pull-request-number: ${{ github.event.pull_request.number }}
