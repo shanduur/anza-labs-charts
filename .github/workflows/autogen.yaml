@@ -49,6 +49,14 @@ jobs:
         with:
           go-version-file: ./go.mod
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+          check-latest: true
+
+      - run: |
+          pip install -r ./hack/requirements.txt
+
       - run: |
           make ci CHART=charts/${{ env.chart_name }} VERSION=${{ env.chart_version }}
 
