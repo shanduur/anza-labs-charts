@@ -26,6 +26,12 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version-file: ./go.mod
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+          check-latest: true
+      - run: |
+          pip install -r ./hack/requirements.txt
       - run: |
           make lint-manifests
       - if: github.actor == 'shanduur-auto'

@@ -19,7 +19,7 @@ SHELL = /usr/bin/env bash -o pipefail
 .SHELLFLAGS = -ec
 
 .PHONY: all
-all: backfill-all-app-versions update-dependencies generate-schemas generate-docs readme
+all: backfill-all-app-versions update-dependencies generate-schemas backfill-all-changelogs generate-docs readme
 
 ##@ General
 
@@ -56,7 +56,7 @@ cluster-reset: kind ctlptl
 	@PATH="${LOCALBIN}:$(PATH)" $(CTLPTL) delete -f hack/kind.yaml
 
 .PHONY: ci
-ci: update-repos _ci _generate-schema _generate-docs readme
+ci: update-repos _ci _generate-schema _generate-docs _backfill-changelog readme
 
 .PHONY: _ci
 _ci:
@@ -75,6 +75,14 @@ test: ## Run helm unittest on all charts.
 .PHONY: _test
 _test:
 	helm unittest ${CHART}
+
+.PHONY: backfill-all-changelogs
+backfill-all-changelogs:
+	for dir in charts/*; do $(MAKE) _backfill-changelog CHART="$$dir"; done
+
+.PHONY: _backfill-changelog
+_backfill-changelog:
+	./hack/changelog.py --chart-dir ${CHART}
 
 .PHONY: backfill-all-app-versions
 backfill-all-app-versions: yq
