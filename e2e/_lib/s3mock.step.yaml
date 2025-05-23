@@ -1,0 +1,102 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/kyverno/chainsaw/main/.schemas/json/steptemplate-chainsaw-v1alpha1.json
+apiVersion: chainsaw.kyverno.io/v1alpha1
+kind: StepTemplate
+metadata:
+  name: create-mock-s3-server
+spec:
+  try:
+    - apply:
+        resource:
+          apiVersion: v1
+          kind: PersistentVolumeClaim
+          metadata:
+            name: s3mock-pvc
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 1Gi
+            storageClassName: standard
+    - apply:
+        resource:
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: s3mock
+          spec:
+            replicas: 1
+            selector:
+              matchLabels:
+                app: s3mock
+            template:
+              metadata:
+                labels:
+                  app: s3mock
+              spec:
+                containers:
+                  - name: s3mock
+                    image: adobe/s3mock:4.3.0
+                    ports:
+                      - name: http
+                        containerPort: 9090
+                      - name: https
+                        containerPort: 9191
+                    env:
+                      - name: initialBuckets
+                        value: test
+                      - name: debug
+                        value: "true"
+                      - name: retainFilesOnExit
+                        value: "true"
+                    volumeMounts:
+                      - name: locals3root
+                        mountPath: /containers3root
+                volumes:
+                  - name: locals3root
+                    persistentVolumeClaim:
+                      claimName: s3mock-pvc
+
+    - apply:
+        resource:
+          apiVersion: v1
+          kind: Service
+          metadata:
+            name: s3mock
+          spec:
+            type: ClusterIP
+            selector:
+              app: s3mock
+            ports:
+              - name: http
+                port: 80
+                targetPort: http
+              - name: https
+                port: 443
+                targetPort: https
+
+    - assert:
+        resource:
+          apiVersion: v1
+          kind: PersistentVolumeClaim
+          metadata:
+            name: s3mock-pvc
+          status:
+            phase: Bound
+
+    - assert:
+        resource:
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: s3mock
+          status:
+            (readyReplicas == replicas): true
+            (availableReplicas == replicas): true
+
+    - assert:
+        resource:
+          apiVersion: v1
+          kind: Service
+          metadata:
+            name: s3mock

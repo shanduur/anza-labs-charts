@@ -20,9 +20,6 @@ tests:
           of: ConfigMap
       - matchRegex:
           path: data["litestream.yaml"]
-          pattern: "addr: 0.0.0.0:8080"
-      - matchRegex:
-          path: data["litestream.yaml"]
           pattern: "level: INFO"
       - matchRegex:
           path: data["litestream.yaml"]
@@ -52,12 +49,12 @@ tests:
           secretKey: bar
           region: us-west-1
           bucket: test-bucket-1
-          path: /some/path
+          path: /bucket/1/path
           endpoint: s3.example.com
           forcePathStyle: true
           skipVerify: false
         - bucket: test-bucket-2
-          path: /some/path
+          path: /bucket/2/path
     asserts:
       - matchRegex:
           path: data["litestream.yaml"]
@@ -67,25 +64,25 @@ tests:
           pattern: 'secret-access-key: "\$REPLICA_0_SECRET_KEY"'
       - matchRegex:
           path: data["litestream.yaml"]
-          pattern: 'region: "\$REPLICA_0_REGION"'
+          pattern: 'region: "us-west-1"'
       - matchRegex:
           path: data["litestream.yaml"]
-          pattern: 'bucket: "\$REPLICA_0_BUCKET"'
+          pattern: 'bucket: "test-bucket-1"'
       - matchRegex:
           path: data["litestream.yaml"]
-          pattern: 'path: "\$REPLICA_0_PATH"'
+          pattern: 'path: "/bucket/1/path"'
       - matchRegex:
           path: data["litestream.yaml"]
-          pattern: 'endpoint: "\$REPLICA_0_ENDPOINT"'
+          pattern: 'endpoint: "s3.example.com"'
       - matchRegex:
           path: data["litestream.yaml"]
-          pattern: 'force-path-style: "\$REPLICA_0_FORCE_PATH_STYLE"'
+          pattern: 'force-path-style: true'
       - matchRegex:
           path: data["litestream.yaml"]
-          pattern: 'skip-verify: "\$REPLICA_0_SKIP_VERIFY"'
+          pattern: 'skip-verify: false'
       - matchRegex:
           path: data["litestream.yaml"]
-          pattern: 'bucket: "\$REPLICA_1_BUCKET"'
+          pattern: 'bucket: "test-bucket-2"'
       - matchRegex:
           path: data["litestream.yaml"]
-          pattern: 'path: "\$REPLICA_1_PATH"'
+          pattern: 'path: "/bucket/2/path"'

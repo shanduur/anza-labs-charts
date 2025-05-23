@@ -85,9 +85,6 @@ backup:
     # runAsNonRoot: true
     # runAsUser: 1000
 
-  # -- The address the metrics endpoint binds to.
-  metricsAddress: "0.0.0.0:8080"
-
   logging:
     # -- Logging level. Options: DEBUG, INFO, WARNING, ERROR
     level: "INFO"

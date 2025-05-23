@@ -15,8 +15,6 @@ jobs:
         with:
           fetch-depth: 0
       - uses: azure/setup-helm@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.x"
@@ -34,10 +32,36 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: azure/setup-helm@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - run: |
-          helm plugin install https://github.com/helm-unittest/helm-unittest.git
       - run: |
           make test
+      - uses: mikepenz/action-junit-report@v5
+        if: always()
+        with:
+          report_paths: 'charts/*/junit.xml'
+          detailed_summary: true
+          include_passed: false
+          annotate_only: true
+          group_reports: false
+
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: ./go.mod
+      - run: |
+          make \
+            cluster
+      - run: |
+          make \
+            test-e2e \
+            CHAINSAW_ARGS='--report-format=JUNIT-STEP'
+      - uses: mikepenz/action-junit-report@v5
+        if: always()
+        with:
+          report_paths: 'chainsaw-report.xml'
+          detailed_summary: true
+          include_passed: true
+          include_time_in_summary: true
+          annotate_only: true

@@ -11,7 +11,7 @@ metadata:
     {{- end }}
 data:
   litestream.yaml: |
-    addr: {{ .Values.backup.metricsAddress }}
+    addr: "0.0.0.0:8081"
     logging:
       level: {{ .Values.backup.logging.level }}
       type: {{ .Values.backup.logging.type }}
@@ -41,14 +41,24 @@ data:
         {{- end }}
         replicas:
     {{- range $i, $val := .Values.backup.secret.replicas }}
-          - type: "{{ printf "$REPLICA_%d_TYPE" $i }}"
-            path: "{{ printf "$REPLICA_%d_PATH" $i }}"
+          - type: "s3"
+            path: "{{ $val.path }}"
+            {{- if $val.accessKey }}
             access-key-id: "{{ printf "$REPLICA_%d_ACCESS_KEY" $i }}"
+            {{- end }}
+            {{- if $val.secretKey }}
             secret-access-key: "{{ printf "$REPLICA_%d_SECRET_KEY" $i }}"
-            region: "{{ printf "$REPLICA_%d_REGION" $i }}"
-            bucket: "{{ printf "$REPLICA_%d_BUCKET" $i }}"
-            endpoint: "{{ printf "$REPLICA_%d_ENDPOINT" $i }}"
-            force-path-style: "{{ printf "$REPLICA_%d_FORCE_PATH_STYLE" $i }}"
-            skip-verify: "{{ printf "$REPLICA_%d_SKIP_VERIFY" $i }}"
+            {{- end }}
+            {{- if $val.region }}
+            region: "{{ $val.region }}"
+            {{- end }}
+            {{- if $val.bucket }}
+            bucket: "{{ $val.bucket }}"
+            {{- end }}
+            {{- if $val.endpoint }}
+            endpoint: "{{ $val.endpoint }}"
+            {{- end }}
+            force-path-style: {{ default false $val.forcePathStyle }}
+            skip-verify: {{ default false $val.skipVerify }}
     {{- end }}
 {{- end }}

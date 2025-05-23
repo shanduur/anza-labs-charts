@@ -1,6 +1,6 @@
 # pocket-id
 
-![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v0.51.1](https://img.shields.io/badge/AppVersion-v0.51.1-informational?style=flat)
+![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v0.51.1](https://img.shields.io/badge/AppVersion-v0.51.1-informational?style=flat)
 
 pocket-id is a simple and easy-to-use OIDC provider that allows users to authenticate
 with their passkeys to your services.
@@ -31,7 +31,6 @@ with their passkeys to your services.
 | backup.logging.stderr | bool | `false` | Whether to log to stderr (default is stdout) |
 | backup.logging.type | string | `"text"` | Logging format. Options: text or json |
 | backup.maxCheckpointPageCount | int | `10000` | Maximum number of pages processed during a checkpoint. |
-| backup.metricsAddress | string | `"0.0.0.0:8080"` | The address the metrics endpoint binds to. |
 | backup.minCheckpointPageCount | int | `1000` | Minimum number of pages to trigger a checkpoint. |
 | backup.monitorInterval | string | `"1s"` | Interval for monitoring in Go duration format (e.g. "30s"). If empty, default is used. |
 | backup.resources | object | `{}` |  |

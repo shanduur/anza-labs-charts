@@ -1,0 +1,42 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/kyverno/chainsaw/main/.schemas/json/steptemplate-chainsaw-v1alpha1.json
+apiVersion: chainsaw.kyverno.io/v1alpha1
+kind: StepTemplate
+metadata:
+  name: validate-core-installation
+  labels:
+    chart: pocket-id
+spec:
+  try:
+    - assert:
+        resource:
+          apiVersion: v1
+          kind: ServiceAccount
+          metadata:
+            name: (join('-', [$namespace, 'pocket-id']))
+    - assert:
+        resource:
+          apiVersion: v1
+          kind: Secret
+          metadata:
+            name: (join('-', [$namespace, 'pocket-id']))
+    - assert:
+        resource:
+          apiVersion: v1
+          kind: ConfigMap
+          metadata:
+            name: (join('-', [$namespace, 'pocket-id']))
+    - assert:
+        resource:
+          apiVersion: v1
+          kind: Service
+          metadata:
+            name: (join('-', [$namespace, 'pocket-id']))
+    - assert:
+        timeout: 120s
+        resource:
+          apiVersion: apps/v1
+          kind: StatefulSet
+          metadata:
+            name: (join('-', [$namespace, 'pocket-id']))
+          status:
+            (readyReplicas == replicas): true

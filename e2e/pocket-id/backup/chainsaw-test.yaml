@@ -1,0 +1,52 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/kyverno/chainsaw/main/.schemas/json/test-chainsaw-v1alpha1.json
+apiVersion: chainsaw.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: pocket-id-backup
+  labels:
+    chart: pocket-id
+
+spec:
+  concurrent: true
+  timeouts:
+    cleanup: 60s
+
+  bindings:
+    - name: arguments
+      value: >-
+        --set=backup.enabled=true
+        --set=backup.secret.accessKey=accessKey
+        --set=backup.secret.secretKey=secretKey
+        --set=backup.secret.replicas[0].region=s3mock
+        --set=backup.secret.replicas[0].endpoint=s3mock
+        --set=backup.secret.replicas[0].bucket=test
+        --set=backup.secret.replicas[0].path=backup
+        --set=backup.secret.replicas[0].forcePathStyle=true
+        --set=backup.secret.replicas[0].skipVerify=true
+
+  steps:
+    - name: Install S3Mock
+      use:
+        template: ../../_lib/s3mock.step.yaml
+        with:
+          bindings:
+            - name: namespace
+              value: ($namespace)
+
+    - name: Install chart
+      use:
+        template: ../_lib/helm-install.step.yaml
+        with:
+          bindings:
+            - name: arguments
+              value: ($arguments)
+            - name: namespace
+              value: ($namespace)
+
+    - name: Validate core installation
+      use:
+        template: ../_lib/validate-core-installation.step.yaml
+        with:
+          bindings:
+            - name: namespace
+              value: ($namespace)
