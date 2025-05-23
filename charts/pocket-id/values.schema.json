@@ -44,9 +44,6 @@
         "maxCheckpointPageCount": {
           "type": "integer"
         },
-        "metricsAddress": {
-          "type": "string"
-        },
         "minCheckpointPageCount": {
           "type": "integer"
         },

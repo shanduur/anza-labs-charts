@@ -66,6 +66,7 @@ spec:
             - restore
             - -if-replica-exists=true
             - -config=/mnt/config/litestream.yaml
+            - /data/pocket-id.db
           resources:
             {{- toYaml .Values.pocketID.resources | nindent 12 }}
           volumeMounts:
@@ -86,6 +87,9 @@ spec:
           ports:
             - name: http
               containerPort: 10080
+              protocol: TCP
+            - name: backend
+              containerPort: 8080
               protocol: TCP
           livenessProbe:
             httpGet:
@@ -122,6 +126,10 @@ spec:
               mountPath: /app/backend/data
             - name: config
               mountPath: /mnt/config
+          ports:
+            - name: backup-metrics
+              containerPort: 8081
+              protocol: TCP
           envFrom:
             - secretRef:
                 name: {{ include "pocket-id.backupSecret" . }}
