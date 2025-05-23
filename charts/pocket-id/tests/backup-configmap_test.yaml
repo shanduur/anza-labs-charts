@@ -82,7 +82,7 @@ tests:
           pattern: 'skip-verify: false'
       - matchRegex:
           path: data["litestream.yaml"]
-          pattern: 'bucket: "test-bucket-2'
+          pattern: 'bucket: "test-bucket-2"'
       - matchRegex:
           path: data["litestream.yaml"]
           pattern: 'path: "/bucket/2/path"'

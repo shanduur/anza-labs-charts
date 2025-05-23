@@ -28,10 +28,14 @@ spec:
     - name: Install S3Mock
       use:
         template: ../../_lib/s3mock.step.yaml
+        with:
+          bindings:
+            - name: namespace
+              value: ($namespace)
 
     - name: Install chart
       use:
-        template: ../_lib/helm-install.yaml
+        template: ../_lib/helm-install.step.yaml
         with:
           bindings:
             - name: arguments
@@ -41,7 +45,7 @@ spec:
 
     - name: Validate core instalation
       use:
-        template: ../_lib/validate-core-installation.yaml
+        template: ../_lib/validate-core-installation.step.yaml
         with:
           bindings:
             - name: namespace
