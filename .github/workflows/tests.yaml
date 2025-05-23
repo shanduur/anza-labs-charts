@@ -44,9 +44,9 @@ jobs:
         with:
           report_paths: 'charts/*/junit.xml'
           detailed_summary: true
-          include_passed: true
-          include_time_in_summary: true
+          include_passed: false
           annotate_only: true
+          group_reports: false
 
   e2e:
     runs-on: ubuntu-latest
