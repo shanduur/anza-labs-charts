@@ -24,7 +24,7 @@ spec:
             - name: namespace
               value: ($namespace)
 
-    - name: Validate core instalation
+    - name: Validate core installation
       use:
         template: ../_lib/validate-core-installation.step.yaml
         with:
