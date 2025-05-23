@@ -57,7 +57,7 @@ jobs:
             test-e2e \
             CHAINSAW_ARGS='--report-format=JUNIT-STEP'
       - uses: mikepenz/action-junit-report@v5
-        if: always()
+        if: always() && github.ref != 'refs/heads/main'
         with:
           report_paths: 'chainsaw-report.xml'
           detailed_summary: true
