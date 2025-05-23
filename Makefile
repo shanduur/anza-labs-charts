@@ -92,7 +92,7 @@ test: ## Run helm unittest on all charts.
 
 .PHONY: _test
 _test: helm-unittest
-	helm unittest ${CHART}
+	helm unittest --output-file=${CHART}/junit.xml --output-type=JUnit ${CHART}
 
 .PHONY: test-e2e
 test-e2e: chainsaw ## Run the e2e tests against a k8s instance using Kyverno Chainsaw.
