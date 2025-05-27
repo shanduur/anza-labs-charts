@@ -86,10 +86,7 @@ spec:
           imagePullPolicy: {{ .Values.pocketID.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 10080
-              protocol: TCP
-            - name: backend
-              containerPort: 8080
+              containerPort: 1411
               protocol: TCP
           livenessProbe:
             httpGet:
