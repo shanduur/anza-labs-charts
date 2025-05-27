@@ -2,7 +2,7 @@
 
 > **:exclamation: This Helm Chart is deprecated!**
 
-![Version: 0.2.5](https://img.shields.io/badge/Version-0.2.5-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v1.33.1](https://img.shields.io/badge/AppVersion-v1.33.1-informational?style=flat)
+![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v1.33.1](https://img.shields.io/badge/AppVersion-v1.33.1-informational?style=flat)
 
 _hosted-control-plane_ is a PoC/testing ground for any improvements that might
 reach Cluster API Control Plane Provider KinK manifests.

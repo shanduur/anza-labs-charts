@@ -21,7 +21,7 @@ The following charts are deprecated and should not be used for new deployments:
 
 | Name | Version | App Version | Artifact Hub |
 |------|---------|-------------|--------------|
-| [hosted-control-plane](charts/hosted-control-plane) | `0.2.5` | `v1.33.1` | [![Artifact Hub](https://img.shields.io/static/v1?logo=ArtifactHub&label=ArtifactHub&message=View&color=red)](https://artifacthub.io/packages/helm/anza-labs/hosted-control-plane) |
+| [hosted-control-plane](charts/hosted-control-plane) | `0.3.0` | `v1.33.1` | [![Artifact Hub](https://img.shields.io/static/v1?logo=ArtifactHub&label=ArtifactHub&message=View&color=red)](https://artifacthub.io/packages/helm/anza-labs/hosted-control-plane) |
 | [kube-storage-version-migrator](charts/kube-storage-version-migrator) | `0.1.1` | `v0.0.5` | [![Artifact Hub](https://img.shields.io/static/v1?logo=ArtifactHub&label=ArtifactHub&message=View&color=red)](https://artifacthub.io/packages/helm/anza-labs/kube-storage-version-migrator) |
 | [podvm](charts/podvm) | `0.0.0-alpha.10` | `v1.12.0` | [![Artifact Hub](https://img.shields.io/static/v1?logo=ArtifactHub&label=ArtifactHub&message=View&color=red)](https://artifacthub.io/packages/helm/anza-labs/podvm) |
 | [scribe](charts/scribe) | `0.3.7` | `v0.3.0` | [![Artifact Hub](https://img.shields.io/static/v1?logo=ArtifactHub&label=ArtifactHub&message=View&color=red)](https://artifacthub.io/packages/helm/anza-labs/scribe) |
