@@ -1,0 +1,64 @@
+{{- $replicaCount := int (.Values.replicaCount | default 1) }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "glauth.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "glauth.labels" . | nindent 4 }}
+spec:
+  serviceName: {{ include "glauth.fullname" . }}
+  replicas: {{ $replicaCount }}
+  {{- if .Values.updateStrategy }}
+  {{- with .Values.updateStrategy }}
+  updateStrategy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "glauth.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "glauth.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "glauth.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      volumes: []
+      containers:
+        - name: glauth
+          securityContext:
+            {{- toYaml .Values.glauth.securityContext | nindent 12 }}
+          image: "{{ .Values.glauth.image.repository }}:{{ .Values.glauth.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.glauth.image.pullPolicy }}
+          ports: [] # TODO
+          livenessProbe:  {} # TODO
+          readinessProbe: {} # TODO
+          resources:
+            {{- toYaml .Values.glauth.resources | nindent 12 }}
+          volumeMounts: []
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

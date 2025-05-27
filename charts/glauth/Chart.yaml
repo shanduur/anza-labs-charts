@@ -1,0 +1,19 @@
+apiVersion: v2
+type: application
+name: glauth
+description: |
+  GLAuth is a secure, easy-to-use, LDAP server with configurable backends.
+home: http://glauth.github.io
+version: 0.1.0
+appVersion: "v2.4.0"
+sources:
+  - https://github.com/glauth/glauth
+keywords:
+  - ldap
+annotations:
+  artifacthub.io/category: security
+  artifacthub.io/immutable: "true"
+maintainers:
+  - name: shanduur
+    email: maturb@proton.me
+    url: http://linkedin.com/in/urbanekmateusz

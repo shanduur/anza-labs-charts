@@ -1,0 +1,17 @@
+{{- $labels := include "glauth.labels" . }}
+{{- range .Values.config.backends }}
+{{ if or (eq .type "mysql") (eq .type "mariadb") }}
+{{ if .enabled }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: # TODO
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    {{- $labels | nindent 4 }}
+type: Opaque
+stringData:
+{{- end }}
+{{- end }}
+{{- end }}

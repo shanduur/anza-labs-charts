@@ -1,0 +1,243 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "affinity": {
+      "properties": {},
+      "type": "object"
+    },
+    "config": {
+      "properties": {
+        "api": {
+          "properties": {},
+          "type": "object"
+        },
+        "backends": {
+          "items": {
+            "properties": {
+              "backup": {
+                "properties": {
+                  "busyTimeout": {
+                    "type": "string"
+                  },
+                  "checkpointInterval": {
+                    "type": "string"
+                  },
+                  "image": {
+                    "properties": {
+                      "pullPolicy": {
+                        "type": "string"
+                      },
+                      "repository": {
+                        "type": "string"
+                      },
+                      "tag": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "logging": {
+                    "properties": {
+                      "level": {
+                        "type": "string"
+                      },
+                      "stderr": {
+                        "type": "boolean"
+                      },
+                      "type": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "maxCheckpointPageCount": {
+                    "type": "integer"
+                  },
+                  "minCheckpointPageCount": {
+                    "type": "integer"
+                  },
+                  "monitorInterval": {
+                    "type": "string"
+                  },
+                  "resources": {
+                    "properties": {},
+                    "type": "object"
+                  },
+                  "secret": {
+                    "properties": {
+                      "accessKey": {
+                        "type": "string"
+                      },
+                      "create": {
+                        "type": "boolean"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "replicas": {
+                        "type": "array"
+                      },
+                      "secretKey": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "securityContext": {
+                    "properties": {},
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              },
+              "content": {
+                "type": "string"
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "persistence": {
+                "properties": {
+                  "accessMode": {
+                    "type": "string"
+                  },
+                  "annotations": {
+                    "properties": {},
+                    "type": "object"
+                  },
+                  "enabled": {
+                    "type": "boolean"
+                  },
+                  "existingClaim": {
+                    "type": "string"
+                  },
+                  "size": {
+                    "type": "string"
+                  },
+                  "storageClass": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "security": {
+          "properties": {},
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "fullnameOverride": {
+      "type": "string"
+    },
+    "glauth": {
+      "properties": {
+        "image": {
+          "properties": {
+            "pullPolicy": {
+              "type": "string"
+            },
+            "repository": {
+              "type": "string"
+            },
+            "tag": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "resources": {
+          "properties": {},
+          "type": "object"
+        },
+        "securityContext": {
+          "properties": {},
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "imagePullSecrets": {
+      "type": "array"
+    },
+    "nameOverride": {
+      "type": "string"
+    },
+    "nodeSelector": {
+      "properties": {},
+      "type": "object"
+    },
+    "podAnnotations": {
+      "properties": {},
+      "type": "object"
+    },
+    "podLabels": {
+      "properties": {},
+      "type": "object"
+    },
+    "podSecurityContext": {
+      "properties": {},
+      "type": "object"
+    },
+    "replicaCount": {
+      "type": "integer"
+    },
+    "service": {
+      "properties": {
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "serviceAccount": {
+      "properties": {
+        "annotations": {
+          "properties": {},
+          "type": "object"
+        },
+        "automount": {
+          "type": "boolean"
+        },
+        "create": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "tolerations": {
+      "type": "array"
+    },
+    "updateStrategy": {
+      "properties": {
+        "rollingUpdate": {
+          "properties": {
+            "maxUnavailable": {
+              "type": "string"
+            },
+            "partition": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "type": "object"
+}
