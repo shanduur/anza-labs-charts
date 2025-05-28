@@ -66,7 +66,7 @@ spec:
             - restore
             - -if-replica-exists=true
             - -config=/mnt/config/litestream.yaml
-            - /data/pocket-id.db
+            - /app/backend/data/pocket-id.db
           resources:
             {{- toYaml .Values.pocketID.resources | nindent 12 }}
           volumeMounts:
