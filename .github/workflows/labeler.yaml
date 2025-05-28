@@ -1,0 +1,38 @@
+name: labeler
+
+on:
+  pull_request:
+    types:
+      - closed  # Triggers when PR is merged or closed
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  label-autorelease:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check PR title and author
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const pr = context.payload.pull_request;
+
+            const titleMatches = pr.title.startsWith("chore(main): release");
+            const authorMatches = pr.user.login === "shanduur-auto";
+
+            if (titleMatches && authorMatches) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                labels: ["Autorelease: published"]
+              });
+              console.log(`Label applied to PR #${pr.number}`);
+            } else {
+              console.log("PR does not match title and author conditions.");
+            }
