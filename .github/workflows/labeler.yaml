@@ -30,7 +30,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: pr.number,
-                labels: ["Autorelease: published"]
+                labels: ["autorelease: published"]
               });
               console.log(`Label applied to PR #${pr.number}`);
             } else {
