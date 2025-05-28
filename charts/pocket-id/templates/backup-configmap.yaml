@@ -20,7 +20,7 @@ data:
     secret-access-key: "$SECRET_KEY"
     {{- end }}
     dbs:
-      - path: /data/pocket-id.db
+      - path: /app/backend/data/pocket-id.db
         {{- if .Values.backup.monitorInterval }}
         monitor-interval: {{ .Values.backup.monitorInterval }}
         {{- end }}
