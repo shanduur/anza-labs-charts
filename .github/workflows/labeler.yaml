@@ -1,9 +1,9 @@
-name: labeler
+name: Label autorelease PRs
 
 on:
   pull_request:
     types:
-      - closed  # Triggers when PR is merged or closed
+      - closed
 
 permissions:
   pull-requests: write
@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check PR title and author
+      - name: Label merged autorelease PR
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -26,13 +26,35 @@ jobs:
             const authorMatches = pr.user.login === "shanduur-auto";
 
             if (titleMatches && authorMatches) {
+              const owner = context.repo.owner;
+              const repo = context.repo.repo;
+              const number = pr.number;
+
               await github.rest.issues.addLabels({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: pr.number,
+                owner,
+                repo,
+                issue_number: number,
                 labels: ["autorelease: published"]
               });
-              console.log(`Label applied to PR #${pr.number}`);
+
+              // Attempt to remove "autorelease: pending" if it exists
+              try {
+                await github.rest.issues.removeLabel({
+                  owner,
+                  repo,
+                  issue_number: number,
+                  name: "autorelease: pending"
+                });
+                console.log("Removed label: autorelease: pending");
+              } catch (error) {
+                if (error.status === 404) {
+                  console.log("Label 'autorelease: pending' was not present.");
+                } else {
+                  throw error;
+                }
+              }
+
+              console.log(`Labels updated on PR #${number}`);
             } else {
               console.log("PR does not match title and author conditions.");
             }
