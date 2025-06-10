@@ -1,6 +1,8 @@
 # kamaji
 
-![Version: 0.1.10](https://img.shields.io/badge/Version-0.1.10-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: edge-25.4.1](https://img.shields.io/badge/AppVersion-edge--25.4.1-informational?style=flat)
+> **:exclamation: This Helm Chart is deprecated!**
+
+![Version: 0.1.11](https://img.shields.io/badge/Version-0.1.11-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: edge-25.4.1](https://img.shields.io/badge/AppVersion-edge--25.4.1-informational?style=flat)
 
 Kamaji is the Kubernetes Control Plane Manager.
 
