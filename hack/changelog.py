@@ -43,10 +43,14 @@ def parse_release_please_changelog(
     )
 
     if not version_block_match:
+        print(
+            "Warning: No incremental version change found, trying initial..."
+        )
+
         # Regex to find the initial version block.
         # It captures the version, date, and content until the next version or end of file.
         version_block_match = re.search(
-            r"## \[(\d+\.\d+\.\d+)\]\([^)]+\) \((\d{4}-\d{2}-\d{2})\)\n\n(.*?)(?=\n## |\Z)",
+            r"## (\d+\.\d+\.\d+) \((\d{4}-\d{2}-\d{2})\)\n(.*?)(?=\n## |\Z)",
             content,
             re.DOTALL,
         )
