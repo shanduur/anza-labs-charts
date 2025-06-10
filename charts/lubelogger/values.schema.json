@@ -1,11 +1,12 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
   "properties": {
     "affinity": {
-      "properties": {},
       "type": "object"
     },
     "autoscaling": {
+      "type": "object",
       "properties": {
         "enabled": {
           "type": "boolean"
@@ -22,10 +23,10 @@
         "targetMemoryUtilizationPercentage": {
           "type": "integer"
         }
-      },
-      "type": "object"
+      }
     },
     "config": {
+      "type": "object",
       "properties": {
         "LANG": {
           "type": "string"
@@ -37,12 +38,13 @@
           "type": "string"
         },
         "translations": {
+          "type": "array",
           "items": {
             "type": "string"
-          },
-          "type": "array"
+          }
         },
         "userConfig": {
+          "type": "object",
           "properties": {
             "AllowedHosts": {
               "type": "string"
@@ -75,8 +77,10 @@
               "type": "boolean"
             },
             "Logging": {
+              "type": "object",
               "properties": {
                 "LogLevel": {
+                  "type": "object",
                   "properties": {
                     "Default": {
                       "type": "string"
@@ -84,11 +88,9 @@
                     "Microsoft.AspNetCore": {
                       "type": "string"
                     }
-                  },
-                  "type": "object"
+                  }
                 }
-              },
-              "type": "object"
+              }
             },
             "PreferredGasMileageUnit": {
               "type": "string"
@@ -127,20 +129,20 @@
               "type": "string"
             },
             "VisibleTabs": {
+              "type": "array",
               "items": {
                 "type": "integer"
-              },
-              "type": "array"
+              }
             }
-          },
-          "type": "object"
+          }
         }
-      },
-      "type": "object"
+      }
     },
     "curl": {
+      "type": "object",
       "properties": {
         "image": {
+          "type": "object",
           "properties": {
             "pullPolicy": {
               "type": "string"
@@ -151,16 +153,15 @@
             "tag": {
               "type": "string"
             }
-          },
-          "type": "object"
+          }
         }
-      },
-      "type": "object"
+      }
     },
     "fullnameOverride": {
       "type": "string"
     },
     "image": {
+      "type": "object",
       "properties": {
         "pullPolicy": {
           "type": "string"
@@ -171,16 +172,15 @@
         "tag": {
           "type": "string"
         }
-      },
-      "type": "object"
+      }
     },
     "imagePullSecrets": {
       "type": "array"
     },
     "ingress": {
+      "type": "object",
       "properties": {
         "annotations": {
-          "properties": {},
           "type": "object"
         },
         "className": {
@@ -190,13 +190,17 @@
           "type": "boolean"
         },
         "hosts": {
+          "type": "array",
           "items": {
+            "type": "object",
             "properties": {
               "host": {
                 "type": "string"
               },
               "paths": {
+                "type": "array",
                 "items": {
+                  "type": "object",
                   "properties": {
                     "path": {
                       "type": "string"
@@ -204,25 +208,22 @@
                     "pathType": {
                       "type": "string"
                     }
-                  },
-                  "type": "object"
-                },
-                "type": "array"
+                  }
+                }
               }
-            },
-            "type": "object"
-          },
-          "type": "array"
+            }
+          }
         },
         "tls": {
           "type": "array"
         }
-      },
-      "type": "object"
+      }
     },
     "livenessProbe": {
+      "type": "object",
       "properties": {
         "httpGet": {
+          "type": "object",
           "properties": {
             "path": {
               "type": "string"
@@ -230,20 +231,18 @@
             "port": {
               "type": "string"
             }
-          },
-          "type": "object"
+          }
         }
-      },
-      "type": "object"
+      }
     },
     "nameOverride": {
       "type": "string"
     },
     "nodeSelector": {
-      "properties": {},
       "type": "object"
     },
     "oidc": {
+      "type": "object",
       "properties": {
         "authURL": {
           "type": "string"
@@ -290,12 +289,13 @@
         "validateState": {
           "type": "boolean"
         }
-      },
-      "type": "object"
+      }
     },
     "persistence": {
+      "type": "object",
       "properties": {
         "data": {
+          "type": "object",
           "properties": {
             "accessMode": {
               "type": "string"
@@ -312,25 +312,21 @@
             "storageClass": {
               "type": "string"
             }
-          },
-          "type": "object"
+          }
         }
-      },
-      "type": "object"
+      }
     },
     "podAnnotations": {
-      "properties": {},
       "type": "object"
     },
     "podLabels": {
-      "properties": {},
       "type": "object"
     },
     "podSecurityContext": {
-      "properties": {},
       "type": "object"
     },
     "postgres": {
+      "type": "object",
       "properties": {
         "connect": {
           "type": "boolean"
@@ -359,12 +355,13 @@
         "user": {
           "type": "string"
         }
-      },
-      "type": "object"
+      }
     },
     "readinessProbe": {
+      "type": "object",
       "properties": {
         "httpGet": {
+          "type": "object",
           "properties": {
             "path": {
               "type": "string"
@@ -372,20 +369,18 @@
             "port": {
               "type": "string"
             }
-          },
-          "type": "object"
+          }
         }
-      },
-      "type": "object"
+      }
     },
     "replicaCount": {
       "type": "integer"
     },
     "resources": {
-      "properties": {},
       "type": "object"
     },
     "secret": {
+      "type": "object",
       "properties": {
         "create": {
           "type": "boolean"
@@ -408,14 +403,13 @@
         "username": {
           "type": "string"
         }
-      },
-      "type": "object"
+      }
     },
     "securityContext": {
-      "properties": {},
       "type": "object"
     },
     "service": {
+      "type": "object",
       "properties": {
         "port": {
           "type": "integer"
@@ -423,13 +417,12 @@
         "type": {
           "type": "string"
         }
-      },
-      "type": "object"
+      }
     },
     "serviceAccount": {
+      "type": "object",
       "properties": {
         "annotations": {
-          "properties": {},
           "type": "object"
         },
         "automount": {
@@ -441,15 +434,16 @@
         "name": {
           "type": "string"
         }
-      },
-      "type": "object"
+      }
     },
     "tolerations": {
       "type": "array"
     },
     "updateStrategy": {
+      "type": "object",
       "properties": {
         "rollingUpdate": {
+          "type": "object",
           "properties": {
             "maxUnavailable": {
               "type": "string"
@@ -457,15 +451,12 @@
             "partition": {
               "type": "integer"
             }
-          },
-          "type": "object"
+          }
         },
         "type": {
           "type": "string"
         }
-      },
-      "type": "object"
+      }
     }
-  },
-  "type": "object"
+  }
 }
