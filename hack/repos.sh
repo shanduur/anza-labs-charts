@@ -39,8 +39,23 @@ find "$CHARTS" -type f -name "Chart.yaml" | while read -r chart_file; do
   done <<< "$repositories"
 done
 
-# Update Helm repositories
-echo "Updating Helm repositories..."
-helm repo update
+# Attempt to update repositories, capturing all output (stdout & stderr)
+# The 'if !' structure prevents 'set -e' from exiting the script immediately on failure
+if ! output=$(helm repo update 2>&1); then
+  # The command failed. Check if it's the specific error we want to ignore.
+  if echo "$output" | grep -q "no repositories found"; then
+    echo "No Helm repositories found to update. Exiting gracefully."
+    exit 0 # Exit successfully
+  else
+    # For any other error, print the message and exit with an error code.
+    echo "Error updating Helm repositories:" >&2
+    echo "$output" >&2
+    exit 1
+  fi
+fi
+
+# If the command was successful, print its output
+echo "$output"
+echo "Helm repositories updated successfully."
 
 echo "Done."
