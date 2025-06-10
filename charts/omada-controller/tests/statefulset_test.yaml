@@ -1,0 +1,144 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/helm-unittest/helm-unittest/main/schema/helm-testsuite.json
+suite: StatefulSet
+
+templates:
+  - statefulset.yaml
+
+tests:
+  - it: Should use emptyDir if persistence is disabled
+    set:
+      persistence:
+        data:
+          enabled: false
+    asserts:
+      - contains:
+          path: spec.template.spec.volumes
+          content:
+            name: RELEASE-NAME-omada-controller-data
+            emptyDir: {}
+
+  - it: Should use existing PVC if specified
+    set:
+      persistence:
+        data:
+          enabled: true
+          existingClaim: test-claim
+    asserts:
+      - contains:
+          path: spec.template.spec.volumes
+          content:
+            name: test-claim
+            persistentVolumeClaim:
+              claimName: test-claim
+      - contains:
+          path: spec.template.spec.containers[0].volumeMounts
+          content:
+            name: test-claim
+            mountPath: /opt/tplink/EAPController/data
+      - notExists:
+          path: spec.volumeClaimTemplates
+
+  - it: Should create volumeClaimTemplates if enabled and no existing claim is set
+    set:
+      persistence:
+        data:
+          enabled: true
+          existingClaim: ""
+          size: 1Gi
+          accessMode: ReadWriteOnce
+          storageClass: standard
+    asserts:
+      - equal:
+          path: spec.volumeClaimTemplates[0].metadata.name
+          value: RELEASE-NAME-omada-controller-data
+      - contains:
+          path: spec.volumeClaimTemplates
+          any: true
+          content:
+            spec:
+              accessModes:
+                - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 1Gi
+              storageClassName: standard
+
+  - it: Should not render volumeClaimTemplates when disabled
+    set:
+      persistence:
+        data:
+          enabled: false
+    asserts:
+      - notExists:
+          path: spec.volumeClaimTemplates
+
+  - it: Should mount data volume to main container
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].volumeMounts
+          content:
+            name: RELEASE-NAME-omada-controller-data
+            mountPath: /opt/tplink/EAPController/data
+
+  - it: Should expose all ports as defined in config
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].ports
+          content:
+            name: manage-http
+            containerPort: 8088
+      - contains:
+          path: spec.template.spec.containers[0].ports
+          content:
+            name: manage-https
+            containerPort: 8043
+      - contains:
+          path: spec.template.spec.containers[0].ports
+          content:
+            name: portal-http
+            containerPort: 8888
+      - contains:
+          path: spec.template.spec.containers[0].ports
+          content:
+            name: portal-https
+            containerPort: 8843
+      - contains:
+          path: spec.template.spec.containers[0].ports
+          content:
+            name: adopt-v1
+            containerPort: 29812
+      - contains:
+          path: spec.template.spec.containers[0].ports
+          content:
+            name: app-discovery
+            containerPort: 27001
+      - contains:
+          path: spec.template.spec.containers[0].ports
+          content:
+            name: discovery
+            containerPort: 29810
+      - contains:
+          path: spec.template.spec.containers[0].ports
+          content:
+            name: manager-v1
+            containerPort: 29811
+      - contains:
+          path: spec.template.spec.containers[0].ports
+          content:
+            name: manager-v2
+            containerPort: 29814
+      - contains:
+          path: spec.template.spec.containers[0].ports
+          content:
+            name: transfer-v2
+            containerPort: 29815
+      - contains:
+          path: spec.template.spec.containers[0].ports
+          content:
+            name: rtty
+            containerPort: 29816
+      - contains:
+          path: spec.template.spec.containers[0].ports
+          content:
+            name: upgrade-v1
+            containerPort: 29813

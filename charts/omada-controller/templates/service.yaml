@@ -1,0 +1,74 @@
+{{- $ports := dict }}
+{{- range $key, $val := .Values.config }}
+  {{- if and (kindIs "float64" $val) (regexMatch ".*Port$" $key) }}
+    {{- $port := int $val }}
+    {{- if or (lt $port 1024) (gt $port 65535) }}
+      {{- fail (printf "Invalid port value for config.%s: %d (must be between 1024 and 65535)" $key $port) }}
+    {{- end }}
+    {{- if hasKey $ports (printf "%d" $port) }}
+      {{- fail (printf "Duplicate port detected: %d (used in config.%s and config.%s)" $port (index $ports (printf "%d" $port)) $key) }}
+    {{- else }}
+      {{- $_ := set $ports (printf "%d" $port) $key }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "omada-controller.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "omada-controller.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type | default "ClusterIP" }}
+  ports:
+    - name: manage-http
+      protocol: TCP
+      port: {{ .Values.config.manageHttpPort }}
+      targetPort: manage-http
+    - name: manage-https
+      protocol: TCP
+      port: {{ .Values.config.manageHttpsPort }}
+      targetPort: manage-https
+    - name: portal-http
+      protocol: TCP
+      port: {{ .Values.config.portalHttpPort }}
+      targetPort: portal-http
+    - name: portal-https
+      protocol: TCP
+      port: {{ .Values.config.portalHttpsPort }}
+      targetPort: portal-https
+    - name: adopt-v1
+      protocol: TCP
+      port: {{ .Values.config.adoptV1Port }}
+      targetPort: adopt-v1
+    - name: app-discovery
+      protocol: TCP
+      port: {{ .Values.config.appDiscoveryPort }}
+      targetPort: app-discovery
+    - name: discovery
+      protocol: TCP
+      port: {{ .Values.config.discoveryPort }}
+      targetPort: discovery
+    - name: manager-v1
+      protocol: TCP
+      port: {{ .Values.config.managerV1Port }}
+      targetPort: manager-v1
+    - name: manager-v2
+      protocol: TCP
+      port: {{ .Values.config.managerV2Port }}
+      targetPort: manager-v2
+    - name: transfer-v2
+      protocol: TCP
+      port: {{ .Values.config.transferV2Port }}
+      targetPort: transfer-v2
+    - name: rtty
+      protocol: TCP
+      port: {{ .Values.config.rttyPort }}
+      targetPort: rtty
+    - name: upgrade-v1
+      protocol: TCP
+      port: {{ .Values.config.upgradeV1Port }}
+      targetPort: upgrade-v1
+  selector:
+    {{- include "omada-controller.selectorLabels" . | nindent 4 }}

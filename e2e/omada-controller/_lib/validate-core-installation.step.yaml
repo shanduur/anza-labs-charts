@@ -4,7 +4,7 @@ kind: StepTemplate
 metadata:
   name: validate-core-installation
   labels:
-    chart: pocket-id
+    chart: omada-controller
 spec:
   try:
     - assert:
@@ -12,32 +12,26 @@ spec:
           apiVersion: v1
           kind: ServiceAccount
           metadata:
-            name: (join('-', [$namespace, 'pocket-id']))
-    - assert:
-        resource:
-          apiVersion: v1
-          kind: Secret
-          metadata:
-            name: (join('-', [$namespace, 'pocket-id']))
+            name: (join('-', [$namespace, 'omada-controller']))
     - assert:
         resource:
           apiVersion: v1
           kind: ConfigMap
           metadata:
-            name: (join('-', [$namespace, 'pocket-id']))
+            name: (join('-', [$namespace, 'omada-controller']))
     - assert:
         resource:
           apiVersion: v1
           kind: Service
           metadata:
-            name: (join('-', [$namespace, 'pocket-id']))
+            name: (join('-', [$namespace, 'omada-controller']))
     - assert:
         timeout: 120s
         resource:
           apiVersion: apps/v1
           kind: StatefulSet
           metadata:
-            name: (join('-', [$namespace, 'pocket-id']))
+            name: (join('-', [$namespace, 'omada-controller']))
           status:
             (readyReplicas == replicas): true
             (availableReplicas == replicas): true
@@ -45,8 +39,8 @@ spec:
     - describe:
         apiVersion: apps/v1
         kind: StatefulSet
-        name: (join('-', [$namespace, 'pocket-id']))
+        name: (join('-', [$namespace, 'omada-controller']))
     - podLogs:
         namespace: ($namespace)
-        selector: app.kubernetes.io/name=pocket-id
+        selector: app.kubernetes.io/name=omada-controller
         tail: -1
