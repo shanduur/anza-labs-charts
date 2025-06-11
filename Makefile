@@ -143,10 +143,10 @@ generate-schemas: helm-values-schema-json ## Run kube-linter on Kubernetes manif
 .PHONY: _generate-schema
 _generate-schema: helm-values-schema-json
 	$(HELM_VALUES_SCHEMA_JSON) \
-		-draft=7 \
-		-indent=2 \
-		-input=${CHART}/values.yaml \
-		-output=${CHART}/values.schema.json \
+		--draft=7 \
+		--indent=2 \
+		--values=${CHART}/values.yaml \
+		--output=${CHART}/values.schema.json \
 
 .PHONY: lint-manifests
 lint-manifests: kube-linter ## Run kube-linter on Kubernetes manifests.
@@ -244,7 +244,7 @@ helm-unittest: helm
 .PHONY: helm-values-schema-json
 helm-values-schema-json: $(HELM_VALUES_SCHEMA_JSON)-$(HELM_VALUES_SCHEMA_JSON_VERSION) ## Download helm-values-schema-json locally if necessary.
 $(HELM_VALUES_SCHEMA_JSON)-$(HELM_VALUES_SCHEMA_JSON_VERSION): $(LOCALBIN)
-	$(call go-install-tool,$(HELM_VALUES_SCHEMA_JSON),github.com/losisin/helm-values-schema-json,$(HELM_VALUES_SCHEMA_JSON_VERSION))
+	$(call go-install-tool,$(HELM_VALUES_SCHEMA_JSON),github.com/losisin/helm-values-schema-json/v2,$(HELM_VALUES_SCHEMA_JSON_VERSION))
 
 .PHONY: kind
 kind: $(KIND) ## Download kind locally if necessary.
