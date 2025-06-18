@@ -55,7 +55,7 @@ tests:
           path: spec.template.spec.containers[0].volumeMounts
           content:
             name: test-claim
-            mountPath: /app/backend/data
+            mountPath: /app/data
       - notExists:
           path: spec.volumeClaimTemplates
 
@@ -99,7 +99,7 @@ tests:
           path: spec.template.spec.containers[0].volumeMounts
           content:
             name: RELEASE-NAME-pocket-id-data
-            mountPath: /app/backend/data
+            mountPath: /app/data
 
   - it: Should include config volume when backup is enabled
     set:
