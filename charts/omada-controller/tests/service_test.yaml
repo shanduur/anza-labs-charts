@@ -69,20 +69,6 @@ tests:
       - contains:
           path: spec.ports
           content:
-            name: app-discovery
-            protocol: TCP
-            port: 27001
-            targetPort: app-discovery
-      - contains:
-          path: spec.ports
-          content:
-            name: discovery
-            protocol: TCP
-            port: 29810
-            targetPort: discovery
-      - contains:
-          path: spec.ports
-          content:
             name: manager-v1
             protocol: TCP
             port: 29811
@@ -115,6 +101,27 @@ tests:
             protocol: TCP
             port: 29813
             targetPort: upgrade-v1
+      - contains:
+          path: spec.ports
+          content:
+            name: app-discovery
+            protocol: UDP
+            port: 27001
+            targetPort: app-discovery
+      - contains:
+          path: spec.ports
+          content:
+            name: discovery
+            protocol: UDP
+            port: 29810
+            targetPort: discovery
+      - contains:
+          path: spec.ports
+          content:
+            name: olt
+            protocol: UDP
+            port: 19810
+            targetPort: olt
 
   - it: Should create service with NodePort type
     set:
@@ -132,14 +139,14 @@ tests:
       config.manageHttpsPort: 18043
       config.portalHttpPort: 18888
       config.portalHttpsPort: 18843
-      config.adoptV1Port: 19812
-      config.appDiscoveryPort: 19001
-      config.discoveryPort: 19810
+      config.adoptV1Port: 19810
       config.managerV1Port: 19811
-      config.managerV2Port: 19814
-      config.transferV2Port: 19815
-      config.rttyPort: 19816
-      config.upgradeV1Port: 19813
+      config.managerV2Port: 19812
+      config.transferV2Port: 19813
+      config.rttyPort: 19814
+      config.upgradeV1Port: 19815
+      config.appDiscoveryPort: 19816
+      config.discoveryPort: 19817
     asserts:
       - contains:
           path: spec.ports
@@ -174,22 +181,8 @@ tests:
           content:
             name: adopt-v1
             protocol: TCP
-            port: 19812
-            targetPort: adopt-v1
-      - contains:
-          path: spec.ports
-          content:
-            name: app-discovery
-            protocol: TCP
-            port: 19001
-            targetPort: app-discovery
-      - contains:
-          path: spec.ports
-          content:
-            name: discovery
-            protocol: TCP
             port: 19810
-            targetPort: discovery
+            targetPort: adopt-v1
       - contains:
           path: spec.ports
           content:
@@ -202,26 +195,47 @@ tests:
           content:
             name: manager-v2
             protocol: TCP
-            port: 19814
+            port: 19812
             targetPort: manager-v2
       - contains:
           path: spec.ports
           content:
             name: transfer-v2
             protocol: TCP
-            port: 19815
+            port: 19813
             targetPort: transfer-v2
       - contains:
           path: spec.ports
           content:
             name: rtty
             protocol: TCP
-            port: 19816
+            port: 19814
             targetPort: rtty
       - contains:
           path: spec.ports
           content:
             name: upgrade-v1
             protocol: TCP
-            port: 19813
+            port: 19815
             targetPort: upgrade-v1
+      - contains:
+          path: spec.ports
+          content:
+            name: app-discovery
+            protocol: UDP
+            port: 19816
+            targetPort: app-discovery
+      - contains:
+          path: spec.ports
+          content:
+            name: discovery
+            protocol: UDP
+            port: 19817
+            targetPort: discovery
+      - contains:
+          path: spec.ports
+          content:
+            name: olt
+            protocol: UDP
+            port: 19810
+            targetPort: olt

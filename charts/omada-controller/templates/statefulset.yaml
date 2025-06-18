@@ -54,28 +54,43 @@ spec:
           ports:
             - name: manage-http
               containerPort: {{ .Values.config.manageHttpPort }}
+              protocol: TCP
             - name: manage-https
               containerPort: {{ .Values.config.manageHttpsPort }}
+              protocol: TCP
             - name: portal-http
               containerPort: {{ .Values.config.portalHttpPort }}
+              protocol: TCP
             - name: portal-https
               containerPort: {{ .Values.config.portalHttpsPort }}
+              protocol: TCP
             - name: adopt-v1
               containerPort: {{ .Values.config.adoptV1Port }}
-            - name: app-discovery
-              containerPort: {{ .Values.config.appDiscoveryPort }}
-            - name: discovery
-              containerPort: {{ .Values.config.discoveryPort }}
+              protocol: TCP
             - name: manager-v1
               containerPort: {{ .Values.config.managerV1Port }}
+              protocol: TCP
             - name: manager-v2
               containerPort: {{ .Values.config.managerV2Port }}
+              protocol: TCP
             - name: transfer-v2
               containerPort: {{ .Values.config.transferV2Port }}
+              protocol: TCP
             - name: rtty
               containerPort: {{ .Values.config.rttyPort }}
+              protocol: TCP
             - name: upgrade-v1
               containerPort: {{ .Values.config.upgradeV1Port }}
+              protocol: TCP
+            - name: app-discovery
+              containerPort: {{ .Values.config.appDiscoveryPort }}
+              protocol: UDP
+            - name: discovery
+              containerPort: {{ .Values.config.discoveryPort }}
+              protocol: UDP
+            - name: olt
+              containerPort: 19810 # TODO: make configurable
+              protocol: UDP
           {{- if .Values.probes.enabled }}
           livenessProbe:
             {{ toYaml .Values.probes.livenessProbe | nindent 12}}

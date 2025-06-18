@@ -1,6 +1,6 @@
 # omada-controller
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: 5.15.20.20](https://img.shields.io/badge/AppVersion-5.15.20.20-informational?style=flat)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: 5.15.24.17](https://img.shields.io/badge/AppVersion-5.15.24.17-informational?style=flat)
 
 TP-Link Omada Controller in Kubernetes
 
@@ -47,7 +47,7 @@ TP-Link Omada Controller in Kubernetes
 | fullnameOverride | string | `""` | Override for the full name. |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy. |
 | image.repository | string | `"docker.io/mbentley/omada-controller"` | Registry and repository for the omada-controller image. |
-| image.tag | string | `"5.15.20.20"` | Tag for the image. |
+| image.tag | string | `"5.15.24.17"` | Tag for the image. |
 | imagePullSecrets | list | `[]` | Secrets for pulling images. |
 | nameOverride | string | `""` | Override for the name. |
 | nodeSelector | object | `{}` | Node selector for the pods. |

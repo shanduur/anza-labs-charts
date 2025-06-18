@@ -42,14 +42,6 @@ spec:
       protocol: TCP
       port: {{ .Values.config.adoptV1Port }}
       targetPort: adopt-v1
-    - name: app-discovery
-      protocol: TCP
-      port: {{ .Values.config.appDiscoveryPort }}
-      targetPort: app-discovery
-    - name: discovery
-      protocol: TCP
-      port: {{ .Values.config.discoveryPort }}
-      targetPort: discovery
     - name: manager-v1
       protocol: TCP
       port: {{ .Values.config.managerV1Port }}
@@ -70,5 +62,17 @@ spec:
       protocol: TCP
       port: {{ .Values.config.upgradeV1Port }}
       targetPort: upgrade-v1
+    - name: app-discovery
+      protocol: UDP
+      port: {{ .Values.config.appDiscoveryPort }}
+      targetPort: app-discovery
+    - name: discovery
+      protocol: UDP
+      port: {{ .Values.config.discoveryPort }}
+      targetPort: discovery
+    - name: olt
+      protocol: UDP
+      port: 19810 # TODO: make configurable
+      targetPort: olt
   selector:
     {{- include "omada-controller.selectorLabels" . | nindent 4 }}
