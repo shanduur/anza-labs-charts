@@ -35,6 +35,10 @@ config:
   # -- Firmware upgrade port for devices compatible with Controller v4* (valid range: 1024-65535)
   upgradeV1Port: 29813
 
+  # -- The port for the OLT (Optical Line Terminal) devices (valid range: 1024-65535)
+  oltPort: 19810
+
+
   # -- User ID for the `omada` process
   puid: 508
 
@@ -106,6 +110,8 @@ securityContext: {}
 service:
   # -- Service type.
   type: ClusterIP
+  # -- Annotations to add to the service.
+  annotations: {}
 
 # -- Secrets for pulling images.
 imagePullSecrets: []

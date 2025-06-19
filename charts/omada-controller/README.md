@@ -1,6 +1,6 @@
 # omada-controller
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: 5.15.24.17](https://img.shields.io/badge/AppVersion-5.15.24.17-informational?style=flat)
+![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: 5.15.24.17](https://img.shields.io/badge/AppVersion-5.15.24.17-informational?style=flat)
 
 TP-Link Omada Controller in Kubernetes
 
@@ -28,6 +28,7 @@ TP-Link Omada Controller in Kubernetes
 | config.manageHttpsPort | int | `8043` | Management portal HTTPS port (valid range: 1024-65535) |
 | config.managerV1Port | int | `29811` | Device management port for Controller v4* (valid range: 1024-65535) |
 | config.managerV2Port | int | `29814` | Device management port for Controller v5* (valid range: 1024-65535) |
+| config.oltPort | int | `19810` | The port for the OLT (Optical Line Terminal) devices (valid range: 1024-65535) |
 | config.pgid | int | `508` | Group ID for the `omada` process |
 | config.pgroup | string | `"omada"` | Group name for the `omada` process |
 | config.portalHttpPort | int | `8888` | User portal HTTP port (valid range: 1024-65535) |
@@ -65,6 +66,7 @@ TP-Link Omada Controller in Kubernetes
 | probes.readinessProbe | object | `{"httpGet":{"path":"/","port":8088},"initialDelaySeconds":60}` | Configuration for the Kubernetes readiness probe. This probe checks if the container is ready to serve traffic. If it fails, the pod will be removed from service endpoints. |
 | resources | object | `{}` |  |
 | securityContext | object | `{}` |  |
+| service.annotations | object | `{}` | Annotations to add to the service. |
 | service.type | string | `"ClusterIP"` | Service type. |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account. |
 | serviceAccount.automount | bool | `true` | Automatically mount a ServiceAccount's API credentials. |

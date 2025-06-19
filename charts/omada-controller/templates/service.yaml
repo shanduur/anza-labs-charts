@@ -19,6 +19,10 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "omada-controller.labels" . | nindent 4 }}
+  {{- with .Values.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   type: {{ .Values.service.type | default "ClusterIP" }}
   ports:
@@ -72,7 +76,7 @@ spec:
       targetPort: discovery
     - name: olt
       protocol: UDP
-      port: 19810 # TODO: make configurable
+      port: {{ .Values.config.oltPort }} 
       targetPort: olt
   selector:
     {{- include "omada-controller.selectorLabels" . | nindent 4 }}

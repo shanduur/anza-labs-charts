@@ -53,43 +53,43 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: manage-http
-              containerPort: {{ .Values.config.manageHttpPort }}
+              containerPort: 8088
               protocol: TCP
             - name: manage-https
-              containerPort: {{ .Values.config.manageHttpsPort }}
+              containerPort: 8043
               protocol: TCP
             - name: portal-http
-              containerPort: {{ .Values.config.portalHttpPort }}
+              containerPort: 8888
               protocol: TCP
             - name: portal-https
-              containerPort: {{ .Values.config.portalHttpsPort }}
+              containerPort: 8843
               protocol: TCP
             - name: adopt-v1
-              containerPort: {{ .Values.config.adoptV1Port }}
+              containerPort: 29812
               protocol: TCP
             - name: manager-v1
-              containerPort: {{ .Values.config.managerV1Port }}
+              containerPort: 29811
               protocol: TCP
             - name: manager-v2
-              containerPort: {{ .Values.config.managerV2Port }}
+              containerPort: 29814
               protocol: TCP
             - name: transfer-v2
-              containerPort: {{ .Values.config.transferV2Port }}
+              containerPort: 29815
               protocol: TCP
             - name: rtty
-              containerPort: {{ .Values.config.rttyPort }}
+              containerPort: 29816
               protocol: TCP
             - name: upgrade-v1
-              containerPort: {{ .Values.config.upgradeV1Port }}
+              containerPort: 29813
               protocol: TCP
             - name: app-discovery
-              containerPort: {{ .Values.config.appDiscoveryPort }}
+              containerPort: 27001
               protocol: UDP
             - name: discovery
-              containerPort: {{ .Values.config.discoveryPort }}
+              containerPort: 29810
               protocol: UDP
             - name: olt
-              containerPort: 19810 # TODO: make configurable
+              containerPort: 19810
               protocol: UDP
           {{- if .Values.probes.enabled }}
           livenessProbe:

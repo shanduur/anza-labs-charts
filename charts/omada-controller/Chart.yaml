@@ -4,7 +4,7 @@ name: omada-controller
 description: |
   TP-Link Omada Controller in Kubernetes
 home: https://support.omadanetworks.com/product/omada-software-controller/
-version: 0.2.0
+version: 0.3.0
 appVersion: "5.15.24.17"
 sources:
   - https://github.com/mbentley/docker-omada-controller

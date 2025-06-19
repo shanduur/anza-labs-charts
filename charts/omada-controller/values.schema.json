@@ -29,6 +29,9 @@
         "managerV2Port": {
           "type": "integer"
         },
+        "oltPort": {
+          "type": "integer"
+        },
         "pgid": {
           "type": "integer"
         },
@@ -194,6 +197,9 @@
     "service": {
       "type": "object",
       "properties": {
+        "annotations": {
+          "type": "object"
+        },
         "type": {
           "type": "string"
         }

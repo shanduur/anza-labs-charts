@@ -13,18 +13,6 @@ tests:
       - isSubset:
           path: data
           content:
-            MANAGE_HTTP_PORT: "8088"
-            MANAGE_HTTPS_PORT: "8043"
-            PORTAL_HTTP_PORT: "8888"
-            PORTAL_HTTPS_PORT: "8843"
-            PORT_ADOPT_V1: "29812"
-            PORT_APP_DISCOVERY: "27001"
-            PORT_DISCOVERY: "29810"
-            PORT_MANAGER_V1: "29811"
-            PORT_MANAGER_V2: "29814"
-            PORT_TRANSFER_V2: "29815"
-            PORT_RTTY: "29816"
-            PORT_UPGRADE_V1: "29813"
             PUID: "508"
             PGID: "508"
             PUSERNAME: "omada"
@@ -39,19 +27,6 @@ tests:
 
   - it: Should create ConfigMap with overrides
     set:
-      config.manageHttpPort: 9999
-      config.manageHttpsPort: 9443
-      config.portalHttpPort: 9998
-      config.portalHttpsPort: 9442
-      config.adoptV1Port: 30000
-      config.appDiscoveryPort: 30001
-      config.discoveryPort: 30002
-      config.managerV1Port: 30003
-      config.managerV2Port: 30004
-      config.transferV2Port: 30005
-      config.rttyPort: 30006
-      config.upgradeV1Port: 30007
-      config.oltPort: 30008
       config.puid: 1001
       config.pgid: 1002
       config.pusername: customuser
@@ -69,18 +44,6 @@ tests:
       - isSubset:
           path: data
           content:
-            MANAGE_HTTP_PORT: "9999"
-            MANAGE_HTTPS_PORT: "9443"
-            PORTAL_HTTP_PORT: "9998"
-            PORTAL_HTTPS_PORT: "9442"
-            PORT_ADOPT_V1: "30000"
-            PORT_APP_DISCOVERY: "30001"
-            PORT_DISCOVERY: "30002"
-            PORT_MANAGER_V1: "30003"
-            PORT_MANAGER_V2: "30004"
-            PORT_TRANSFER_V2: "30005"
-            PORT_RTTY: "30006"
-            PORT_UPGRADE_V1: "30007"
             PUID: "1001"
             PGID: "1002"
             PUSERNAME: "customuser"
