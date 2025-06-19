@@ -147,6 +147,7 @@ tests:
       config.upgradeV1Port: 19815
       config.appDiscoveryPort: 19816
       config.discoveryPort: 19817
+      config.oltPort: 19818
     asserts:
       - contains:
           path: spec.ports
@@ -237,5 +238,5 @@ tests:
           content:
             name: olt
             protocol: UDP
-            port: 19810
+            port: 19818
             targetPort: olt
