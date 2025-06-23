@@ -25,6 +25,9 @@ data:
   DB_PROVIDER: "{{ $provider }}"
   TZ: "{{ .Values.timeZone }}"
   GEOLITE_DB_URL: "{{ .Values.geoliteDatabaseURL }}"
+  {{ if not (quote .Values.config.audit.localIPv6Ranges | empty) }}
+  LOCAL_IPV6_RANGES: "{{ .Values.config.audit.localIPv6Ranges }}"
+  {{ end }}
   {{- if not .Values.config.ui.useDefaults }}
   {{ if not (quote .Values.config.ui.settings.app.appName | empty) }}
   APP_NAME: "{{ .Values.config.ui.settings.app.appName }}"

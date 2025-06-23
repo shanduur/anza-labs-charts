@@ -172,3 +172,17 @@ tests:
             LDAP_ATTRIBUTE_GROUP_UNIQUE_IDENTIFIER: "gid"
             LDAP_ATTRIBUTE_GROUP_NAME: "cn"
             LDAP_ATTRIBUTE_ADMIN_GROUP: "admins"
+
+  - it: Should create ConfigMap with audit values set
+    set:
+      config.audit:
+        localIPv6Ranges: "2001:0db8:abcd:000::/56,2001:0db8:abcd:001::/56"
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: ConfigMap
+      - isSubset:
+          path: data
+          content:
+            LOCAL_IPV6_RANGES: "2001:0db8:abcd:000::/56,2001:0db8:abcd:001::/56"
