@@ -85,6 +85,14 @@
     "config": {
       "type": "object",
       "properties": {
+        "audit": {
+          "type": "object",
+          "properties": {
+            "localIPv6Ranges": {
+              "type": "string"
+            }
+          }
+        },
         "create": {
           "type": "boolean"
         },

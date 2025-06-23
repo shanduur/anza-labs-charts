@@ -136,6 +136,10 @@ config:
   # If not filled, uses full name.
   name: ""
 
+  audit:
+    # -- User configured local IPv6 ranges for the audit log.
+    localIPv6Ranges: ""
+
   ui:
     # -- Whether to enable default settings for the UI or allow customizations
     useDefaults: true
